@@ -16,5 +16,7 @@ public interface BoardService {
 	
 	public void deleteBoard(Long id);
 		
-	
+	public Board createBoardClmnsPrj(Board boardclms);
+    
+	 public Board createBoardClmnsOther(Board boardclmsother);
 }

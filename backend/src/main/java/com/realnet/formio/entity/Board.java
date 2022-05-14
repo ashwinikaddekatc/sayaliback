@@ -21,6 +21,8 @@ public class Board {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long bId;
 	private String bName;
+	private String type;
+	 private int project_id;
 	
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -66,6 +68,34 @@ public class Board {
 
 	public void setColumns(List<Column> columns) {
 		this.columns = columns;
+	}
+
+
+
+
+	public String getType() {
+		return type;
+	}
+
+
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+
+
+	public int getProject_id() {
+		return project_id;
+	}
+
+
+
+
+	public void setProject_id(int project_id) {
+		this.project_id = project_id;
 	}
 	
 	

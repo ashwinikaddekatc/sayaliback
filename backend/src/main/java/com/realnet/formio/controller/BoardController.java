@@ -70,6 +70,14 @@ public class BoardController {
 	public void delete(@PathVariable("bid") Long bid) {
 		this.boardService.deleteBoard(bid);
 	}
-	
+	 @PostMapping("/addBoardClmnsPrj")
+	    public ResponseEntity<?> addBoardColumnDetails(@RequestBody Board boardclms){
+	        return ResponseEntity.ok(this.boardService.createBoardClmnsPrj(boardclms));
+	    }   
+	    
+	    @PostMapping("/addBoardClmnsOther")
+	    public ResponseEntity<?> addBoardClmnsOtherDetails(@RequestBody Board boardclmsother){
+	        return ResponseEntity.ok(this.boardService.createBoardClmnsOther(boardclmsother));
+	    }   
 	
 }
