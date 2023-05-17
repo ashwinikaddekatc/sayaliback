@@ -294,6 +294,7 @@ import { ListbuilderaddComponent } from './builder/wireframe/listbuilder/listbui
 import { ListbuilderallComponent } from './builder/wireframe/listbuilder/listbuilderall/listbuilderall.component';
 import { ListbuildereditComponent } from './builder/wireframe/listbuilder/listbuilderedit/listbuilderedit.component';
 import { ListbuilderLineComponent } from './builder/wireframe/listbuilder/listbuilder-line/listbuilder-line.component';
+import { QueryRunner1Component } from './fnd/query-runner1/query-runner1.component';
 
 
 const routes: Routes = [
@@ -709,6 +710,7 @@ children: [
    { path: 'std-param'   , component: RbStdParamComponent},
    { path: 'query-param'   , component: RbQueryBuildComponent},
    { path: 'query-runner'   , component: QueryRunnerComponent},
+   { path: 'query-runner1'   , component: QueryRunner1Component},
    { path: 'science'   , component:  ScienceComponent},
 //add_routingreport
  ]

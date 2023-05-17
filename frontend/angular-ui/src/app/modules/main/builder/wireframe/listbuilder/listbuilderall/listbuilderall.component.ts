@@ -13,11 +13,13 @@ export class ListbuilderallComponent implements OnInit {
   wireframeName;
   gridData;
   loading = false;
+  error;
   selected: any[] = [];
   rowSelected :any= {};
   modaldelete=false;
   isLoading: boolean = false;
   projectId;
+  moduleId;
   constructor(private router: Router,
     private route: ActivatedRoute, private _line: WireframeLineService, private wireframeService: WireframeService,
     private lineBuilder:LinebuilderService) { }
@@ -25,9 +27,11 @@ export class ListbuilderallComponent implements OnInit {
   ngOnInit(): void {
     this.projectId=this.wireframeService.getProjectId();
     console.log(this.projectId);
+    this.moduleId = this.wireframeService.getModuleId(); // get from session storage
+    console.log(this.moduleId);
     
-    this.getAll();
-    this.getallwireframe();
+    // this.getAll();
+    this.getAllById();
   }
 
   getAll() {
@@ -38,19 +42,20 @@ export class ListbuilderallComponent implements OnInit {
       this.gridData = data;
     });
   }
+  getAllById() {
+    this.lineBuilder.getModuleById(this.moduleId).subscribe((data) => {
 
-  
-  getallwireframe(){
-    this._line.getAllwireframes(this.projectId).subscribe((data)=>{
-      console.log(data);
-      let dataW = data.map((option: string) => option.replace(/"/g, '')); // Remove the double quotes from each option
-      this.wireframeName = dataW;
-    },(error)=>{
-      if(error){
-        console.log(error);
+      console.log("Get all by moduleid",data);
+      this.gridData = data;
+      if(this.gridData.length == 0){
+        this.error="No data Available";
+        console.log(this.error);
       }
+
     });
   }
+
+
   goToAdd() {
     this.router.navigate(["../addl"], { relativeTo: this.route });
   }

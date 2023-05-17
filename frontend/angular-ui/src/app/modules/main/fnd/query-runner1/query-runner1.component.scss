@@ -1,0 +1,25 @@
+input[type=text],[type=date],[type=password] {
+  width: 100%;
+  padding: 15px 20px;
+ // margin: 3px 0;
+ background-color:rgb(255, 255, 255);
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.section {
+  background-color:#dddddd;
+  height: 40px;
+}
+.section p {
+  //color: white;
+  padding: 10px;
+  font-size: 18px;
+}
+select{
+  width: 100%;
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

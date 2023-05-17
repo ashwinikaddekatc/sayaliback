@@ -1,0 +1,58 @@
+
+<div class="section">
+  <p>Report Name:static</p>
+</div>
+<br>
+<form>
+  <label for="description">Date Parameters</label><hr>
+  <div class="clr-row">
+    <div class="clr-col-md-4 clr-col-sm-12">
+
+            <!-- <textarea name="" id="" cols="10" rows="2"  name="description" placeholder="Enter Description">
+        </textarea> -->
+
+            <label for="tags">Chaged  Date From</label>
+            <input  type="date"  class="clr-input"  name="cnid">
+         </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="tags">changed Date To </label>
+              <input  type="date"  class="clr-input"  name="todate" >
+           </div>
+</div>
+<label for="description">Standard Parameters</label><hr>
+<div class="clr-row">
+  <div class="clr-col-md-4 clr-col-sm-12">
+     <input id="name" type="text" (change)="addStd1($event.target.value)"
+     class="clr-input">
+   </div>
+   <div class="clr-col-md-4 clr-col-sm-12">
+         <input id="address" type="text" (change)="addStd2($event.target.value)"
+     class="clr-input">
+   </div>
+
+</div>
+<label for="description">Adhoc Parameters</label><hr>
+<div class="clr-row">
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <select id="adhoc_para"  class="clr-dropdown">
+             <option value="null">select</option>
+
+     </select>
+
+ </div>
+ <div class="clr-col-md-4 clr-col-sm-12">
+  <select id="condition"  class="clr-dropdown">
+          <option value="null">--Select Condition--</option>
+          <option value="=" >EQUALS</option>
+<option value=">" >GREATER</option>
+<option value="<">LESS</option>
+<option value="BETWEEN">BETWEEN</option>
+      </select>
+</div>
+</div>
+
+  </form>
+
+
+
+

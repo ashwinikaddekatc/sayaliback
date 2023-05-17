@@ -35,6 +35,7 @@ export class UsermaintanceeditComponent implements OnInit {
   }
   posiddata: any;
   position:boolean=false;
+  info: boolean = false;
   usergrpdata;
   error;
   constructor(private route:ActivatedRoute,
@@ -73,6 +74,9 @@ export class UsermaintanceeditComponent implements OnInit {
       this.usergrpdata = data;
     });
   }
+  goToWhoColumns() {
+    this.info = !this.info;
+}
 getById(id:number){
 this.mainservice.getbyid(id).subscribe((data)=>{
   this.data1=data;

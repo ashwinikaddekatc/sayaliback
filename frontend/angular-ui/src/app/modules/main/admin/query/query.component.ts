@@ -98,6 +98,9 @@ listoddatabase(){
     console.log(this.selectedtable);
     console.log(this.selectedcol);
     console.log(this.selectedcol1);
+    const tableString = JSON.stringify(val);
+    console.log(tableString);
+    // this.reportBuilderService.getcolListn(this.name[1],val).subscribe((data)=>{ 
     this.reportBuilderService.getcolListn(this.name[1],val).subscribe((data)=>{
       this.collist=data;
       if(this.selectedtable==null){
@@ -332,8 +335,8 @@ onSelected(){
     this.filterAndor = andor;
     this.filtercondlvalue = cond +' '+value;
   }
-  this.getConditionBeforeColumn(this.selectedcol1)
-  this.getConditionAfterColumn(this.selectedcol1);
+  // this.getConditionBeforeColumn(this.selectedcol1)
+  // this.getConditionAfterColumn(this.selectedcol1);
   console.log(formattedString);
   this.filteredConditionData = formattedString
   if(this.selectcolquery !== undefined){
@@ -350,17 +353,17 @@ onSelected(){
 
 }
 
-getConditionBeforeColumn(selected: any){
+// getConditionBeforeColumn(selected: any){
   
-  return this.filterAndor;
-  
-
-}
-getConditionAfterColumn(selected: any){
-  return this.filtercondlvalue
+//   return this.filterAndor;
   
 
-}
+// }
+// getConditionAfterColumn(selected: any){
+//   return this.filtercondlvalue
+  
+
+// }
 onBack(){
   this.backQuery = true;
 }

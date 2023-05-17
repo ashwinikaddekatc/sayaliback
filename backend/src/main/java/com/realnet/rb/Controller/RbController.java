@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -89,7 +91,19 @@ public class RbController {
 
 	}
 
-//				Table nameTable = dbconnection
-//				sqlworkbech
+	// get all column list available
+	@GetMapping("/AllTable_list/{table_schema}")
+	@ResponseBody
+	public List<String> getallcolwithalltable(@PathVariable String table_schema, @RequestBody List<String> tables) {
 
+		ArrayList<String> arrayList = new ArrayList<>();
+		for (String TABLE_NAME : tables) {
+			List<String> list = rn_table_service.getColumnAliasList1(table_schema, TABLE_NAME);
+			if (!list.isEmpty()) {
+				list.forEach(l -> arrayList.add(l));
+			}
+
+		}
+		return arrayList;
+	}
 }

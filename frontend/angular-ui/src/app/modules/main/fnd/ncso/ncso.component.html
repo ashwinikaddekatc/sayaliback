@@ -428,9 +428,9 @@
                     <td><input type="text" class="clr-input" formControlName="itemDesc" [(ngModel)]="useritem[i].itemDesc" name="itemDesc"></td>
 
 
-                 <td style="width: 150px;text-align: right;"><input type="text" class="clr-input" formControlName="totalUnitString" name="num1" SIZE="10" MAXLENGTH="20" STYLE="text-align: right"  [(ngModel)]="num1[i]"  (keyup)="sum(i)"  id="number2" required (blur)="twosetnum1(i)" (keypress)="onlyDecimalNumberKey($event,i)"></td>
-                 <td style="width: 150px;"><input type="text" class="clr-input" formControlName="unitPriceString" id="b" name="num2" SIZE="10" MAXLENGTH="20" STYLE="text-align: right" [(ngModel)]="num2[i]" (keyup)="sum(i)" (keypress)="onlyDecimalNumberKey($event,i)" #b (blur)="twosetnum1(i)"></td>
-                 <td style="width: 200px;"><input type="text" class="clr-input"  name="result"  [value]="lines[i]"  id="mul"    [readonly]="true" (click)="twosetnum1(i)"></td>
+                 <td style="width: 150px;text-align: right;"><input type="text" class="clr-input" formControlName="totalUnitString" name="num1" SIZE="10" MAXLENGTH="20" STYLE="text-align: right"  [(ngModel)]="num1[i]"></td>
+                 <td style="width: 150px;"><input type="text" class="clr-input" formControlName="unitPriceString" id="b" name="num2" SIZE="10" MAXLENGTH="20" STYLE="text-align: right" [(ngModel)]="num2[i]" ></td>
+                 <td style="width: 200px;"><input type="text" class="clr-input"  name="result"  [value]="lines[i]"  id="mul"    [readonly]="true" ></td>
 
 
                  <td> <a  (click)="onRemoveLines(i)">

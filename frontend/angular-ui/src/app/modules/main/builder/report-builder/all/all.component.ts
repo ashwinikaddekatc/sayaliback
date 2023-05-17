@@ -76,7 +76,8 @@ export class AllComponent implements OnInit {
     this.reportBuilderService.getById(id).subscribe(
       (data) => {
         this.name=data.report_name;
-        this.router.navigate(["../"+this.name+""], { relativeTo: this.route,queryParams: { report_id: id} });
+        this.router.navigate(["../query-runner1"], { relativeTo: this.route,queryParams: { report_id: id} });
+        //this.router.navigate(["../"+this.name+""], { relativeTo: this.route,queryParams: { report_id: id} });
 
       },
       (err) => {

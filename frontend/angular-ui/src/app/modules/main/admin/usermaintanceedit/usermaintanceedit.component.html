@@ -1,7 +1,42 @@
 
     <h4 style="font-weight: 300;display: inline;"> User Maintenance</h4>
-    <span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span><br>
+    <span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span>
+    <span  style="float: right;color: rgb(75, 51, 214);">
+      <button  (click)="goToWhoColumns()" style="background-color: #6cb3d1; color:white">
+        <clr-icon shape="ellipsis-vertical" class="is-solid" size="25"></clr-icon>
+      </button></span>
+    <br>
     <hr>
+
+    <clr-modal [(clrModalOpen)]="info" *ngIf="data1">
+      <h3 class="modal-title"><b>Transaction History</b></h3>
+      <div class="modal-body">
+        <table s-header>
+
+          <tr>
+            <td>CreatedBY: </td>
+            <td>{{data1.createby}}</td>
+          </tr>
+          <tr>
+            <td>CreatedOn: </td>
+            <td>{{data1.createdOnFormated}} </td>
+          </tr>
+          <tr>
+            <td>Updated BY: </td>
+            <td>{{data1.updateby}} </td>
+          </tr>
+          <tr>
+            <td>Updatedon: </td>
+            <td> {{data1.updatedate}} </td>
+          </tr>
+        </table>
+
+      </div>
+    </clr-modal>
+
+
+
+
     <div class="main" >
       <form *ngIf="data1">
         <div class="clr-row">

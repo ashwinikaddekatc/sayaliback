@@ -1,10 +1,38 @@
 <h4 style="font-weight: 500;display: inline;"><b>PROJECT SETUP</b></h4>
 <span class="label label-light-blue" style="display: inline;margin-left: 100px;">Edit Mode</span>
-
+<span  style="float: right;color: rgb(75, 51, 214);">
+  <button  (click)="goToWhoColumns()" style="background-color: #6cb3d1; color:white">
+    <clr-icon shape="ellipsis-vertical" class="is-solid" size="25"></clr-icon>
+  </button></span>
 
 
 <hr>
 
+<clr-modal [(clrModalOpen)]="info" >
+  <h3 class="modal-title"><b>Transaction History</b></h3>
+  <div class="modal-body">
+    <table s-header>
+
+      <tr>
+        <td><b>CreatedBY: </b></td>
+        <td>{{project.createdBy}}</td>
+      </tr>
+      <tr>
+        <td><b>CreatedOn:</b> </td>
+        <td>{{project.createdAt}} </td>
+      </tr>
+      <tr>
+        <td><b>Updated BY:</b> </td>
+        <td>{{project.updatedBy}} </td>
+      </tr>
+      <tr>
+        <td><b>Updatedon:</b> </td>
+        <td> {{project.updatedAt}} </td>
+      </tr>
+    </table>
+
+  </div>
+</clr-modal>
 
 
 <div class="container">

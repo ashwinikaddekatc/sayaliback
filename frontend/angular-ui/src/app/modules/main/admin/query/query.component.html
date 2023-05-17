@@ -110,7 +110,11 @@
                 <clr-combobox [(ngModel)]="selectedcol1" name="selectedcol1" clrMulti="true"
                  required>
                   <ng-container *clrOptionSelected="let selected">
-                    <b>{{ getConditionBeforeColumn(selected) }}</b>  {{selected}} <b>{{ getConditionAfterColumn(selected) }}</b>
+                    <span *ngFor="let data of conditionData">
+                    <b *ngIf="data.fields_name == selected">{{data.andor}}</b></span>  {{selected}} 
+                    <span *ngFor="let data of conditionData">
+                    <b *ngIf="data.fields_name == selected">{{data.condition}} {{data.value}}</b></span>
+                  
                   </ng-container>
                   <clr-options>
                     <clr-option *clrOptionItems="let state of collist" [clrValue]="state">

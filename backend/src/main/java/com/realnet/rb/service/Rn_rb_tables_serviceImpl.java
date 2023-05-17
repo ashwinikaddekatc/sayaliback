@@ -56,8 +56,6 @@ public class Rn_rb_tables_serviceImpl implements Rn_rb_tables_service {
 
 	@Override
 	public List<String> getListOfTables() {
-		// Connection con = null;
-		// Connection con=null;
 
 		String query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'realnet_CNSBE'";
 		List<String> list = new ArrayList<String>();
@@ -99,8 +97,6 @@ public class Rn_rb_tables_serviceImpl implements Rn_rb_tables_service {
 
 	@Override
 	public List<String> getColumnList(int id) {
-		// Connection con = null;
-		// Connection con=null;
 
 		String query = "SELECT column_name FROM rn_rb_column_t WHERE report_id=" + id + "";
 		List<String> list = new ArrayList<String>();
@@ -179,8 +175,6 @@ public class Rn_rb_tables_serviceImpl implements Rn_rb_tables_service {
 
 	@Override
 	public List<String> getListOftables() {
-		// Connection con = null;
-		// Connection con=null;
 
 		String query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'realnet_CNSBE'";
 		List<String> list = new ArrayList<String>();
@@ -201,8 +195,6 @@ public class Rn_rb_tables_serviceImpl implements Rn_rb_tables_service {
 
 	@Override
 	public List<String> getdatabaseList() {
-		// Connection con = null;
-		// Connection con=null;
 
 		String query = "select schema_name from information_schema.schemata";
 		List<String> list = new ArrayList<String>();

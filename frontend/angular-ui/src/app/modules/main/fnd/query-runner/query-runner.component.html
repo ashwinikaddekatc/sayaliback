@@ -6,6 +6,8 @@
 <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
    <!-- Date Parameter -->
       <label for="to_tech_stack">Date Parameter</label>
+
+
        <div class="clr-row">
                      <div class="clr-col-md-4 clr-col-sm-12">
                                   <select id="date_para" name="date_para" formControlName="date_para" (change)="addDateParam($event.target.value)" selected="null" class="clr-dropdown">
@@ -16,10 +18,12 @@
                                 </div>
                      <div class="clr-col-md-4 clr-col-sm-12">
 
-                                  <input  placeholder="Pick a date" formControlName="from_date"
+                                  <input type="date" placeholder="Pick a date" formControlName="from_date"
                                   (change)="onDateChange($event.target.value)" name="from_date" id="from_date"/>
 
                       </div>
+
+
 
       </div>
       <div style="padding: 2px 2px; font-size: 15px; border-radius: 10px;" type="submit" >
@@ -33,11 +37,11 @@
       <label for="to_tech_stack">Standard Parameters</label>
       <div class="clr-row">
                    <div class="clr-col-md-4 clr-col-sm-12">
-                      <input id="name" type="text" (change)="addStd1($event.target.value)" formControlName="name" placeholder="Name"
+                      <input id="name" type="text" (change)="addStd1($event.target.value)"  placeholder="Name"
                       class="clr-input">
                     </div>
                     <div class="clr-col-md-4 clr-col-sm-12">
-                          <input id="address" type="text" (change)="addStd2($event.target.value)" formControlName="address" placeholder="Address"
+                          <input id="address" type="text" (change)="addStd2($event.target.value)"  placeholder="Address"
                       class="clr-input">
                     </div>
 

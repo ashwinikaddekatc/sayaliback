@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiRequestService } from './api-request.service';
 import { Observable } from 'rxjs';
 import { ReportBuilder } from '../../models/builder/ReportBuilder';
@@ -23,7 +23,7 @@ export class ReportBuilderService {
   private databaselisturl='Table_list'
   private colurl='fndMenu/loadcolumn';
   private saveurl='FndQuery/query';
-  constructor(private apiRequest: ApiRequestService) { }
+  constructor(private apiRequest: ApiRequestService, private _http:HttpClient) { }
   getById(id: number): Observable<ReportBuilder> {
     const _http = this.baseURL + "/" + id;
     return this.apiRequest.get(_http);
@@ -144,6 +144,11 @@ getTableListn(val:any): Observable<TableList[]> {
 }
 getcolListn(val:any,val1:any): Observable<TableList[]> {
   return this.apiRequest.get(`Table_list/${val}/${val1}`);
+}
+
+//column list for multiple tables
+getColumnList(tableSchema: any, tables: any): Observable<any> {
+  return this.apiRequest.get( `AllTable_list/${tableSchema}`,tables);
 }
 getcollist(table:any){
   const _http = this.colurl+ "/" + table;

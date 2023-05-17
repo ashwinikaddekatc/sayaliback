@@ -15,6 +15,7 @@ import { TechnologyStackService } from "../../../../../services/builder/technolo
 export class EditprojectsetupComponent implements OnInit {
   updated = false;
   project: ProjectSetup;
+  info: boolean = false;
   id: number;
   tech_stacks = [];
   arrayTag = [];
@@ -50,6 +51,9 @@ export class EditprojectsetupComponent implements OnInit {
       // }
     });
   }
+  goToWhoColumns() {
+    this.info = !this.info;
+}
   getById(id: number) {
     this.projectSetupService.getById(id).subscribe(
       (data) => {
