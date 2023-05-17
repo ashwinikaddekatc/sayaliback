@@ -1,0 +1,29 @@
+.s-order-dash-pg {
+  margin: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.s-order-dash-pg .chart-box {
+  margin: 16px;
+  padding: 0 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+#word1 {
+  width: 190px;
+  height: 180px;
+}
+
+.center {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.delete, .heading {
+  text-align: center;
+  color: red;
+}/*# sourceMappingURL=allnewdash.component.css.map */

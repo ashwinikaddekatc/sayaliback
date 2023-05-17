@@ -1,0 +1,51 @@
+@import '../../../../../../assets/scss/var';
+.s-info-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    button {
+        outline: none;
+    }
+}
+
+.grid-pg {
+    width:750px;
+}
+
+
+#add {
+    //position:absolute;
+    //position: fixed !important;
+ /*    transition: .5s ease;
+    top: 105px;
+    left: 79%;  */
+    position: relative;
+    top: 6px;
+    left: 600px;
+}
+#exception {
+    position:relative;
+    //position: fixed !important;
+    transition: .5s ease;
+    //top: 170px;
+    //left: 79%;
+    top: -43px;
+    left: 540px;
+}
+
+#who_column {
+    position:absolute;
+    //position: fixed !important;
+    transition: .5s ease;
+    //top: 16%; // 28 down // barale niche nambe
+    //left: 13%; // komale left e jabe
+    top: 97px; // barale niche
+    left: 145px; // barale dan
+
+}
+
+#submit{
+    position: relative;
+    left: 35px;
+    top: 9px;
+}

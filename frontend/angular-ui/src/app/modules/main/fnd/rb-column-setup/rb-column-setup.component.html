@@ -1,0 +1,89 @@
+<div class="container">
+
+  <h4 style="font-weight: 300;display: inline;"><b>CREATE NEW REPORT</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Select Columns</span><br>
+<hr>
+  <!-- Header form start -->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+
+
+
+      <!-----H-L LINE part(FormArray For Multiple Lines)---->
+      <div class="clr-row">
+          <div class="clr-col-lg-12">
+              <table class="table" style="width:100%;" formArrayName="components">
+                  <thead>
+                      <tr>
+
+
+                          <th class="left" style="width:125px;">Table Alise Name</th>
+                          <th class="left" style="width:125px;">Function</th>
+                          <th class="left" style="width:125px;">Column Name</th>
+                          <th class="left" style="width:125px;">Column Allias Name</th>
+                          <th class="left" style="width:125px;">Asc & Dsc</th>
+
+                          <!-- <th *ngIf="controls.length > 1" class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}Actions</th> -->
+                           <th class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+
+                          <!-- field 1 -->
+                          <td class="left">
+                              <select [attr.id]="'table_allies_name' + i" colspan="2" formControlName="table_allies_name" (change)="changeColumn($event.target.value)" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select alias Name</option>
+                                  <option *ngFor="let ts of tableList" [value]="ts">{{ ts }}
+                                  </option>
+                              </select>
+                          </td>
+                          <td class="left">
+                              <select [attr.id]="'functions' + i" colspan="2" formControlName="functions" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">No Function</option>
+                                  <option *ngFor="let fs of functions" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+                          <td class="left">
+                              <select [attr.id]="'column_name' + i" (change)="changeColumnAlias($event.target.value)" colspan="2" formControlName="column_name" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select Column</option>
+                                  <option *ngFor="let ts of columnList" [value]="ts">{{ ts }}
+                                  </option>
+                              </select>
+                          </td>
+                          <!-- field 2 -->
+                          <td class="left">
+                              <input type="text" [attr.id]="'column_allias_name' + i" formControlName="column_allias_name"
+                                  placeholder="Enter Values" style="width:180px" class="clr-input">
+                          </td>
+
+                          <td class="left">
+                              <input type="checkbox" [attr.id]="'asc_desc' + i" formControlName="asc_desc"
+                                  placeholder="Enter Values" style="width:180px" clrCheckbox>
+                          </td>
+                          <!-- delete line -->
+                           <td style="width:40px;">
+                              <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                                  <clr-icon shape="trash" class="is-error"></clr-icon>
+                              </a>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <!-- add line -->
+                  <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                      <clr-icon shape="plus"></clr-icon>
+                  </button>
+              </table>
+          </div>
+      </div>
+      <br>
+      <div class="center">
+          <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">Save & Next</button>
+      </div>
+  </form>
+</div>

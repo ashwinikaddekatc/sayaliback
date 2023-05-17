@@ -1,0 +1,104 @@
+
+<h4 style="font-weight: 300;display: inline;"> Board Rule</h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+A global rule will be applicable to all boards in your company
+<hr>
+
+<div class="container">
+
+<form [formGroup]="entryForm">
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12" >
+            <label for="rulename">Rule Name</label>
+            <input type="text"  formControlName="rule_name" placeholder="enter project name" class="clr-input">
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="description">Description(optional)</label>
+            <textarea id="" cols="10" rows="2"  formControlName="description" placeholder="Enter Description"></textarea>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12 ">
+            <label for="subject">On</label>
+            <select colspan="2" formControlName="on_event" [(ngModel)]="selectedValue" class="clr-dropdown">
+                <option *ngFor="let fields of fieldUpdate" [value]="fields">{{ fields }}
+                </option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12 " *ngIf="selectedValue == 'Field Update'">
+            <label for="updatefield">Updated Field</label>
+            <select colspan="2" formControlName="updated_field" class="clr-dropdown">
+                <option *ngFor="let fields of updatedFieldOpt" [value]="fields">{{ fields }}
+                </option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12"   *ngIf="selectedValue == 'Field Update'">
+            <label for="updateValue">Updated Value</label>
+            <input type="text" id="updateValue" placeholder="Enter Updated Value"  formControlName="updated_value"  class="clr-input">
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12 " *ngIf="selectedValue == 'Stage Movement'">
+            <label for="into">In To</label>
+            <select colspan="2" formControlName="in_to" class="clr-dropdown">
+                <option *ngFor="let fields of intoOpt" [value]="fields">{{ fields }}
+                </option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12 "  *ngIf="selectedValue == 'Stage Movement'">
+            <label for="onfields">Assign To</label>
+            <select colspan="2" formControlName="assign_to" class="clr-dropdown">
+                <option *ngFor="let fields of assigntoOpt" [value]="fields">{{ fields }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12 clr-offset-md-4" *ngIf="selectedValue == 'Field Update'">
+            <label for="toupdatefield">To Updated Field</label>
+            <select colspan="2" formControlName="to_updated_field" class="clr-dropdown ">
+                <option *ngFor="let fields of toupdatedFieldOpt" [value]="fields">{{ fields }}
+                </option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12"  *ngIf="selectedValue == 'Field Update'">
+            <label for="toupdateValue">To Updated Value</label>
+            <input type="text" id="toupdateValue" class="clr-input" placeholder="Enter To Updated Value"  formControlName="to_updated_value"/>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="alertto">Alert To</label>
+            <select colspan="2" formControlName="alert_to" class="clr-dropdown">
+                <option *ngFor="let ts of alertList" [value]="ts">{{ ts }}
+                </option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="subject">Subject</label>
+            <select  colspan="2" formControlName="subject" class="clr-dropdown">
+                <option *ngFor="let sub of subjects" [value]="sub">{{ sub }}
+                </option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="msgbody">Message Body</label>
+            <textarea id="" cols="10" rows="2" formControlName="message" placeholder="Message" name="msgbody"></textarea>
+        </div>
+    </div>
+
+    <div class="center">
+        <div class="btn-group">
+            <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+                <label for="btn-demo-check-1">Cancle</label>
+            </div>
+            <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-2" checked (click)="addboard()" />
+                <label for="btn-demo-check-2">Submit</label>
+            </div>
+          </div>
+      </div>
+</form>
+</div>

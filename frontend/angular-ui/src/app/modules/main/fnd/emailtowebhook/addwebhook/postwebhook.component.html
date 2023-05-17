@@ -1,0 +1,115 @@
+<h4 style="font-weight: 300;display: inline;"><b>Email to Webhook</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+
+<hr>
+<form [formGroup]="entryForm">
+<div class="container">
+    <!-- entry form-->
+
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="projectName">Webhook Name</label>
+                <input id="projectName" type="text" placeholder="Enter Project Name"
+                    class="clr-input" required>
+
+            </div>
+
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="description" class="d1">Description (optional)</label>
+                <textarea id="t1" cols="10" rows="2"   placeholder="Enter Description">
+
+                </textarea>
+
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="workflow_name">Active</label>
+                <input type="checkbox"  clrToggle value="billable" />
+
+            </div>
+
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="projectName">From Email</label>
+                    <input id="projectName" type="text"  placeholder="Enter the Email" class="clr-input"
+                        required>
+
+                </div>
+
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <div class="emailkey1">
+                    <label for="projectName">EmailKey
+                        <span><b>*Make sure your email subject has the key in it</b></span>
+                        <span class="label label-light-green p7"
+                            style="margin-top: .4em;margin-left:300px; display: inline; cursor: pointer;">Generate</span>
+                    </label>
+                    <input id="projectName" type="text"  placeholder="Enter the Email" class="clr-input"
+                        required>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="clr-row">
+
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="projectName">Data Type
+                    </label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Attachment Excel</option>
+                        <option value="1">Attachment File</option>
+                        <option value="2">Attachment PPT</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+
+</div>
+
+
+<br>
+<br>
+
+
+<h4 style="font-weight: 300;display: inline;"><b>Webhook Email Config</b></h4>
+
+<hr>
+
+<div class="clr-row">
+
+    <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Username
+            <span class="label label-light-green p7"
+                style="margin-top: .4em;margin-left:300px; display: inline; cursor: pointer;">Generate</span>
+        </label>
+        <input id="name" type="text" name="username" formControlName="username" placeholder="Enter the Email" class="clr-input" required>
+
+    </div>
+
+    <div class="clr-col-md-4 clr-col-sm-12">
+        <div class="password1">
+        <label for="projectName">Password
+        </label>
+        <input id="password" type="password" name="password" formControlName="password" placeholder="Enter the Password" class="clr-input"
+            required>
+        </div>
+
+    </div>
+
+</div>
+</form>
+
+<div class="center">
+    <div class="btn-group">
+      <div class="checkbox btn">
+        <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+        <label for="btn-demo-check-1">Cancel</label>
+      </div>
+      <!-- <div class="checkbox btn">
+        <input type="checkbox" id="btn-demo-check-2" checked/>
+        <label for="btn-demo-check-2">Add</label>
+      </div> -->
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid" (click)="onSubmit()">SUBMIT</button>
+</div>

@@ -1,0 +1,60 @@
+<div class="btn-group" id="center" style="padding-top: 20px;">
+  <div class="checkbox btn">
+    <input type="checkbox" id="btn-demo-check-1" checked />
+    <label for="btn-demo-check-1">REPO VIEW</label>
+  </div>
+  <div class="checkbox btn">
+    <input type="checkbox" id="btn-demo-check-2"  />
+    <label for="btn-demo-check-2">PROJECT VIEW</label>
+  </div>
+
+</div>
+<div class="letter" style="float: right;">
+<div class="left"> <h4>5 Running<br>6 Stopped</h4></div>
+<div class="center"></div>
+<div class="right">23:11:00 hrs<br>Refreshed Every 5 mins<br>Reset On 31 Aug 2020. </div>
+  </div>
+
+  <div class="tablem" >
+
+    <table class="table">
+        <thead>
+             <tr>
+
+     <th >
+      <clr-icon shape="container"></clr-icon> Container</th>
+         <th> <clr-icon shape="tree-view"></clr-icon> Blob</th>
+          <th><clr-icon shape="details"></clr-icon> Command</th>
+           <th><clr-icon shape="portrait"></clr-icon> Port</th>
+           <th><clr-icon shape="history"></clr-icon> Status</th>
+           <th><clr-icon shape="bars"></clr-icon> Action</th>
+            </tr>
+          </thead>
+             <tbody>
+
+                <tr *ngFor="let user of surefarm;let i = index">
+
+                    <td> <clr-icon shape="container"></clr-icon><a href=""> {{user.Id.substring(0,12)}} </a><br>{{user.Names}}<br>{{user.Image.substring(0,15)}} </td>
+                     <td><clr-icon shape="tree-view"></clr-icon> main<br><>5789987gjyy96763473by</td>
+                      <td >{{user.Command.substring(0,19)}}</td>
+                      <td >0.0.0.0:10086-&gt;10086/tcp</td>
+
+                      <td>{{user.Status}}</td>
+                      <td ><clr-icon shape="lock"></clr-icon>
+                       <span style="padding:20px"><clr-icon shape="stop" solid style="fill: red;"></clr-icon></span><clr-icon shape="deploy"></clr-icon></td>
+                    </tr>
+                    <tr>
+
+                      <td> <clr-icon shape="container"></clr-icon><a href=""> fc1c9f1fcea1 </a><br>opensure/rubb:2.6 </td>
+                       <td><clr-icon shape="tree-view"></clr-icon> main<br><>5789987gjyy96763473by</td>
+                        <td >August 20,2021 8:25 PM</td>
+
+                        <td></td>
+                        <td> August 20,2021 8:25 PM <br>00:23:46 hrs</td>
+                        <td ><clr-icon shape="lock"></clr-icon>
+                        <span style="padding:20px"> <clr-icon shape="play" style="color: green;"></clr-icon></span><clr-icon shape="trash"></clr-icon></td>
+                      </tr>
+ </tbody> </table> </div>
+
+
+

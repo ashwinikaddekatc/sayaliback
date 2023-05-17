@@ -1,0 +1,222 @@
+
+
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-4">
+      <h3>User list </h3>
+    </div>
+    <div class="clr-col-8" style="text-align: right;">
+      <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="goTocard()">
+        <clr-icon shape="grid-view"></clr-icon>
+      </button>
+      <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="copyLibrary()">
+        <clr-icon shape="copy"></clr-icon>Copy From Library
+      </button>
+      <button class="btn btn-outline"  (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+    <clr-dg-placeholder><clr-spinner [clrMedium]="true">Loading ...</clr-spinner></clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'uiName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Wireframe Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'formType'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Form Type</ng-container> </clr-dg-column >
+        <clr-dg-column [clrDgField]="'formType'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Security Profile</ng-container> </clr-dg-column >
+            <clr-dg-column [clrDgField]="'formType'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                Build Status</ng-container> </clr-dg-column >
+                <clr-dg-column [clrDgField]="'testing'">
+                  <ng-container *clrDgHideableColumn="{hidden: false}">
+                  Testing</ng-container> </clr-dg-column >
+                  <clr-dg-column> <ng-container *clrDgHideableColumn="{hidden: false}">
+                    <clr-icon shape="bars"></clr-icon> Action
+                  </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of rows" [clrDgItem]="user">
+      <clr-dg-cell>{{user.uiName}}</clr-dg-cell>
+      <clr-dg-cell>{{user.formType}}</clr-dg-cell>
+      <clr-dg-cell>Default</clr-dg-cell>
+      <clr-dg-cell><input type="radio" id="cb1" class="dots" [ngStyle]="{'background-color': user.testing == true ? 'green' : 'red'}" ></clr-dg-cell>
+      <clr-dg-cell>{{user.testing}}</clr-dg-cell>
+      <clr-dg-cell>
+        <!-- <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm"> -->
+        <span style="cursor: pointer;"><clr-icon shape="form" (click)="update(user.id)" class="success" style="color: rgb(0, 130, 236);"></clr-icon></span>
+        <!-- <span class="tooltip-content">Update Wireframe Dragdrop</span>
+        </a> -->
+      </clr-dg-cell>
+      <clr-dg-action-overflow>
+
+        <!--<button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>-->
+        <!-- <button class="action-item" (click)="goToEdit2(user.id)">Add wireframe dragdrop <clr-icon shape="edit" class="is-error"></clr-icon></button> -->
+        <!-- <button class="action-item" (click)="update(user.id)">Update wireframe dragdrop<clr-icon shape="edit" class="is-error"></clr-icon></button> -->
+        <button class="action-item" (click)="onEdit(user)">Edit<clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+        <!-- <button class="action-item"  (click)="copyToLibrary(user.id)">Add to Library<clr-icon shape="copy" class="is-error"></clr-icon></button> -->
+       
+        <button  class="action-item" type="button"  (click)="build(user)">Build</button>
+        <button  class="action-item" type="button"  (click)="see()">see details</button>
+
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">ui Name: </td>
+            <td class="td-content">{{user.uiName}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">formType:</td>
+            <td class="td-content">{{user.formType}}</td>
+          </tr>
+
+
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+
+<clr-modal [(clrModalOpen)]="modaladd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body">
+    <!-- <div *ngIf="tools1;" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of tools1; let index = i" class="clr-col-auto" >
+        <div class="clr-row">
+          <div class="clr-col-lg-9 clr-col-md-6 clr-col-12" style="width: 250px;height: 300px;">
+              <div class="card" [routerLink]="app.action">
+                  <div class="card-block">
+                      <div class="card-title">
+                          <b style="margin-left: 30px;"><clr-icon shape="container-volume" size="40"></clr-icon></b>
+                        <h5 class="center" >{{ app.title }}</h5>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      </div>
+    </div> -->
+    <div class="s-order-dash-pg">
+      <div class="chart-box" id="word1" *ngFor="let app of tools1; let index = i" [routerLink]="app.action"><br>
+        <!-- <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b> -->
+        <img style="margin: auto; display: block;" [src]="app.image" height="90" width="90">
+        <h5 class="center"> <b>{{ app.title }}</b>  </h5>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaladd = false">Cancel</button>
+
+    </div>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="modaledit" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Edit Mode</h3>
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <form (ngSubmit)="updatewireframe(rowSelected.id)">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Wireframe Name<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="menuId " [(ngModel)]="rowSelected.uiName">
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Form Type<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="is_default" [(ngModel)]="rowSelected.formType">
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Security Profile</label>
+          <input type="text" class="clr-input" name="description" [(ngModel)]="rowSelected.profile">
+        </div>
+        <!-- <div class="clr-col-md-4 clr-col-sm-12">
+          <div><label for="tags">Build Status</label>
+          <div><input type="radio" id="cb1" class="dots" [ngStyle]="{'background-color': rowSelected.testing == true ? 'green' : 'red'}"[(ngModel)]="rowSelected.build"></div>
+          </div>
+        </div> -->
+        <!-- <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Testing</label>
+          <input type="text" class="clr-input" name="description" [(ngModel)]="rowSelected.testing">
+        </div> -->
+        <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 15px;">
+          <div><label for="testing">Testing</label>
+            <div><input type="checkbox" name="testing"[(ngModel)]="rowSelected.testing"></div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modaledit = false">Cancel</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+  </div>
+  </clr-modal>
+  <clr-modal [(clrModalOpen)]="cLibrary" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+    <div class="modal-body">
+      <div class="clr-row">
+        <div class="clr-col-8">
+            <h3>Copy From Library</h3>
+        </div>
+    </div>
+    <br>
+      <form class="clr-form" [formGroup]="copyForm">
+        <div class="clr-row">
+          <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="tech_stack">Technology Stack</label>
+            <select id="tech_stack" formControlName="technology_stack" class="clr-dropdown">
+              <option value="null">Choose Technology</option>
+              <option *ngFor="let ts of wfLibrary" [value]="ts.id">{{ ts.techStack }}
+              </option>
+            </select>
+          </div>
+      </div>
+      
+      <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-outline" (click)="copyModal = false">Cancel</button> -->
+      <button type="submit" class="btn btn-primary" (click)="copyFromLibrary()" >Copy</button>
+      </div>
+    </form>
+    </div>
+  </clr-modal>
+  
+  
+  

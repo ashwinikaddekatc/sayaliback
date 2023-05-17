@@ -1,0 +1,64 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"  [routerLink]="['../project/all']"> <clr-icon shape="flag"></clr-icon>Project</a></li>
+
+</ol>
+
+
+<div class="container">
+  <div class="section">
+   <p> Query Builder </p>
+  </div>
+
+
+
+         <div class="step-pane"  style="margin-bottom: -30px;">
+                 <div class="center">
+<!-- 															<h5 class="blue">Step 4</h5> -->
+
+                     <button  class="btn btn-app btn-primary"  title="Download Query" style="height: 63px;width: 63px;margin-top: 6%;" (click)="onUpdate()">
+                         Save
+                     </button>
+
+                     <button type="button" title="Genrate Query"class="style_prevu_kit btn btn-app btn-primary btn-xs"  (click)="clickFunction()" style="height: 63px;width: 63px;margin-top: 6%;">
+                         <i class=" ace-icon fa fa-table bigger-160"></i>
+                     </button>
+
+                 </div>
+             </div>
+       <br>
+       <br>
+       <div class="section">
+             <p> SqL Worksheet </p>
+       </div>
+
+                   <br>
+             <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+                 <div class="clr-row">
+                         <div class="clr-col-md-4 clr-col-sm-12">
+                                 <textarea type="text" id="sql_query" name="sql_query" formControlName="sql_query"  style="height: 150px;width: 600px;" placeholder="This is the default text">
+                                 </textarea>
+                         </div>
+                 </div>
+                 <div class="center">
+                         <button type="submit" style="margin-left: 15%;"  class="btn btn-primary">Run</button>
+                 </div>
+               </form>
+              <div class="section">
+                     <p> Query Result </p>
+               </div>
+
+               <div class="pad-16">
+
+                 <ngx-datatable
+                     style='width:900px;'
+                     [rows]="rows"
+                     [columns]="columns"
+
+                 >
+                 </ngx-datatable>
+             </div>
+
+
+
+</div>

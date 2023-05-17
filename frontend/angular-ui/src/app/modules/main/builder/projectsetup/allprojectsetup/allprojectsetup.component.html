@@ -1,0 +1,177 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="flag"></clr-icon>  Projects</a></li>
+  <li><a href="javascript://">  My Projects</a></li>
+</ol>
+<br>
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>My Projects </h3>
+    </div>
+
+    <div class="clr-col-4" style="text-align: right;">
+      <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="goTocard()">
+        <clr-icon shape="grid-view"></clr-icon>
+      </button>
+
+      <button class="btn btn-outline"  (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected" >
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'projectName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Project Name
+    </ng-container></clr-dg-column>
+
+
+    <clr-dg-column [clrDgField]="'technologyStack'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Technology Stack
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'description'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Description
+    </ng-container></clr-dg-column>
+    <!-- <clr-dg-column [clrDgField]="'dbName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Db Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'dbUserName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Db User Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'dbPassword'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Db Password
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'portNumber'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Port Number
+    </ng-container></clr-dg-column> -->
+    <clr-dg-row *clrDgItems="let user of projectsetup" [clrDgItem]="user">
+      <clr-dg-cell id="word">{{user.projectName}}</clr-dg-cell>
+
+      <clr-dg-cell>{{user.technologyStack}}</clr-dg-cell>
+      <clr-dg-cell id="word">{{user.description}}</clr-dg-cell>
+      <!-- <clr-dg-cell>{{user.dbName}}</clr-dg-cell>
+      <clr-dg-cell>{{user. dbUserName}}</clr-dg-cell>
+      <clr-dg-cell>{{user. dbPassword}}</clr-dg-cell>
+      <clr-dg-cell>{{user.  portNumber}}</clr-dg-cell> -->
+
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="goToModule(user.id)"> Repository <clr-icon shape="objects" class="is-error"></clr-icon></button>
+
+
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Project Name: </td>
+            <td class="td-content">{{user.projectName}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Project Description:</td>
+            <td class="td-content">{{user.description}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Project Prefix:</td>
+            <td class="td-content">{{user.projectPrefix}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">Technology Stack:</td>
+            <td class="td-content">{{user.technologyStack}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Technology Stack Id:</td>
+            <td class="td-content">{{user.techStackId}}</td>
+          </tr>
+          <tr>
+            <td class="td-title"> Database name:</td>
+            <td class="td-content">{{user.dbName}}</td>
+          </tr>
+          <tr>
+            <td class="td-title"> Username: </td>
+            <td class="td-content">{{user.dbUserName}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Database Password:  </td>
+            <td class="td-content">{{user.dbPassword}}</td>
+          </tr>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="modaladd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body">
+    <!-- <div *ngIf="tools1;" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of tools1; let index = i" class="clr-col-auto" >
+        <div class="clr-row">
+          <div class="clr-col-lg-9 clr-col-md-6 clr-col-12" style="width: 250px;height: 300px;margin-left: 25px;">
+              <div class="card" [routerLink]="app.action">
+                  <div class="card-block">
+                      <div class="card-title">
+                          <b style="margin-left: 30px;"><clr-icon shape="container-volume" size="40"></clr-icon></b>
+                        <h5 class="center" >{{ app.title }}</h5>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      </div>
+    </div> -->
+    <div class="s-order-dash-pg">
+      <div class="chart-box" id="word1" *ngFor="let app of tools1; let index = i" [routerLink]="app.action"><br>
+        <!-- <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b> -->
+        <img style="margin: aut; display: block;" [src]="app.image" height="90" width="90">
+        <h5 class="center"> <b>{{ app.title }}</b>  </h5>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaladd = false">Cancel</button>
+
+    </div>
+  </div>
+
+
+</clr-modal>

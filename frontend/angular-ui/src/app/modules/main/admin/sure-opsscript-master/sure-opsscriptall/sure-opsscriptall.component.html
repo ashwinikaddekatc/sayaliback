@@ -1,0 +1,121 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="" > <clr-icon shape="flag"></clr-icon>SureOps Script Group</a></li>
+
+</ol>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+      <div class="clr-col-8">
+          <h3>SureOps Script Group</h3>
+      </div>
+
+      <div class="clr-col-4" style="text-align: right;">
+          <button class="btn btn-outline"  (click)="onExport()">
+              <clr-icon shape="export"></clr-icon> xlsx
+          </button>
+          <button id="add"  class="btn btn-primary"  (click)="goToAdd()">
+              <clr-icon shape="plus"></clr-icon>ADD
+          </button>
+      </div>
+  </div>
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected" >
+      <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+        <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+      <clr-dg-column [clrDgField] = "'script_name'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Group Name
+          </ng-container>
+      </clr-dg-column>
+
+      <clr-dg-column [clrDgField] = "'description'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Description
+          </ng-container>
+      </clr-dg-column>
+
+      <clr-dg-column [clrDgField] = "'tech-stack'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Tech-stack
+          </ng-container>
+      </clr-dg-column>
+
+      <clr-dg-column [clrDgField] = "'Version'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Version
+          </ng-container>
+      </clr-dg-column>
+
+      <!-- <clr-dg-column [clrDgField] = "'Script'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Script
+          </ng-container>
+      </clr-dg-column> -->
+      <clr-dg-column [clrDgField] = "'is-active'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+          Is-active
+        </ng-container>
+    </clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of scriptdata" [clrDgItem]="user">
+      <clr-dg-cell>{{user.script_name}}</clr-dg-cell>
+      <clr-dg-cell>{{user.description}}</clr-dg-cell>
+       <clr-dg-cell>{{user.techstack}}</clr-dg-cell>
+      <clr-dg-cell>{{user.version}}</clr-dg-cell>
+      <!-- <clr-dg-cell>{{user.script}}</clr-dg-cell> -->
+      <clr-dg-cell>{{user.isactive}}</clr-dg-cell>
+
+      <clr-dg-action-overflow>
+          <button class="action-item"  (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+          <button class="action-item" (click)="goToscriptmaster(user.id)">Go To ScriptMaster <clr-icon shape="edit" class="is-error"></clr-icon></button>
+          <button class="action-item"  (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Workflow Name: </td>
+            <td class="td-content">{{user.workflow_name}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Workflow Description:</td>
+            <td class="td-content">{{user.description}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Tags:</td>
+            <td class="td-content">{{user.tags}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">App Category:</td>
+            <td class="td-content">{{user.app_category}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">Select Technology:</td>
+            <td class="td-content">{{user.select_technology}}</td>
+          </tr>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>

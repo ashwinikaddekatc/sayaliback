@@ -1,0 +1,540 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="flag"></clr-icon>  Projects</a></li>
+  <li><a href="javascript://">  My Projects</a></li>
+
+</ol>
+
+<div class="clr-row">
+    <div class="clr-col-6" style="display:flex ;">
+      <div style="margin-right: 25px;">    <h3>My Projects </h3></div>
+
+      <div style="margin-top:27px ; position: relative;">
+        <clr-icon  shape="search"></clr-icon>
+    <input placeholder="Search for Projects" list="config" type="text" name="search" [(ngModel)]="search"  style="margin-right: 30px;width: 241px; background-color: transparent; padding-left: 8px;"/>
+    <datalist id="config">
+      <option *ngFor="let item of projectsetup" [ngValue]="item.id">{{item.projectName}}</option>
+  </datalist>
+  </div>
+    </div>
+    <div class="clr-col-6" style="text-align: right;">
+      <!-- <label style="position: relative;">
+        <clr-icon shape="search" style="position: absolute; left: 0.6rem; top: 0.6rem; color: #0072a3;"></clr-icon>
+        <input placeholder="Search for Projects" type="text" class="searchbar-input clr-input" style="width: 100%; padding: 1.2rem 2rem;"/>
+      </label> -->
+
+        <button type="button" class="btn btn-icon btn-primary" aria-label="settings"(click)="goTogrid()">
+          <clr-icon shape="bars"></clr-icon>
+        </button>
+
+        <button id="add" class="btn btn-primary" (click)="goToAdd(projectsetup)">
+          <clr-icon shape="plus"></clr-icon>ADD
+        </button>
+
+        <button id="add" class="btn btn-primary" (click)="gotocopymodal('create_project')">
+          <clr-icon shape="plus"></clr-icon>copy
+        </button>
+    </div>
+</div>
+
+    <!-- <label style="position: relative; display: block; width: 100%;">
+      <clr-icon shape="search" style="position: absolute; left: 0.6rem; top: 0.6rem; color: #0072a3;"></clr-icon>
+      <input placeholder="Search for Projects" type="text" class="searchbar-input clr-input" style="width: 100%; padding: 1.2rem 2rem;"/>
+    </label> -->
+
+
+<div>
+  <!-- <div *ngIf="projectsetup; else showInfo" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of projectsetup; let index = i" class="clr-col-auto" style="max-width: min-content;">
+          <a class="card clickable"  routerLinkActive="actice">
+              <div class="card-block">
+                  <h3 class="card-title">{{app.projectName}}</h3>
+                  <button class="btn btn-primary" id="module" (click)="goToModule(app.id)">module <clr-icon shape="home"></clr-icon></button>
+              </div>
+              <div class="card-footer">
+                  <span class="label label-light-blue p7" style="margin-top: .4em;"> {{app.projectPrefix}}</span>
+                  <span class="label label-light-blue p7" style="margin-top: .4em;"> {{app.technologyStack}}</span>
+                  <span class="label label-purple p7" style="margin-top: .4em;"> {{app.techStackId}}</span>
+                  <span class="label label-purple p7" style="margin-top: .4em;"> {{app.description}}</span>
+                  <span class="label label-purple p7" style="margin-top: .4em;"> {{app.dbName}}</span>
+                  <span class="label label-purple p7" style="margin-top: .4em;"> {{app. dbUserName}}</span>
+                  <span class="label label-purple p7" style="margin-top: .4em;"> {{app.dbPassword}}</span>
+                  <span class="label label-success p7" style="margin-top: .4em;"> {{app.portNumber}}</span>
+
+                </div>
+          </a>
+      </div>
+  </div> -->
+
+  <ng-template #showInfo>
+      <div class="alert alert-info" role="alert">
+          <div class="alert-items">
+              <div class="alert-item static">
+                  <span class="alert-text">
+                       Project  could be found.
+                       <ng-template #loadingSpinner><clr-spinner [clrMedium]="true">Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div>
+      <div *ngIf="projectsetup;">{{er}}</div>       </span></div>
+          </div>
+      </div>
+  </ng-template>
+</div>
+
+
+
+  <div *ngIf="projectsetup; else showInfo" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of projectsetup | filter:search; let index = i" class="clr-col-auto" >
+        <div class="clr-row">
+          <div class="clr-col-lg-12 clr-col-md-4 clr-col-sm-4 clr-col-12" style="width: 410px;">
+              <div class="card" >
+                  <!-- <span class="social-links" style="margin-left: 10px;">
+                    <a href="#"><clr-icon shape="flag"></clr-icon> </a></span> -->
+                  <!-- <clr-icon shape="flag"></clr-icon> -->
+
+                  <div class="card-header">
+                      <b class="word" id="word">{{app.owner}}/{{app.projectName}}</b>
+
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 20px;" *ngIf="app.is_futuristic == false" (click)="addfuture(app.id)"><clr-icon shape="bell"></clr-icon></span>
+                        <span class="tooltip-content">Add Futuristic</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 20px;" *ngIf="app.is_futuristic == true" (click)="removefuture(app.id)"><clr-icon shape="bell" class="is-solid"></clr-icon></span>
+                        <span class="tooltip-content">Remove Futuristic</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_watchlisted == false" (click)="addwatch(app.id)"><clr-icon shape="eye"></clr-icon></span>
+                        <span class="tooltip-content">Add to watchlist</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_watchlisted == true" (click)="removewatch(app.id)"><clr-icon shape="eye" class="is-solid"></clr-icon></span>
+                        <span class="tooltip-content">Remove to watchlist</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_stared == false" (click)="addstar(app.id)"> <clr-icon shape="star"></clr-icon></span>
+                        <span class="tooltip-content">Add Awesome</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_stared == true" (click)="removestar(app.id)"> <clr-icon shape="star" class="is-solid"></clr-icon></span>
+                        <span class="tooltip-content">Remove Awesome</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_pinned == false" (click)="addpin(app.id)"><clr-icon shape="pin"></clr-icon></span>
+                        <span class="tooltip-content">Add Pin </span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_pinned == true" (click)="removepin(app.id)"><clr-icon shape="pin" class="is-solid"></clr-icon></span>
+                        <span class="tooltip-content">Remove Pin </span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" *ngIf="app.is_fav == false" id='heart' (click)="addfav(app.id)"> <clr-icon shape="heart"></clr-icon></span>
+                        <span class="tooltip-content">Add to fav</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm" >
+                        <span style="margin-left: 10px;" id='heart' *ngIf="app.is_fav == true" (click)="removefav(app.id)"><clr-icon shape="heart" class="is-solid"></clr-icon></span>
+                        <span class="tooltip-content">Remove to fav</span>
+                      </a>
+
+                      <!-- <span style="float: right;"><clr-icon shape="ellipsis-vertical"></clr-icon></span>-->
+                      <div class="dropdown-container" tabindex="-1" style="float: right;margin-top: 5px;">
+                          <div class="three-dots" ></div>
+                          <div class="dropdown">
+                            <!-- <a href="javascript://"  ><div class="me" (click)="goToedit(app.id)">Edit</div></a>
+                            <a href="javascript://" ><div class="me" (click)="goToModule(app.id)">Repositories</div></a> -->
+                            <a href="javascript://"><div class="me">ReadMe</div></a>
+                            <a href="javascript://"><div class="me">Gallery</div></a>
+                          </div>
+                    </div>
+
+                <div class="card-title1" id="word" >
+                  <b style="font-size: 15px;">{{app.description}}</b>
+                 </div>
+                 <div>
+                  <span style="margin-top: 16px;">
+                    <!-- <span data-v-31ffaada="" class="label label-blue"  style="margin-top:5px;margin-left: 3px;"><clr-icon shape="flag" size="sm"></clr-icon></span> -->
+                    <span data-v-31ffaada="" class="label label-blue" style="margin-top:5px;">Star
+                      <span data-v-31ffaada="" class="badge badge-blue">99+</span>
+                    </span>
+                    <span data-v-31ffaada="" class="label label-orange">Watching
+                        <span data-v-31ffaada="" class="badge badge-orange">99+</span>
+                    </span>
+                    <span data-v-31ffaada="" class="label label-danger">Futuristic
+                          <span data-v-31ffaada="" class="badge badge-danger">99+</span>
+                    </span>
+                          <!-- <span style="margin-left: 20px;"><clr-icon shape="pin"></clr-icon></span> -->
+                  </span>
+                </div>
+                  </div> <!-- card header end -->
+
+                  <!-- <span (click)="gotomenu()" style="float: right;">
+                      <clr-icon shape="ellipsis-vertical"></clr-icon>
+                    <span  class="action">
+                      <div class="dropdown1" id="div2" >
+                        <a href="javascript://" ><div class="me" [routerLink]="['../module1']">sureOps</div></a>
+                        <a href="javascript://"><div class="me" [routerLink]="['../module1']">sureGit</div></a>
+                        <a href="javascript://"><div class="me" [routerLink]="['../module1']">sureDokr</div></a>
+                      </div>
+                    </span>
+                  </span> -->
+
+                  <div class="card-block" style="padding-right:0px">
+                      <div class="card-text">
+                            <div>
+                              <span class="label label-light-blue p7 wordwrap"  style="margin-top: .4em; display: inline-block; white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis;"> {{app.projectPrefix}}</span>
+                              <span class="label label-light-blue p7 wordwrap" style="margin-top: .4em;"> {{app.technologyStack}}</span>
+                              <span class="label label-purple p7 wordwrap" style="margin-top: .4em;"> {{app.dbName}}</span>
+                            </div>
+                            <div>
+                              <span class="label label-purple p7 wordwrap" style="margin-top: .4em;"> {{app. dbUserName}}</span>
+                              <span class="label label-purple p7 wordwrap" style="margin-top: .4em;"> {{app.dbPassword}}</span>
+                              <span class="label label-success p7 wordwrap" style="margin-top: .4em;"> {{app.portNumber}}</span>
+                            </div>
+                            <div *ngFor="let a of arrayTags">
+                              <span class="label label-purple p7 wordwrap" style="margin-top: .4em;"> {{a.value}}</span>
+
+                            </div>
+                          <!-- <div class="progress-static labeled" style="margin-top: 10px; height: 15px;margin-left: 10px;margin-right: 40px;">
+                            <div class="progress-meter" data-value="80" data-displayval="80%" style="height: 15px;"></div>
+                            <span style="margin-right: 10px;">80%</span>
+                          </div> -->
+                          <div class="radialProgressBar progress-80" style="margin-top: -50px; margin-left: 10px; float:right">
+                            <div class="overlay">80</div>
+                          </div>
+                          <div  style="margin-top:27px ;">
+                            <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
+                              <span ><clr-icon shape="pencil" (click)="goToedit(app.id)"></clr-icon></span>
+                              <span class="tooltip-content">Edit</span>
+                            </a>
+                            <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
+                              <span ><clr-icon shape="objects" (click)="goToModule(app.id)"></clr-icon></span>
+                              <span class="tooltip-content">Repository</span>
+                            </a>
+                            <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
+                              <span ><clr-icon shape="chat-bubble" ></clr-icon></span>
+                              <span class="tooltip-content">Sure Chat</span>
+                            </a>
+                            <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
+                              <span >  <clr-icon shape="view-columns" (click)="gotosureboard(app.id)"></clr-icon></span>
+                               <span class="tooltip-content">TaskBoard</span>
+                            </a>
+
+                            <!-- <span style="margin-left: 70px;" (click)="gotomenu()"><clr-icon shape="ci-cd"></clr-icon></span> -->
+                              <!-- <div class="dropdown-container" tabindex="-1"  >
+                                <div class="hdots" > <clr-icon shape="ci-cd"></clr-icon></div>
+                                 <div class="dropdown1">
+                                   <a href="javascript://"  ><div class="me" [routerLink]="['../module1']">sureOps</div></a>
+                                   <a href="javascript://" ><div class="me" [routerLink]="['../module1']">sureGit</div></a>
+                                   <a href="javascript://"><div class="me">sureDokr</div></a>
+                                 </div>
+                               </div>
+                              </div> -->
+                              <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;"aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
+                               <span> <clr-icon shape="ci-cd"  (click)="gotosureops(app.id,app)"></clr-icon></span>
+                                <span class="tooltip-content">SureOps</span>
+                              </a>
+                                <!-- <div class="dropdown2" >
+                                  <span style="margin-left: 70px;"> <clr-icon shape="ci-cd"></clr-icon></span>
+                                  <div class="dropdown-content2">
+                                    <a href="javascript://"  ><div class="me" [routerLink]="['../module1']">sureOps</div></a>
+                                    <a href="javascript://" ><div class="me" [routerLink]="['../module1']">sureGit</div></a>
+                                    <a href="javascript://"><div class="me">sureDokr</div></a>
+                                  </div>
+                                </div> -->
+
+                                <!-- <button id="add" class="btn btn-primary" style="margin-top: 30px; float: right;" (click)="gotomenu()">
+                                  <clr-icon shape="ellipsis-horizontal"></clr-icon>
+                                </button> -->
+                                <!-- <span  class="action">
+                                  <div class="dropdown2" id="div2" >
+                                    <a href="javascript://" ><div class="me" [routerLink]="['../module1']">sureOps</div></a>
+                                    <a href="javascript://"><div class="me" [routerLink]="['../module1']">sureGit</div></a>
+                                    <a href="javascript://"><div class="me" [routerLink]="['../module1']">sureDokr</div></a>
+                                  </div>
+                                </span> -->
+                                <!-- <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
+                                  <span style="margin-left: 70px; margin-right: -28px;"><clr-icon shape="bars" (click)="opencopym(app)"></clr-icon></span>
+                                   <span class="tooltip-content">Copy Project</span>
+                                </a> -->
+                                <div class="dropdown2" >
+                                  <span style="margin-left: 30px; margin-right: -28px;"> <clr-icon shape="bars"></clr-icon></span>
+                                  <div class="dropdown-content2">
+                                    <a href="javascript://"  ><div class="me" (click)="adduser(app.id)">Add User</div></a>
+                                    <a href="javascript://" ><div class="me" (click)="opencopym(app)">Copy Project</div></a>
+                                    <a href="javascript://"  ><div class="me" (click)="addarchived(app.id)">Add Archieved</div></a>
+
+                                        </div>
+                                </div>
+                          </div>
+                      </div>
+                  </div>  <!--  card block end -->
+                  <div class="card-footer" style="padding: 6px 18px;">
+                      <button class="btn btn-sm btn-link"> Last Updated On: {{app.updatedAt|date}}</button>
+                  </div> <!-- card footer end -->
+              </div> <!-- card end -->
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  <clr-modal [(clrModalOpen)]="modaladd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+
+    <div class="modal-body">
+      <!-- <div *ngIf="tools1;" class="clr-row clr-align-items-start clr-justify-content-start">
+        <div *ngFor="let app of tools1; let index = i" class="clr-col-auto" >
+          <div class="clr-row">
+            <div class="clr-col-lg-9 clr-col-md-6 clr-col-12" style="width: 250px;height: 300px;margin-left: 25px;">
+                <div class="card" [routerLink]="app.action">
+                    <div class="card-block">
+                        <div class="card-title">
+                            <b style="margin-left: 30px;"><clr-icon shape="container-volume" size="40"></clr-icon></b>
+                          <h5 class="center" >{{ app.title }}</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+      </div> -->
+      <div class="s-order-dash-pg">
+        <div class="chart-box" id="word1" *ngFor="let app of tools1; let index = i" [routerLink]="app.action">
+          <!-- <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b> -->
+          <img style="margin: auto; display: block; margin-top: 10px;" [src]="app.image" height="90" width="90">
+                    <h5 class="center"> <b>{{ app.title }}</b>  </h5>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modaladd = false">Cancel</button>
+
+      </div>
+    </div>
+
+
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="copymodal" [clrModalSize]="'sm'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title"> Create New to copy</h3>
+    <div class="modal-body">
+      <form [formGroup]="copyForm" (ngSubmit)="onCreate()">
+        <div class="clr-row">
+          <div class="clr-col-md-12 clr-col-sm-12">
+            <label>Project Name</label>
+           <input type="text" style="width: 100%;padding: 15px 15px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;
+  border-radius: 4px;box-sizing: border-box;" formControlName="to_projectName" class="clr-input">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="copymodal = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" >Copy</button>
+          </div>
+  </form>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="addusermodal" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h5 class="modal-title">Add A Project to user</h5>
+    <div class="modal-body">
+      <form>
+        <div class="clr-row">
+          <div class="clr-col-md-3 clr-col-sm-12" style="margin-top: 10px;">
+            <select name="" id="" (change)="change($event.target.value)">
+              <option value="" >select user</option>
+              <option *ngFor="let sub of allacciduser" [value]="sub.userId" >{{sub.username}} </option>
+          </select>
+          </div>
+          <div class="clr-col-md-1 clr-col-sm-12"  >
+            <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="adduser1()">
+              <clr-icon shape="plus"></clr-icon>
+            </button>
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12" style="margin-top: 10px;">
+            <select name="" id="" (change)="change2($event.target.value)"><option>select Guest</option>
+            <option *ngFor="let guest of allguest" [value]="guest.userId">{{guest.username}}</option>
+            </select>
+          </div>
+          <div class="clr-col-md-1 clr-col-sm-12" >
+            <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="adduser2()">
+              <clr-icon shape="plus"></clr-icon>
+            </button>
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12" style="margin-top: 10px;">
+            <select name="" id="" (change)="change3($event.target.value)"><option>select Team</option>
+              <option *ngFor="let team of allteam" [value]="team.id">{{team.name}}</option>
+            </select>
+          </div>
+          <div class="clr-col-md-1 clr-col-sm-12" >
+            <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="adduser3()">
+              <clr-icon shape="plus"></clr-icon>
+            </button>
+          </div>
+        </div>
+        <clr-datagrid [clrDgLoading]="loading"  >
+          <clr-dg-placeholder> <ng-template #loadingSpinner><clr-spinner [clrMedium]="true">Loading ... </clr-spinner></ng-template>
+            <div *ngIf="error1;else loadingSpinner">{{error1}}</div></clr-dg-placeholder>
+
+          <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+            No
+          </ng-container></clr-dg-column>
+          <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+           Name
+          </ng-container></clr-dg-column>
+          <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+            Role
+          </ng-container></clr-dg-column>
+          <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+            Status
+          </ng-container></clr-dg-column>
+           <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+            Actions
+          </ng-container></clr-dg-column>
+          <clr-dg-row *clrDgItems="let user of alldata;let i = index" [clrDgItem]="user">
+            <clr-dg-cell >{{i+1}}</clr-dg-cell>
+            <clr-dg-cell>{{user.user_name}}</clr-dg-cell>
+            <clr-dg-cell >{{user.user_role}}</clr-dg-cell>
+            <clr-dg-cell >{{user.status}}</clr-dg-cell>
+            <clr-dg-cell > <clr-icon shape="bullet-list"></clr-icon> </clr-dg-cell>
+              </clr-dg-row>
+
+          <clr-dg-footer>
+            <clr-dg-pagination #pagination [clrDgPageSize]="5">
+              <clr-dg-page-size [clrPageSizeOptions]="[5,10,20,50,100]">Users per page</clr-dg-page-size>
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+              of {{pagination.totalItems}} users
+            </clr-dg-pagination>
+          </clr-dg-footer>
+        </clr-datagrid>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="addusermodal = false">Cancel</button>
+        <button type="submit"  class="btn btn-primary" >Add</button>
+        </div>
+      </form>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="copydepoyment" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title"> Create New to copy</h3>
+    <div class="modal-body">
+      <form [formGroup]="copydForm" (ngSubmit)="onCopyd()">
+        <div class="clr-row">
+          <!-- <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="workflow">Project Name</label>
+            <select colspan="2" formControlName="workflow"  class="clr-dropdown" (change)=" workflowmod($event.target.value)">
+                <option *ngFor="let sub of projectsetup;let i=index" [value]="sub.id">{{sub.projectName}}</option>
+            </select>
+        </div> -->
+        <div class="clr-col-md-6 clr-col-sm-12">
+          <label for="workflow">Project Name</label>
+          <select colspan="2" formControlName="project"  class="clr-dropdown">
+              <option *ngFor="let sub of projectsetup;let i=index" [value]="sub.id">{{sub.projectName}}</option>
+          </select>
+          <div *ngIf="submitted && copydForm.controls.project.errors" class="error_mess">
+            <div *ngIf="submitted && copydForm.controls.project.errors.required" class="error_mess">*This field is Required</div>
+        </div>
+      </div>
+        <div class="clr-col-md-6 clr-col-sm-12">
+          <label for="workflow">Deployment Profile Name</label>
+          <select colspan="2" formControlName="deplomentprofile"   class="clr-dropdown">
+              <option *ngFor="let profile of alldeploy;let i=index" [value]="profile.id">{{profile.lines_tables}}</option>
+          </select>
+          <div *ngIf="submitted && copydForm.controls.deplomentprofile.errors" class="error_mess">
+            <div *ngIf="submitted && copydForm.controls.deplomentprofile.errors.required" class="error_mess">*This field is Required</div>
+        </div>
+      </div>
+      <div class="clr-col-md-6 clr-col-sm-12">
+        <label for="workflow">Message</label>
+        <input type="text" style="width: 100%;padding: 15px 15px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;
+  border-radius: 4px;box-sizing: border-box;" formControlName="msg"  class="clr-input">
+ <div *ngIf="submitted && copydForm.controls.msg.errors" class="error_mess">
+  <div *ngIf="submitted && copydForm.controls.msg.errors.required" class="error_mess">*This field is Required</div>
+</div>
+    </div>
+    <div class="clr-col-md-6 clr-col-sm-12">
+      <label for="workflow">New Project Name</label>
+      <input type="text" style="width: 100%;padding: 15px 15px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;
+border-radius: 4px;box-sizing: border-box;" formControlName="newprojectname"  class="clr-input" required
+(input)="projectfind($event.target.value)">
+<div *ngIf="submitted && copydForm.controls.newprojectname.errors" class="error_mess">
+  <div *ngIf="submitted && copydForm.controls.newprojectname.errors.required" class="error_mess">*This field is Required</div>
+</div>
+<!-- (input)="projectfind($event.target.value)" -->
+<div *ngIf="copydForm.get('newprojectname').hasError('whitespace')" style="color: red;">
+  Project Name cannot contain whitespace plz correct it
+</div>
+<div *ngIf="copydForm.get('newprojectname').hasError('under')" style="color: red;">
+  Project Name cannot contain underscore plz correct it
+</div>
+<div *ngIf="projectfind1" style="color: red;">
+  {{projectfind1}} Allready Exit plz correct it
+</div>
+  </div>
+
+
+  <div class="clr-col-md-6 clr-col-sm-12">
+    <label for="projectName">Accessibility  <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+      <clr-icon shape="info-standard" size="md"></clr-icon>
+      <span class="tooltip-content">Public Projects are available for copy to all, Private Projects are restricted.</span>
+    </a></label>
+    <div>
+      <input type="radio" id="contactChoice1" formControllName="repo_cond"
+      name="accessibility" value="false"  (change)="changeGender($event)">
+<label for="contactChoice1" style=" margin-right: 40px;"> <clr-icon shape="unlock" style="margin-left: 3px; margin-right: 7px;"></clr-icon>Public</label>
+
+     <input type="radio" id="contactChoice2" (change)="changeGender($event)"
+      name="accessibility" value="true" formControllName="repo_cond">
+     <label for="contactChoice2"> <clr-icon shape="lock" style="margin-left: 3px; margin-right: 7px;"></clr-icon>Private</label>
+  <!-- <div>
+    <label for="add"> <b>Add a README file</b> </label>
+    <div><input type="checkbox"></div>
+  </div> -->
+    </div>
+  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="copydepoyment = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" >Copy</button>
+          </div>
+  </form>
+    </div>
+  </clr-modal>
+  <clr-modal [(clrModalOpen)]="modalcheckup" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Health Checkup - {{checkData}}</h3>
+    <div class="modal-body">
+      <div class="clr-row">
+      <div class="clr-col-md-4">
+        <table class="table table-noborder">
+        <tr *ngFor="let running of runningServices; let i = index">
+          <td class="td-title">{{running}}</td>
+          <td class="td-content">
+            <ng-container>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>
+            </ng-container>
+          </td>
+        </tr>
+          <tr *ngFor="let notrunning of notRunningServices; let i = index">
+            <td class="td-title">{{notrunning}}</td>
+          <td class="td-content">
+            <ng-container>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+              </svg>
+            </ng-container>
+          </td>
+        </tr>
+      </table>
+      </div>
+      <div class="clr-col-md-6">
+        <br>
+        <span><b>Health status pass:</b> {{passCount}}/{{totalCount}}</span>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <ng-template #n1> <button  class="btn btn-primary" (click)="openCopy()">PROCEED</button></ng-template>
+        <button *ngIf="passCount !== totalCount;else n1" type="button" class="btn btn-outline">Create SR</button>
+
+      </div>
+    </div>
+  </clr-modal>

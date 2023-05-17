@@ -1,0 +1,112 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>Action Builder Line</b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span>
+  <hr />
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="actionType1">Action Type 1:</label>
+        <select id="actionType1" name="actionType1" [(ngModel)]="actionBuilder_Line.actionType1" class="clr-dropdown">
+          <option value="">Choose Action Type 1</option>
+          <option *ngFor="let ac1 of actionTypes1" [value]="ac1.value">{{ ac1.key }}
+          </option>
+        </select>
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'actionType1'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="actionType2">Action Type 2:</label>
+        <select id="actionType2" name="actionType2" [(ngModel)]="actionBuilder_Line.actionType2" class="clr-dropdown">
+          <option value="">Choose Acton Type 2</option>
+          <option *ngFor="let ac2 of actionTypes2" [value]="ac2.value">{{ ac2.key }}
+          </option>
+        </select>
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'actionType2'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="seq">Sequence</label>
+        <input id="seq" type="number" name="seq" placeholder="Enter Sequence" [(ngModel)]="actionBuilder_Line.seq"
+          class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'seq'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dataType">Data Type</label>
+        <input id="dataType" type="text" name="dataType" placeholder="Enter Data type"
+          [(ngModel)]="actionBuilder_Line.dataType" class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'dataType'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="varName">Variable Name</label>
+        <input id="varName" type="text" name="variableName" placeholder="Enter Variable Name"
+          [(ngModel)]="actionBuilder_Line.variableName" class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'variableName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="assignment">Assignment</label>
+        <input id="assignment" type="text"  placeholder="Assign some value" name="assignment" [(ngModel)]="actionBuilder_Line.assignment"
+          class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'assignment'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="msg">Console Message</label>
+        <input type="text" id="msg"  placeholder="Enter some message" name="message" [(ngModel)]="actionBuilder_Line.message" class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'message'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="conditions">Conditions</label>
+        <input id="conditions" id="conditions" type="text"  placeholder="Logical Conditions" name="conditions" [(ngModel)]="actionBuilder_Line.conditions"
+          class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'conditions'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="forward">Forward</label>
+        <input type="text"  placeholder="Forward Condition" class="clr-input" [(ngModel)]="actionBuilder_Line.forward" name="forward">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'forward'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="equation">Equation</label>
+        <input id="equation" type="text"  placeholder="Logical equation" class="clr-input" [(ngModel)]="actionBuilder_Line.equation" name="eqution">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'equation'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <br />
+    <div class="center">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+
+  </form>
+</div> <!-- container end -->

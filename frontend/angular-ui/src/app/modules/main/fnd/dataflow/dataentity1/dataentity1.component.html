@@ -1,0 +1,150 @@
+<div class="root">
+  <h4 style="font-weight: 500;display: inline;">Create DataflowEntity</h4>
+    <div style="width:100% ;display: flex;">
+        <div style="float:left;">
+
+        </div>
+        <div class="clr-col-12" style="text-align: right;">
+        <button id="add" class="btn btn-primary" lass="btn topbutton" style="background-color:blue; border: none;" (click)="UpdateLine()">CREATE Flow</button>
+
+        </div>
+    </div>
+
+    <div style="width: 100%;">
+        <div class="board-wrapper">
+          <div class="board-column" style="margin-left: 30px;">
+              <div class="clr-row" style="margin-right: 0px!important;">
+                  <div class="clr-col-12">
+                      <div class="column-title">
+                        <b style="color: #70f3cf;">SOURCE</b>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div style="border: 4px solid #70f3cf !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+              </div>
+              <div class="clr-row" style="margin-left: 10px;margin-top: 5px;">
+                <a href="javascript://" class="label label-purple clickable" style="margin-top: 5px;"
+                 *ngFor="let sub of entitydata">
+                {{sub.title}}
+                <span class="badge" (click)="addval(sub)" style="cursor:pointer;"> <clr-icon shape="plus"></clr-icon></span>
+            </a>
+            <!-- <a href="..." class="label label-blue clickable">
+                New York
+
+                <span class="badge"><clr-icon shape="plus"></clr-icon></span>
+            </a>
+            <a href="..." class="label label-orange clickable">
+                Palo Alto
+                <span class="badge"><clr-icon shape="plus"></clr-icon></span>
+            </a> -->
+          </div>
+
+              <!-- <div class="tasks-container">
+                <div class="task" style="border-left: red;border-style: solid;border-top: none;border-right: none;">
+                  <span><b>t
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                   b
+                  </b>
+                  <clr-icon shape="repeat" class="is-error" style="margin-left: 180px;margin-top: 0px;cursor: pointer;"></clr-icon>
+                  <clr-icon shape="trash" class="is-error" style="margin-top: 0px;cursor: pointer;right:10px;"></clr-icon>
+
+                </span>
+                </div>
+              </div>
+
+              <div style="border: 4px solid red !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+              </div> -->
+
+              <!-- <div class="clr-row" style="margin-right: 0px!important;">
+                <div class="clr-col-12">
+                    <div class="column-end">
+                      <b >End</b>
+                    </div>
+                </div>
+              </div> -->
+
+            </div>
+
+            <div class="board-column" style="margin-left: 80px;">
+              <div class="clr-row" style="margin-right: 0px!important;">
+                  <div class="clr-col-12">
+                      <div class="column-title">
+                        <b style="color: #eb9d31;">SELECTION</b>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div style="border: 4px solid #eb9d31 !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+              </div>
+              <div class="clr-row" style="margin-left: 10px;margin-top: 5px;">
+                <a href="javascript://" class="label label-orange clickable" style="margin-top: 5px;"
+                 *ngFor="let sub of storedata">
+                {{sub.title}}
+                <span class="badge" (click)="deleteval(sub)" style="cursor:pointer;"> <clr-icon shape="close"></clr-icon></span>
+            </a>
+            <!-- <a href="..." class="label label-blue clickable">
+                New York
+                <span class="badge"><clr-icon shape="close"></clr-icon></span>
+            </a>
+            <a href="..." class="label label-orange clickable">
+                Palo Alto
+                <span class="badge"><clr-icon shape="close"></clr-icon></span>
+            </a> -->
+          </div>
+              <!-- <div class="tasks-container">
+                <div class="task" style="border-left: red;border-style: solid;border-top: none;border-right: none;">
+                  <span><b>t
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                   b
+                  </b>
+                  <clr-icon shape="repeat" class="is-error" style="margin-left: 180px;margin-top: 0px;cursor: pointer;"></clr-icon>
+                  <clr-icon shape="trash" class="is-error" style="margin-top: 0px;cursor: pointer;right:10px;"></clr-icon>
+
+                </span>
+                </div>
+              </div>
+
+              <div style="border: 4px solid red !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+              </div> -->
+
+              <!-- <div class="clr-row" style="margin-right: 0px!important;">
+                <div class="clr-col-12">
+                    <div class="column-end">
+                      <b >End</b>
+                    </div>
+                </div>
+              </div> -->
+
+            </div>
+        </div> <!-- Board Wrapper -->
+
+
+
+    </div>
+
+
+</div>
+<clr-modal [(clrModalOpen)]="workflowmodal" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Add Node</h3>
+  <div class="modal-body">
+
+    <!-- <form clrForm> -->
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()" >
+      <div class="clr-row" >
+        <div class="clr-col-sm-12">
+          <label for="title">Id</label>
+          <input type="text" class="clr-input" formControlName="id" id="id">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="workflowmodal = false">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+
+    </form>
+  </div>
+</clr-modal>
+

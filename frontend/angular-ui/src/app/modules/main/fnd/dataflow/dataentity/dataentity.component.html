@@ -1,0 +1,299 @@
+<div class="root">
+  <h4 style="font-weight: 500;display: inline;">Create</h4>
+  <div style="width:100% ;display: flex;">
+    <div style="float:left;">
+      <button id="add1" class="btn topbutton" style="background-color: green; border: none;"
+        (click)="workflowmodalOPen(1)">
+        <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon> ENTITIES
+      </button>
+      <!-- <button id="add2" class="btn topbutton" style="background-color: green; border: none;" (click)="workflowmodalOPen(2)">
+              <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+            </button> -->
+
+    </div>
+    <div class="clr-col-11" style="text-align: right;">
+      <button class="btn btn-outline" lass="btn topbutton"
+        style="background-color: orange; border: none;">TRANSFORM</button>
+      <button class="btn btn-outline" lass="btn topbutton" style="background-color: rgb(0, 255, 76); border: none;"
+        (click)="job()">SureJob</button>
+      <button id="add" class="btn btn-primary" lass="btn topbutton" style="background-color:blue; border: none;"
+        (click)="create()">CREATE Schema</button>
+
+    </div>
+  </div>
+
+  <div style="width: 100%;">
+    <div class="board-wrapper">
+      <div class="board-column">
+        <div class="clr-row" style="margin-right: 0px!important;">
+          <div class="clr-col-12">
+            <div class="column-title">
+              <b>Start</b>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="border: 4px solid #70f3cf !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+        </div>
+        <div class="tasks-container" >
+          <div class="task" (click)="onClick(item)" *ngFor="let item of workflowdata"
+            style="border-left: red;border-style: solid;border-top: none;border-right: none;position: relative;">
+            <span><b>{{item.title}}
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                {{item.storetable}}
+              </b>
+              <!-- <clr-icon shape="repeat" class="is-error" style="margin-left: 180px;margin-top: 0px;cursor: pointer;"></clr-icon>
+              <clr-icon shape="trash" class="is-error" style="margin-top: 0px;cursor: pointer;right:10px;"></clr-icon> -->
+              <div class="task1">
+                <clr-icon shape="repeat" class="is-error" style="cursor: pointer;"></clr-icon>
+                <clr-icon shape="trash" class="is-error" style="right:10px;"></clr-icon>
+              </div>
+            </span>
+          </div>
+        </div>
+
+        <div
+          style="border: 4px solid red !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+        </div>
+
+        <div class="clr-row" style="margin-right: 0px!important;">
+          <div class="clr-col-12">
+            <div class="column-end">
+              <b>End</b>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div> <!-- Board Wrapper -->
+
+    <div  class="workflowform" [hidden]="!hideme[modelid]">
+      <span (click)="closeForm()" style="text-align: right;cursor: pointer;"><clr-icon shape="times"></clr-icon></span>
+      <form [formGroup]="nodeEntryForm" style="margin: 15px;"> <!-- (ngSubmit)="nodeAdd(modelid)" -->
+        <span (click)="delNode(modelid)" class="action-item"><clr-icon shape="trash" class="is-error"
+            style="margin-right: 15px;margin-top: 0px;cursor: pointer; float: right;"></clr-icon></span>
+        <h4 style="font-weight: 500;margin-left: 15px;">Edit Properties</h4>
+        <span style="margin-left: 15px;">ID # {{modelid}}</span><br>
+        <span style="margin-left: 15px;">Type : {{processType}}</span><br>
+        <div class="clr-row">
+          <div class="clr-col-6">
+            <label for="sequence">Source</label>
+            <!-- [value]="this.tdata.auto_table_mapping === true ? this.table_prefix + this.title : nodeEditProperties.title"-->
+            <input type="text" formControlName="sourcetable" placeholder="Enter sequence no" class="clr-input" 
+              [(ngModel)]="nodeEditProperties.title">
+          </div>
+          <div class="clr-col-6">
+            <label for="sequence">Store</label> <!--[value]="this.tdata.auto_table_mapping === true ? this.title : nodeEditProperties.storetable "-->
+            <input type="text" formControlName="storetable"  placeholder="Enter sequence no" class="clr-input" 
+              [(ngModel)]="nodeEditProperties.storetable">
+          </div>
+          <!-- <div class="clr-col-6" *ngIf="nodeEditProperties.flowtype === 'SFTP To Store' ||  nodeEditProperties.flowtype === 'Email To Store'">
+            <label for="sequence">Store</label>
+            <input type="text" formControlName="storetable"  placeholder="Enter sequence no" class="clr-input"
+              [(ngModel)]="nodeEditProperties.storetable">
+          </div> -->
+
+        </div>
+
+        <div class="clr-row">
+          <div class="clr-col-md-5 clr-col-sm-12">
+            <label for="technologyStack">Cron</label>
+            <input type="text" class="clr-input" formControlName="cron" name="cron"
+              [(ngModel)]="nodeEditProperties.cron">
+          </div>
+
+          <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+            <button class="btn btn-icon btn-primary" (click)="cronGen()">
+              <clr-icon shape="view-list"></clr-icon>
+            </button>
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="technologyStack">Every</label><br>
+            <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" (click)="setCron('0 0/5 * 1/1 * ? *')">5 Min</span>
+            <span class="label label-success" style="margin-top: .4em;cursor: pointer;" (click)="setCron('0 0/30 * 1/1 * ? *')">30 Min</span>
+            <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" (click)="setCron('0 0 0/1 1/1 * ? *')">1 Hr</span>
+          </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="workflow_name">Detach</label>
+            <input type="checkbox" formControlName="detach" clrToggle value="billable" name="billable"
+              [(ngModel)]="nodeEditProperties.detach" />
+
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="workflow_name">Create New Table</label>
+            <input type="checkbox" formControlName="createnewtable" clrToggle value="billable" name="billable"
+              [(ngModel)]="nodeEditProperties.createnewtable" />
+
+          </div>
+
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-md-6 clr-col-sm-12"  *ngIf="nodeEditProperties.refreshtype">
+            <label for="technologyStack">Refresh Type</label>
+            <select formControlName="refreshtype" class="clr-dropdown" name="refreshtype"
+              [(ngModel)]="nodeEditProperties.refreshtype">
+              <option>initial Upload And incremental</option>
+              <option>initial Upload Only</option>
+              <option>incremental Only</option>
+
+            </select>
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype">
+            <label for="technologyStack">Refresh Type</label>
+            <input type="text" formControlName="flowtype"  placeholder="Enter Type" class="clr-input"
+              [(ngModel)]="nodeEditProperties.flowtype">
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === 'Email To Webhook'">
+            <label for="technologyStack">Emailwebhook</label>
+            <select formControlName="emailwebhook" class="clr-dropdown" name="emailwebhook"
+              [(ngModel)]="nodeEditProperties.emailwebhook">
+              <option *ngFor="let data of EmailWebhookData" [value]="data.id">{{data.username}}</option>
+            </select>
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === 'Email To Store'">
+            <label for="technologyStack">Emaildatabase</label>
+            <select formControlName="emaildatabase" class="clr-dropdown" name="emaildatabase"
+              [(ngModel)]="nodeEditProperties.emaildatabase">
+              <option *ngFor="let data of emailDBData" [value]="data.id">{{data.username}}</option>
+            </select>
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === 'SFTP To Store'">
+            <label for="technologyStack">SFTP Database</label>
+            <select formControlName="sftpdatabase" class="clr-dropdown" name="sftpdatabase"
+              [(ngModel)]="nodeEditProperties.sftpdatabase">
+              <option *ngFor="let data of SFTPData" [value]="data.id">{{data.user}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="clr-row">
+        <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === 'SFTP To Store' || nodeEditProperties.flowtype === 'Email To Store'">
+          <label for="technologyStack">Table Name</label>
+          <input type="text" formControlName="tableName"  placeholder="Enter Table Name" class="clr-input"
+          [(ngModel)]="nodeEditProperties.tableName">
+          <!-- <select formControlName="tableName" class="clr-dropdown" name="tableName"
+            [(ngModel)]="nodeEditProperties.tableName">
+            <option>Table 1</option>
+            <option>Table 2</option>
+            <option>Table 3</option>
+            <option>Table 4</option>
+          </select> -->
+        </div>
+        <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === ''">
+          <label for="technologyStack">Batch Size</label>
+            <input type="text" formControlName="BatchSize"  placeholder="Enter Batch Size" class="clr-input"
+              [(ngModel)]="nodeEditProperties.BatchSize">
+        </div>
+        <div class="clr-col-md-6 clr-col-sm-12">
+          <div class="clr-form-control">
+            <div class="clr-control-container">
+              <div class="clr-toggle-wrapper">
+                <input type="checkbox" id="active" formControlName="active" [checked]="true" class="clr-toggle">
+                <label for="active" class="clr-control-label">Active</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === 'SFTP To Store'">
+            <label for="technologyStack">Remote Directory</label>
+            <input type="text" formControlName="remoteDirectory"  placeholder="Enter remoteDirectory" class="clr-input"
+              [(ngModel)]="nodeEditProperties.remoteDirectory">
+          </div>
+          <div class="clr-col-md-6 clr-col-sm-12" *ngIf="nodeEditProperties.flowtype === 'Email To Webhook' || nodeEditProperties.flowtype === 'Email To Store'">
+            <label for="technologyStack">Key</label>
+            <input type="text" formControlName="key"  placeholder="Enter Type" class="clr-input"
+              [(ngModel)]="nodeEditProperties.key">
+          </div>
+        </div>
+        <br>
+        <div class="clr-row">
+          <div class="clr-col-6">
+            <!-- <i routerLink="/cns-portal/connectormapping/add" class="fa-solid fa-arrow-up-right-from-square"></i> -->
+            <!-- <label for="sequence" style="font-weight: bold; cursor: pointer;" (click)="goFromFilter()" >Filters (Add Conditions)&nbsp;&nbsp;<clr-icon shape="pop-out"></clr-icon></label>  -->
+            <div *ngIf="checkFilter">
+            <span  class="label label-light-green p7 lbutton" (click)="checkFil()">Enable Filter</span>
+            <textarea type="text"  style="height:150px;  background-color:#d6d6d6;"readonly></textarea>
+            </div>
+            <div  *ngIf="filter">
+              <label for="sequence" style="font-weight: bold;">Filters Fields <span  class="label label-light-green p7 lbutton" (click)="goFromFilter()">OPEN</span><span  class="label label-light-green p7 lbutton" (click)="filterReset()">RESET</span></label>
+              <textarea type="text" formControlName="filters" style="height:150px;"  [(ngModel)]="nodeEditProperties.filters" readonly></textarea>
+            </div>
+          </div>
+
+          <div class="clr-col-6">
+            <div *ngIf="checkTransform">
+              <span  class="label label-light-green p7 lbutton" (click)="checkTrans()">Enable TransFormation</span>
+              <!-- <label for="sequence" style="font-weight: bold; cursor: pointer;" (click)="goFromMapper()">Mapper Fields (Transform)&nbsp;&nbsp;<clr-icon shape="pop-out"></clr-icon></label> -->
+              <textarea type="text" style="height:150px; background-color:#d6d6d6;" readonly></textarea>
+            </div>
+            <div *ngIf="transform">
+              <label for="sequence" style="font-weight: bold;">Mapper Fields <span  class="label label-light-green p7 lbutton" (click)="goFromMapper()">OPEN</span><span  class="label label-light-green p7 lbutton" (click)="transReset()">RESET</span></label>
+              <textarea type="text" formControlName="mappers" style="height:150px;" [(ngModel)]="nodeEditProperties.mappers" readonly></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-outline" (click)="workflowmodal = false">Cancel</button> -->
+          <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+  <div style="text-align: center;">
+    <button type="submit" class="btn btn-primary btn-adddata " (click)="UpdateLine()">
+      <b>Update</b>
+    </button>
+  </div>
+</div>
+
+<clr-modal [(clrModalOpen)]="workflowmodal" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Add Node</h3>
+  <div class="modal-body">
+
+    <!-- <form clrForm> -->
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+        <div class="clr-col-sm-12">
+          <span>Type</span>
+          <input type="text" class="clr-input" formControlName="type" name="type" id="type" [(ngModel)]="type" readonly
+            style="border:none ;">
+        </div>
+      </div>
+      <div class="clr-row">
+        <div class="clr-col-sm-12">
+          <label for="title">Id</label>
+          <input type="text" class="clr-input" formControlName="id" id="id">
+        </div>
+      </div>
+      <!-- <div class="clr-row">
+          <div class="clr-col-sm-12">
+            <label for="title">Title</label>
+            <input id="title" type="text" formControlName="title" class="clr-input" >
+          </div>
+        </div> -->
+
+      <!-- <div class="clr-row">
+          <div class="clr-col-12">
+              <label for="type">Type</label>
+              <select colspan="2" formControlName="type" class="clr-dropdown">
+                  <option value="process 1">Process 1</option>
+                  <option value="process 2">Process 2</option>
+                  <option value="process 3">Process 3</option>
+              </select>
+          </div>
+        </div> -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="workflowmodal = false">Cancel</button>
+        <!-- <button type="submit" class="btn btn-primary" (click)="addWorkflowDb()">Add</button> -->
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+
+    </form>
+  </div>
+</clr-modal>

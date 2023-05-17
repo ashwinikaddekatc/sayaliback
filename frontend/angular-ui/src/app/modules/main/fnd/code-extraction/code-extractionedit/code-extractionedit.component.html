@@ -1,0 +1,73 @@
+<div class="container">
+  <h4 style="font-weight: 300;display: inline;"><b>CODE EXTRACTOR </b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+
+<hr>
+  <!-- entry form-->
+  <form  (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="tech_stack">Technology Stack</label>
+              <select id="tech_stack" name="tech_stack" [(ngModel)]="tdata.tech_stack" selecteed="null" class="clr-dropdown">
+                  <option value="null">Choose Technology</option>
+                  <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+                  </option>
+              </select>
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="object_type">Object Type</label>
+              <select id="object_type" name="object_type" [(ngModel)]="tdata.object_type" selecteed="null" class="clr-dropdown">
+                  <option value="null">Choose Object Type</option>
+                  <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+                  </option>
+              </select>
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="sub_object_type">Sub Object Type</label>
+              <select id="sub_object_type" name="sub_object_type" [(ngModel)]="tdata.sub_object_type" selecteed="null" class="clr-dropdown">
+                  <option value="null">Choose Sub Object Type</option>
+                  <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+                  </option>
+              </select>
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="form_type_name">Form Type Name</label>
+              <input id="form_type_name" type="text" name="form_type_name" [(ngModel)]="tdata.form_type_name"
+                  placeholder="Enter Form Type Name" class="clr-input">
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="std_wf_name">Standard WireFrame Name</label>
+              <input id="std_wf_name" type="text" name="std_wf_name" [(ngModel)]="tdata.std_wf_name" placeholder="Enter WireFrame Name"
+                  class="clr-input">
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="icon_file_name">Icon Name</label>
+              <input id="icon_file_name" type="text" name="icon_file_name" [(ngModel)]="tdata.icon_file_name" placeholder="Enter Icon Name"
+                  class="clr-input">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="sub_object_type">Service Name</label>
+            <select id="sub_object_type" name="service" [(ngModel)]="tdata.service"  class="clr-dropdown">
+                <option>Angular</option>
+                <option>Spring boot</option>
+            </select>
+
+        </div>
+          <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 20px;">
+              <label for="file">Upload Zip File</label>
+              <input  type="file" accept=".zip,.rar,.7zip" (change)="onSelectFile($event)"
+                  placeholder="Upload Zip File" >
+          </div>
+      </div>
+      <br>
+      <div class="center">
+          <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+  </form>
+</div>
+<!-- </div> -->

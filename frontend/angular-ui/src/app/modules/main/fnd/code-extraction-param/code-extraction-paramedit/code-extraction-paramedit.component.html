@@ -1,0 +1,90 @@
+<div class="container">
+  <h4 style="font-weight: 300;display: inline;"><b>CODE EXTRACTOR </b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+
+<hr>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tech_stack">Technology Stack</label>
+        <select id="tech_stack" name="tech_stack" [(ngModel)]="bcf_Extractor_param.tech_stack" class="clr-dropdown">
+          <option value="">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+          </option>
+        </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="object_type">Object Type</label>
+        <select id="object_type" name="object_type" [(ngModel)]="bcf_Extractor_param.object_type" class="clr-dropdown">
+          <option value="">Choose Object Type</option>
+          <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+          </option>
+        </select>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="sub_object_type">Sub Object Type</label>
+        <select id="sub_object_type" name="sub_object_type" [(ngModel)]="bcf_Extractor_param.sub_object_type"
+          class="clr-dropdown">
+          <option value="">Choose Sub Object Type</option>
+          <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file_code">File Code</label>
+        <input type="text" id="file_code" name="file_code" [(ngModel)]="bcf_Extractor_param.file_code"
+          placeholder="Enter File Code" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="name_string">Name String</label>
+        <input type="text" id="name_string" name="name_string" [(ngModel)]="bcf_Extractor_param.name_string"
+          placeholder="Enter File Name" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file_name_var">File Name Variable</label>
+        <input type="text" id="file_name_var" name="file_name_var" [(ngModel)]="bcf_Extractor_param.file_name_var"
+          placeholder="Enter File Name Variable" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file_name_dynamic_string">File Name Dynamic String</label>
+        <input type="text" id="file_name_dynamic_string" name="file_name_dynamic_string"
+
+          [(ngModel)]="bcf_Extractor_param.file_name_dynamic_string" placeholder="Enter File Name Dynamic String"
+          class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="reference_address_string">Reference Address String</label>
+        <input type="text" id="reference_address_string" name="reference_address_string"
+          [(ngModel)]="bcf_Extractor_param.reference_address_string" placeholder="Enter File reference Location"
+          class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" [(ngModel)]="bcf_Extractor_param.description"
+          placeholder="Enter File Description" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Total_Project_Path_Dynamic_String</label>
+        <input type="text" id="description" name="total_project_path_dynamic_string" [(ngModel)]="bcf_Extractor_param.total_project_path_dynamic_string"
+          placeholder="Enter File name String" class="clr-input">
+      </div>
+
+
+
+    </div>
+    <br>
+    <div class="center">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+  </form>
+</div>

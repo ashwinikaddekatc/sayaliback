@@ -1,0 +1,168 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> SureConnector APIs</a></li>
+</ol>
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>SureConnector APIs </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+
+      <button id="add"  class="btn btn-primary"  (click)="goToAddMapper()" >
+          <clr-icon shape="plus"></clr-icon>FIELD MAPPER
+        </button>
+      <button id="add"  class="btn btn-primary" (click)="goToAdd()" >
+        <clr-icon shape="plus"></clr-icon>ADD NEW
+      </button>
+    </div>
+  </div>
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'jobId'" style="width:10px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Sequence
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'jobName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Connection
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="' jobGroup'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        Method
+   </ng-container> </clr-dg-column >
+    <clr-dg-column [clrDgField]="'jobClass'" style="width:270px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      API
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'description'" style="width:180px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Json Mapper
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of alldata;let i = index" [clrDgItem]="user" >
+      <clr-dg-cell>{{user.sequence}}</clr-dg-cell>
+      <clr-dg-cell>{{user.connection}}</clr-dg-cell>
+      <clr-dg-cell>{{user.method}}</clr-dg-cell>
+      <clr-dg-cell>{{user.api}}</clr-dg-cell>
+      <clr-dg-cell>{{user.json_mapper}}</clr-dg-cell>
+
+      <clr-dg-action-overflow>
+          <button class="action-item" (click)="onEdit(user)">Edit<clr-icon shape="edit"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+      </clr-dg-action-overflow>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create Connector</h3>
+  <div class="modal-body">
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Sequence</label>
+          <input type="number" class="clr-input"  formControlName="sequence"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Connection</label>
+          <input type="text" class="clr-input" formControlName="connection"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Method</label>
+          <select colspan="2" selected="null"  formControlName="method" class="clr-dropdown">
+              <option [selected]="true">GET</option>
+              <option>POST</option>
+              <option>PUT</option>
+              <option>PATCH</option>
+              <option>DELETE</option>
+              <option>COPY</option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">API</label>
+          <input type="text" class="clr-input" formControlName="api"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Json Mapper</label>
+          <select colspan="2"  formControlName="json_mapper" class="clr-dropdown">
+              <!-- <option  *ngFor="let sub of data" [value]="sub.name">{{sub.name}}</option> -->
+              <option *ngFor="let sub of data" [value]="sub.name" [selected]="sub.name">{{sub.name}}</option>
+
+            </select>
+        </div>
+
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >ADD</button>
+        </div>
+</form>
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="modaledit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create Connector</h3>
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <form (ngSubmit)="onUpdate(rowSelected.id)">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Sequence</label>
+          <input type="number" class="clr-input"  name="sequence" [(ngModel)]="rowSelected.sequence"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Connection</label>
+          <input type="text" class="clr-input" name="connection" [(ngModel)]="rowSelected.connection"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Method</label>
+          <select colspan="2" selected="null"  name="method" class="clr-dropdown" [(ngModel)]="rowSelected.method">
+              <option [selected]="true">GET</option>
+              <option>POST</option>
+              <option>PUT</option>
+              <option>PATCH</option>
+              <option>DELETE</option>
+              <option>COPY</option>
+            </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">API</label>
+          <input type="text" class="clr-input" name="api" [(ngModel)]="rowSelected.api"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Json Mapper</label>
+          <select colspan="2"  name="json_mapper"  [(ngModel)]="rowSelected.json_mapper" class="clr-dropdown">
+              <!-- <option  *ngFor="let sub of data" [value]="sub.name">{{sub.name}}</option> -->
+              <option *ngFor="let sub of data" [value]="sub.name" [selected]="sub.name">{{sub.name}}</option>
+
+            </select>
+        </div>
+
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modaledit = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >Update</button>
+        </div>
+</form>
+  </div>
+</clr-modal>

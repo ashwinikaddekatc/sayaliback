@@ -1,0 +1,61 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>Edit Action Builder Header</b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span>
+  <hr />
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Technology Stack</label>
+        <select id="technologyStack" name="technologyStack" [(ngModel)]="actionBuilder_Header.technologyStack"
+          class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+          </option>
+        </select>
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'technologyStack'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="actionName">Action Name</label>
+        <input class="clr-input" type="text" id="actionName" name="actionName"
+          [(ngModel)]="actionBuilder_Header.actionName" placeholder="Enter Action Name">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'actionName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="controllerName">Controller Name</label>
+        <input class="clr-input" type="text" id="controllerName" name="controllerName"
+          [(ngModel)]="actionBuilder_Header.controllerName" placeholder="Enter Controller Name">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'controllerName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="methodName">Method Name</label>
+        <input class="clr-input" type="text" id="methodName" name="methodName"
+          [(ngModel)]="actionBuilder_Header.methodName" placeholder="Enter Method Name">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'methodName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="fileLocation">File Location</label>
+        <input class="clr-input" id="fileLocation" type="text" name="fileLocation"
+          [(ngModel)]="actionBuilder_Header.fileLocation" placeholder="Enter File Location">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'fileLocation'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="center">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+  </form>
+</div>

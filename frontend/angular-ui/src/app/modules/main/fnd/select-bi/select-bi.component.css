@@ -1,0 +1,31 @@
+.button1::after {
+  content: none;
+}
+
+.button1:hover::after {
+  content: "ADD ROWS";
+}
+
+.section {
+  background-color: #dddddd;
+  height: 40px;
+}
+
+.section p {
+  padding: 10px;
+  font-size: 18px;
+}
+
+.clr-input {
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.75rem;
+  margin-top: 3px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.center {
+  text-align: center;
+}/*# sourceMappingURL=select-bi.component.css.map */

@@ -1,0 +1,134 @@
+<h4 style="font-weight: 300;display: inline;"><b>Create Feature</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+A Goal(Epic) is a collection of Tasks/Issues, it can be referred to as a sub-function or enhancement
+<hr>
+
+<div class="container">
+    <form [formGroup]="entryForm">
+        <div class="formdiv" style="float:left; width: 69%;">
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" formControlName="name" class="clr-input" placeholder="enter Project Name">
+                </div>
+
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="description">Description(optional)</label>
+                    <textarea id="" cols="10" rows="2" formControlName="description" placeholder="Enter Description"></textarea>
+                </div>
+
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="tags">Tags</label>
+                    <tag-input formControlName="tags" name="tags" [(ngModel)]='tags' [separatorKeyCodes]="[32, 188]"></tag-input>
+                    <!-- <input type="text" formControlName="tags" placeholder="enter tags" class="clr-input" id="tags"> -->
+                </div>
+
+            </div>
+            <div class="clr-row">
+
+    </div>
+            <div class="clr-row">
+                <div class="clr-col-12"><br>
+                   <span> List Of Tasks</span>
+                    <table class="table" formArrayName="pm_Feature_ListOfTasks">
+                        <thead>
+                        <tr>
+                            <th >No</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let attach of controls; let i=index" [formGroupName]="i">
+                            <td style="width: 70px;"><input type="text" class="clr-input" formControlName="id" value={{i+1}} [readonly]="true">  </td>
+                            <td> <input type="text" id="myFile" formControlName="name" class="clr-input"></td>
+                            <td> <a  (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                        </tr>
+
+                                    <button class="btn btn-primary"(click)="onAddLines()">
+                                        <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+                                    </button>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="progressform" style="float:right; width: 29%;">
+
+            <div class="clr-row">
+                <div class="clr-col-sm-12">
+                    <label for="project">Project</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="project" (change)="modo($event.target.value)">
+                        <option *ngFor="let sub of project" [value]="sub.id">{{sub.project_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="repository">Repository</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="repository">
+                        <option *ngFor="let sub of repo" [value]="sub.module_name">{{sub.module_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="milestone">Milestone</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="milestone">
+                        <option *ngFor="let sub of milestone" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="iteration">Iteration</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="iteration">
+                        <option *ngFor="let sub of iteration" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="team">Goal</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="goal">
+                        <option *ngFor="let sub of goal" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="assignee">User Story</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="user_story">
+                        <option *ngFor="let sub of userst" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <!-- <div class="clr-row"> -->
+            <div class="center">
+                <div class="btn-group">
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-1"  (click)="goBack()"/>
+                    <label for="btn-demo-check-1">Cancle</label>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                    <label for="btn-demo-check-2">Submit</label>
+                </div>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  />
+                    <label for="btn-demo-check-2"><clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>Task</label>
+                </div>
+            </div>
+        <!-- </div> -->
+    </form>
+</div>

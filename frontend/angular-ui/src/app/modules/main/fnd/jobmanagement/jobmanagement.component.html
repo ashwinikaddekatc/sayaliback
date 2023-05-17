@@ -1,0 +1,223 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="clock"></clr-icon>  Job</a></li>
+  <li><a href="javascript://">  Job Management</a></li>
+</ol>
+<br>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>SureStream</h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+
+
+      <button id="add"  class="btn btn-primary" *ngIf="mcreate == 'true'" (click)="goToAdd()" >
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+    <!-- <clr-dg-column [clrDgField]="'jobId'" style="width:10px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      JobId
+    </ng-container></clr-dg-column> -->
+    <clr-dg-column [clrDgField]="'jobName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      JobName
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="' jobGroup'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        JobGroup
+   </ng-container> </clr-dg-column >
+    <clr-dg-column [clrDgField]="'jobStatus'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      JobStatus
+    </ng-container></clr-dg-column>
+    <!-- <clr-dg-column [clrDgField]="'jobClass'" style="width:270px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      JobClass
+    </ng-container></clr-dg-column> -->
+    <!-- <clr-dg-column [clrDgField]="'description'" style="width:180px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Description
+    </ng-container></clr-dg-column> -->
+    <!-- <clr-dg-column [clrDgField]="'repeatTime'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      RepeatTime
+    </ng-container></clr-dg-column> -->
+    <clr-dg-column [clrDgField]="'startTime'" style="width:150px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      StartTime
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'cronExpression'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      CronExpression
+    </ng-container></clr-dg-column>
+    <clr-dg-column style="width:170px ;" > <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="bars"></clr-icon> Action
+    </ng-container></clr-dg-column>
+    <!-- <clr-dg-column [clrDgField]="'cronJob'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      CronJob
+    </ng-container></clr-dg-column> -->
+    <!-- <clr-dg-column [clrDgField]="'getApi'" style="width:270px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      GetApi
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'postApi'" style="width:270px ;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      PostApi
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'deleteApi'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      DeleteApi
+    </ng-container></clr-dg-column> -->
+    <clr-dg-row *clrDgItems="let user of data" [clrDgItem]="user" >
+      <!-- <clr-dg-cell>{{user.jobId}}</clr-dg-cell> -->
+      <clr-dg-cell>{{user.jobName}}</clr-dg-cell>
+      <clr-dg-cell>{{user.jobGroup}}</clr-dg-cell>
+      <clr-dg-cell>{{user.jobStatus}}</clr-dg-cell>
+      <!-- <clr-dg-cell>{{user.jobClass}}</clr-dg-cell> -->
+      <!-- <clr-dg-cell>{{user.description}}</clr-dg-cell> -->
+      <!-- <clr-dg-cell>{{user.repeatTime}}</clr-dg-cell> -->
+      <clr-dg-cell>{{user.startTime }}</clr-dg-cell>
+      <clr-dg-cell>{{user.cronExpression}}</clr-dg-cell>
+      <clr-dg-cell>
+        <span style="cursor: pointer; padding-right:10px;"><clr-icon *ngIf="user.jobStatus !== 'SCHEDULED & STARTED'" shape="play" (click)="resume(user)" [disabled]="user.jobStatus == 'SCHEDULED & STARTED'" class="green is-solid" style="color: green;"></clr-icon><clr-icon shape="play" *ngIf="user.jobStatus == 'SCHEDULED & STARTED'"  class="gray is-solid" style="color: gray;"></clr-icon></span>
+        <span *ngIf="user.jobStatus !== 'PAUSED'" style="cursor: pointer; padding-right:10px;"><clr-icon shape="pause" (click)="pause(user)" class="red is-solid" style="color: red;"></clr-icon></span>
+        <span *ngIf="user.jobStatus == 'PAUSED'" style="padding-right:10px;"><clr-icon shape="pause" class="gray is-solid" style="color: gray;"></clr-icon></span>
+        <span style="cursor: pointer; padding-right:10px;"><clr-icon shape="repeat" (click)="runo(user)" class="orange is-solid" style="color: orange;"></clr-icon></span>
+        <span style="cursor: pointer;"><clr-icon shape="trash" *ngIf="mdelete == 'true'" (click)="onDelete(user)" class="red is-error" style="color: red;"></clr-icon></span>
+      </clr-dg-cell>
+      <!-- <clr-dg-cell>{{user.cronJob}}</clr-dg-cell> -->
+      <!-- <clr-dg-cell>{{user.get_api}}</clr-dg-cell>
+      <clr-dg-cell>{{user.post_api}}</clr-dg-cell>
+      <clr-dg-cell>{{user.delete_api}}</clr-dg-cell> -->
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="goTodefination(user.jobId)">Go To Defination<clr-icon shape="edit"></clr-icon></button>
+        <!-- <button class="action-item" (click)="runo(user)">RunOnce<clr-icon shape="replay-one"></clr-icon></button>
+        <button class="action-item" (click)="pause(user)">Pause<clr-icon shape="pause"></clr-icon></button>
+        <button class="action-item" (click)="resume(user)">Resume<clr-icon shape="play"></clr-icon></button> -->
+        <button class="action-item" *ngIf="medit == 'true'" (click)="onEdit(user)">Edit<clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <!-- <button class="action-item" *ngIf="mdelete == 'true'" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button> -->
+        <button class="action-item" (click)="gotoGrid()">Grid Option<clr-icon shape="edit"></clr-icon></button>
+      </clr-dg-action-overflow>
+
+
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Job Management Edit</h3>
+  <div class="modal-body" *ngIf="rowSelected.jobId">
+    <h2 class="heading">{{rowSelected.jobId}}</h2>
+
+    <form (ngSubmit)="onUpdate()">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> Job Name<span class="required-field">*Unique</span> </label>
+        <input class="clr-input"  type="text" name="jobName" [(ngModel)]="rowSelected.jobName" readonly>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">jobGroup<span class="required-field">*Unique</span></label>
+          <input type="text" class="clr-input" name="jobGroup" [(ngModel)]="rowSelected.jobGroup" readonly/>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">repeatTime</label>
+          <input type="text" class="clr-input" name="repeatTime" [(ngModel)]="rowSelected.repeatTime"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">startTime<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="startTime" [(ngModel)]="rowSelected.startTime"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">cronExpression</label>
+          <input type="text" class="clr-input" name="cronExpression" [(ngModel)]="rowSelected.cronExpression"/>
+        </div>
+        <!-- <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">getApi<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="getApi" [(ngModel)]="rowSelected.get_api"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">PostApi<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="postApi" [(ngModel)]="rowSelected.post_api"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">DeleteApi<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="deleteApi" [(ngModel)]="rowSelected.delete_api"/>
+        </div> -->
+      </div>
+      <br>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >UPDATE</button>
+        </div>
+    </form>
+
+  </div>
+</clr-modal>
+
+
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.jobId">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.jobId}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.jobName)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create Job</h3>
+  <div class="modal-body">
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Job Name<span class="required-field">*</span></label>
+          <input type="text" class="clr-input"  formControlName="jobName"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">jobGroup<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" formControlName="jobGroup"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">repeatTime</label>
+          <input type="text" class="clr-input" formControlName="repeatTime"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">startTime<span class="required-field">*</span></label>
+          <input type="datetime-local" class="clr-input" formControlName="startTime"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">cronExpression</label>
+          <input type="text" class="clr-input" formControlName="cronExpression"/>
+        </div>
+        <!-- <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">getApi<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" formControlName="get_api"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">PostApi<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" formControlName="post_api"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">DeleteApi<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" formControlName="delete_api"/>
+        </div> -->
+      </div>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >ADD</button>
+        </div>
+</form>
+  </div>
+</clr-modal>

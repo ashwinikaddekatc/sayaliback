@@ -1,0 +1,153 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="flag"></clr-icon>Projects</a></li>
+  <li><a href="javascript://"> <clr-icon shape="objects"></clr-icon> Repositories</a></li>
+</ol>
+
+
+
+
+
+
+<div>
+
+
+  <ng-template #showInfo>
+      <div class="alert alert-info" role="alert">
+          <div class="alert-items">
+              <div class="alert-item static">
+                  <div class="alert-icon-wrapper">
+                      <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                  </div>
+                  <span class="alert-text">
+                       project apps could be found. Loading..
+                      <clr-spinner [clrMedium]="true">Loading ...</clr-spinner>
+                  </span>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</div>
+
+
+
+  <div *ngIf="repo; else showInfo" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of repo; let index = i" class="clr-col-auto" >
+        <div class="clr-row">
+          <div class="clr-col-lg-12 clr-col-md-4 clr-col-sm-4 clr-col-12" style="width: 410px;">
+              <div class="card" >
+
+
+                  <div class="card-header">
+                      <b class="word" id="word"> Owner/{{app.moduleName}}</b>
+
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 20px;" (click)="addfuture(app.id)"><clr-icon shape="bell"></clr-icon></span>
+                        <span class="tooltip-content"> Futuristic</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" (click)="addwatch(app.id)"><clr-icon shape="eye"></clr-icon></span>
+                        <span class="tooltip-content"> Add to watchlist</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" (click)="addstar(app.id)"> <clr-icon shape="star"></clr-icon></span>
+                        <span class="tooltip-content"> Awesome</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" (click)="addpin(app.id)"><clr-icon shape="pin"></clr-icon></span>
+                        <span class="tooltip-content"> Pin to top</span>
+                      </a>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                        <span style="margin-left: 10px;" id='heart' (click)="addfav(app.id)"> <clr-icon shape="heart"></clr-icon></span>
+                        <span class="tooltip-content"> Add to fav</span>
+                      </a>
+
+                      <div class="dropdown-container" tabindex="-1" style="float: right;margin-top: 5px;">
+                          <div class="three-dots" ></div>
+                          <div class="dropdown">
+                            <a href="javascript://"  ><div class="me" (click)="goToedit(app.id)">Edit</div></a>
+                            <a href="javascript://" ><div class="me" (click)="goToAction(app.id)">Components</div></a>
+                            <a href="javascript://"><div class="me">ReadMe</div></a>
+                            <a href="javascript://"><div class="me">Gallery</div></a>
+                          </div>
+                    </div>
+
+                <div class="card-title1" id="word" >
+                  <b style="font-size: 15px;">{{app.description}}</b>
+                 </div>
+
+                 <div>
+                  <span style="margin-top: 16px;">
+
+                    <span data-v-31ffaada="" class="label label-blue" style="margin-top:5px;">Star
+                      <span data-v-31ffaada="" class="badge badge-blue">99+</span>
+                    </span>
+                    <span data-v-31ffaada="" class="label label-orange">Watching
+                        <span data-v-31ffaada="" class="badge badge-orange">99+</span>
+                    </span>
+                    <span data-v-31ffaada="" class="label label-danger">Futuristic
+                          <span data-v-31ffaada="" class="badge badge-danger">99+</span>
+                    </span>
+
+                  </span>
+                </div>
+                  </div>
+
+
+
+                  <div class="card-block" style="padding-right:0px">
+                      <div class="card-text">
+
+                            <div>
+                              <span class="label label-purple p7 wordwrap" style="margin-top: .4em;"> {{app. moduleName}}</span>
+                              <span class="label label-purple p7 wordwrap" style="margin-top: .4em;"> {{app.description}}</span>
+                              <span class="label label-success p7 wordwrap" style="margin-top: .4em;"> {{app.technologyStack}}</span>
+                            </div>
+                          <!-- <div class="progress-static labeled" style="margin-top: 10px; height: 15px;margin-left: 10px;margin-right: 40px;">
+                            <div class="progress-meter" data-value="80" data-displayval="80%" style="height: 15px;"></div>
+                            <span style="margin-right: 10px;">80%</span>
+                          </div> -->
+                          <div class="radialProgressBar progress-50" style="margin-top: -40px; margin-left: 10px; float:right">
+                            <div class="overlay">50</div>
+                          </div>
+                          <div  style="margin-top:27px ;">
+                            <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                              <span ><clr-icon shape="chat-bubble"></clr-icon></span>
+
+                            </a>
+                            <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                              <span style="margin-left: 70px;"><clr-icon shape="check-circle"></clr-icon></span>
+
+                            </a>
+
+
+
+                                <div class="dropdown2" >
+                                  <span style="margin-left: 70px;"> <clr-icon shape="ci-cd"></clr-icon></span>
+                                  <div class="dropdown-content2">
+                                    <a href="javascript://"  ><div class="me" [routerLink]="['../module1']">sureOps</div></a>
+                                    <a href="javascript://" ><div class="me" [routerLink]="['../module1']">sureGit</div></a>
+                                    <a href="javascript://"><div class="me">sureDokr</div></a>
+                                  </div>
+                                </div>
+
+
+                                <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                                  <span style="margin-left: 70px; margin-right: -28px;"><clr-icon shape="bars"></clr-icon></span>
+
+                                </a>
+                          </div>
+                      </div>
+                  </div>  <!--  card block end -->
+                  <div class="card-footer" style="padding: 6px 18px;">
+                      <button class="btn btn-sm btn-link"> Last Updated On: {{app.updatedAt|date}}</button>
+                  </div> <!-- card footer end -->
+              </div> <!-- card end -->
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+

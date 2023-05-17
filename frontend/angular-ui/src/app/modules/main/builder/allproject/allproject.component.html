@@ -1,0 +1,56 @@
+
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://" > <clr-icon shape="flag"></clr-icon>  Projects</a></li>
+  <li><a href="javascript://" > <clr-icon shape="flag"></clr-icon> All Projects</a></li>
+
+</ol>
+<br>
+
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink class="mypro">My Projects</button>
+    <clr-tab-content *clrIfActive >
+      <br>
+<app-allprojectcard></app-allprojectcard>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button  clrTabLink class="share">Shared with Me</button>
+    <clr-tab-content *clrIfActive>
+      <app-allprojectcard></app-allprojectcard>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink class="archieved">Archieved</button>
+    <clr-tab-content *clrIfActive>
+      <app-allprojectcard></app-allprojectcard>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink class="fav">My Fav</button>
+    <clr-tab-content *clrIfActive>
+      <app-allprojectcard></app-allprojectcard>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab >
+    <button clrTabLink class="temp" >Templates</button>
+    <clr-tab-content  *clrIfActive="true" >
+      <!-- *ngIf="tabname==value *clrIfActive="true"  -->
+      <app-allprojectcard></app-allprojectcard>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Explore</button>
+    <clr-tab-content *clrIfActive>
+      <app-allprojectcard></app-allprojectcard>
+    </clr-tab-content>
+  </clr-tab>
+
+</clr-tabs>
+
+<br>
+
+
+

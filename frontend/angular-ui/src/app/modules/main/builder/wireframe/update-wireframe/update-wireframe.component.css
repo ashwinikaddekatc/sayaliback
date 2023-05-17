@@ -1,0 +1,457 @@
+@import "./bootstrap/bootstrap.min.css";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+/* Tooltip container */
+.col-md-1 {
+  float: left;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+:host ::ng-deep .ck.ck-editor__editable {
+  min-height: 200px;
+}
+
+.bg-primary {
+  background-color: #007bff;
+}
+
+.bg-info {
+  background-color: #17a2b8;
+}
+
+.bg-default {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.bg-Success {
+  background-color: #28a745;
+}
+
+.bg-Danger {
+  background-color: #dc3545;
+}
+
+.bg-Warning {
+  background-color: #ffc107;
+}
+
+.textFieldClass {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-bottom: 10px !important;
+}
+
+.textFieldSizeClass {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  margin-bottom: 10px !important;
+}
+
+.textFieldSizeClass label {
+  width: 25% !important;
+  margin-left: 2px !important;
+}
+
+.textFieldClass label {
+  width: 25% !important;
+  margin-right: 15px !important;
+}
+
+.basicIconList {
+  height: 32px !important;
+  background-color: white !important;
+  padding: 0px !important;
+  box-shadow: 0px 0px 3px 1px #bbbaba !important;
+}
+
+.dragdropfeild {
+  width: 60px !important;
+  height: 40px !important;
+  display: flex !important;
+  border: none !important;
+  background-color: white !important;
+  padding: 0px !important;
+  justify-content: center !important;
+  text-align: center !important;
+  margin-bottom: 3px !important;
+  box-shadow: 0px 0px 3px 1px #bbbaba !important;
+}
+
+.dragdropfeild i {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.topbutton {
+  background-color: #0072a3;
+  color: white;
+  font-family: sans-serif;
+  text-align: center !important;
+  font-weight: normal;
+  padding: 0;
+  width: 130px;
+  font-size: 18px;
+  border-color: none;
+}
+
+.btn-response {
+  background-color: #0072a3;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  color: white;
+  font-family: sans-serif;
+  text-align: center !important;
+  font-weight: normal;
+  padding: 0;
+  width: 130px;
+  font-size: 18px;
+}
+
+.btn-adddata {
+  background-color: #0072a3;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  color: white;
+  font-family: sans-serif;
+  text-align: center !important;
+  font-weight: normal;
+  padding: 0;
+  width: 130px;
+  font-size: 18px;
+}
+
+.btn-preview {
+  background-color: #0072a3;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  color: white;
+  font-family: sans-serif;
+  text-align: center !important;
+  font-weight: normal;
+  padding: 0;
+  width: 130px;
+  font-size: 18px;
+}
+
+.btn-optimize {
+  background-color: #0072a3;
+  margin-bottom: 20px;
+  color: white;
+  font: normal 18px sans-serif !important;
+  text-align: center !important;
+  padding: 0;
+  width: 130px;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.ucfirst {
+  text-transform: capitalize;
+}
+
+.min300 {
+  min-height: 300px;
+}
+
+.app-box {
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 230px;
+  background: #b5e8d4;
+  overflow: hidden;
+  box-shadow: 1px 1px 4px #ccc;
+}
+
+.app-box:hover {
+  box-shadow: 1px 1px 4px #999;
+}
+
+.app-box .remove {
+  position: absolute;
+  right: 21px;
+  top: 0px;
+  color: #545454;
+  display: none;
+}
+
+.app-box:hover .remove {
+  display: block;
+}
+
+.inline-btn {
+  background: #00b970;
+  padding: 1px 5px;
+  color: white;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.box {
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+  box-shadow: 1px 1px 4px #ddd;
+}
+
+.form-group .form-control {
+  font-size: inherit;
+  background-color: inherit;
+}
+
+.dndDropArea {
+  padding-bottom: 15px;
+  border: dotted #ddd 2px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dndDropArea.empty {
+  min-height: 15rem;
+  margin-top: 5px;
+  border: dashed #ddd 2px;
+  background-color: white !important;
+}
+
+.fields {
+  background-color: #e4e1e1;
+}
+
+div {
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
+}
+
+input[type=text], [type=date], [type=email], [type=number], [type=phone], [type=password], [type=datetime-local], textarea, select {
+  background-color: rgb(255, 255, 255) !important;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+.field {
+  position: relative;
+  color: rgb(0, 0, 0);
+}
+
+.field:hover {
+  box-shadow: 1px 1px 4px #ddd;
+}
+
+.toggle-Wrapper {
+  padding: 15px;
+  background: rgba(214, 214, 214, 0.1607843137);
+}
+
+.iconpadding {
+  margin-bottom: -12px !important;
+  margin-top: -0.5px !important;
+}
+
+.dndHandle {
+  cursor: pointer;
+  color: #999;
+}
+
+.dndDraggingSource {
+  opacity: 0.3;
+}
+
+.dndPlaceholder {
+  background-color: black;
+}
+
+.field .fa {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.w-100 {
+  width: 100% !important;
+  float: left;
+}
+
+.w-50 {
+  width: 49% !important;
+  display: inline-block;
+}
+
+.w-33 {
+  width: 32% !important;
+  display: inline-block;
+}
+
+.w-25 {
+  width: 25% !important;
+  display: inline-block;
+}
+
+.red {
+  color: #d9534f;
+}
+
+.fa-trash {
+  color: #d9534f;
+}
+
+.marginT60 {
+  margin-top: 60px;
+}
+
+.color-red {
+  color: red;
+}
+
+.report-block {
+  padding: 10px;
+  background: #f8f8f8;
+  margin-bottom: 20px;
+}
+
+.report-block .row:nth-child(even) {
+  background: #fff;
+}
+
+.ftheme {
+  width: 100%;
+}
+
+.dndDropArea .field .fa {
+  opacity: 0;
+}
+
+.dndDropArea .field:hover .fa {
+  opacity: 1;
+}
+
+.colorpick {
+  height: 25px;
+  background: white;
+  border: none;
+}
+
+.labelPadding {
+  padding-left: 10px;
+  margin-bottom: -12px !important;
+  margin-top: -6px !important;
+}
+
+input.form-control {
+  height: 33px !important;
+}
+
+select.form-control {
+  height: 32px !important;
+}
+
+.textareaheight {
+  height: 98px !important;
+}
+
+input[type=email] {
+  margin-top: -7px;
+}
+
+.colPadding {
+  padding-left: 20px !important;
+  padding-bottom: 5px !important;
+}
+
+.container-fluid {
+  margin: 0% !important;
+  padding: 0% !important;
+}
+
+input[type=radio] {
+  width: 20px;
+  height: 20px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-container > div {
+  margin: 4px;
+}
+
+body {
+  filter: grayscale(100%);
+}
+
+.text {
+  font-weight: 100;
+  font: 1.25em sans-serif;
+  color: hsl(196.2, 100%, 35.7%);
+}
+
+.icon {
+  color: black;
+  font-weight: 900;
+  filter: grayscale(100%);
+}
+
+.tableData {
+  font-size: large;
+  font: 1.5em sans-serif;
+  padding-top: 0% !important;
+  padding-bottom: 0% !important;
+  text-align: center;
+  color: #000;
+}
+
+.grid {
+  color: black;
+  font: 1.5em sans-serif;
+  font-size: large;
+  margin-top: 0.2px !important;
+  padding-left: 10px;
+}
+
+input[type=email] {
+  margin-top: -1px;
+}
+
+input[type=well] {
+  margin-top: -1px;
+}/*# sourceMappingURL=update-wireframe.component.css.map */

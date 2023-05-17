@@ -1,0 +1,380 @@
+<!-- <div class="btn-group" id="center">
+  <div class="checkbox btn">
+    <input type="checkbox" id="btn-demo-check-1" (click)="goTorepo()" checked />
+    <label for="btn-demo-check-1">REPO VIEW</label>
+  </div>
+  <div class="checkbox btn">
+    <input type="checkbox" id="btn-demo-check-2" (click)="goTproject()" />
+    <label for="btn-demo-check-2">PROJECT VIEW</label>
+  </div>
+
+</div> -->
+
+<div style="width:100% ;display: flex;">
+  <h4 style="margin-top: 15px;"> Profile:<ng-template #no> <b>Default-3</b></ng-template>
+    <b *ngIf="selectedProfileName;else no" style="color:#0072a3 ;">{{selectedProfileName}}</b> </h4>
+    <!-- <span class="label label-light-green p7" style="margin-top: .4em; display: inline; cursor: pointer;">switch</span> -->
+  <span  class="label label-light-green p7" style="margin-top: 15px;padding-top: 2px; display: inline; cursor: pointer;margin-left:10px;" (click)="openProfileTable()">switch</span>
+  <button class="btn btn-primary" (click)="buildCheck('build_project')">Build App</button>
+  <ng-template #n1> <button  class="btn btn-danger" (click)="DeleteFile()">Delete Deployment</button></ng-template>
+    <button  *ngIf="fileList==0;else n1" class="btn topbutton" (click)="createFileCheck('create_deployment')">Create Deployment</button>
+    <!-- <button *ngIf="fileList!==0" class="btn btn-danger" (click)="DeleteFile()">Delete Deployment</button> -->
+    <!-- <button  class="btn topbutton" (click)="gotocopymodal()">Create Script</button> -->
+    
+    <!-- <button class="btn btn-primary" (click)="build1()">See Build Details</button> -->
+
+    <button class="btn btn-primary" (click)="deployCheck('deploy_app')">Deploy</button>
+    <!-- <button class="btn btn-primary" (click)="fileedit()">SureFiles</button> -->
+
+
+  </div>
+
+
+
+  <div class="tablem"  id="Div1" >
+    <!-- <table class="table">
+        <thead>
+             <tr>
+               <th></th>
+     <th> <clr-icon shape="container"></clr-icon> Name</th>
+         <th> <clr-icon shape="plugin"></clr-icon> Build Templates</th>
+          <th><clr-icon shape="world"></clr-icon> Open Port</th>
+           <th><clr-icon shape="nodes"></clr-icon> Service Name</th>
+           <th><clr-icon shape="history"></clr-icon> Status</th>
+           <th><clr-icon shape="bars"></clr-icon> Action</th>
+            </tr>
+          </thead>
+             <tbody>
+                <tr>
+                  <td><clr-icon shape="stop"></clr-icon></td>
+                    <td>  Spring Boot Service for Students </td>
+                     <td></td>
+                     <td><clr-icon shape="stop"></clr-icon></td>
+                     <td></td>
+                     <td><clr-icon shape="code"></clr-icon>
+                      <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+                      <clr-icon shape="node"></clr-icon></td>
+                   <td><clr-icon shape="play"></clr-icon>
+                    <span style="padding: 20px;"><clr-icon shape="Settings"></clr-icon></span>
+                    <span style="padding: 10px;"><clr-icon shape="launchpad"></clr-icon></span>
+                    <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+                    <clr-icon shape="lock"></clr-icon></td>
+                    </tr>
+
+
+
+  </tbody> </table> -->
+
+  <clr-datagrid [clrDgLoading]="loading">
+
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'Name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="container"></clr-icon> Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="plugin"></clr-icon> Profile Id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="world"></clr-icon> Open Port
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="nodes"></clr-icon> Service Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="history"></clr-icon> Status
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="link"></clr-icon> action
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      <clr-icon shape="link"></clr-icon> WebUrl
+    </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of fileList" [clrDgItem]="user" >
+      <clr-dg-cell>{{user.name}}</clr-dg-cell>
+      <clr-dg-cell> {{user.profile_id}} </clr-dg-cell>
+      <clr-dg-cell><input type="checkbox" ></clr-dg-cell>
+      <clr-dg-cell>{{user.service_name}}</clr-dg-cell>
+      <!-- <clr-dg-cell style="cursor: pointer;"(click)="webUrl(user.weburl)">{{user.weburl}}</clr-dg-cell> -->
+      <clr-dg-cell><clr-icon shape="code"></clr-icon>
+        <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+        <clr-icon shape="node"></clr-icon></clr-dg-cell>
+      <clr-dg-cell><clr-icon shape="play"></clr-icon>
+
+        <a href="javascript:void(0)" role="tooltip"  aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-right">
+          <span style="padding: 20px;" (click)="modal(user)"><clr-icon shape="Settings"></clr-icon></span>
+           <span class="tooltip-content">Information show</span>
+         </a>
+
+        <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+        <clr-icon shape="lock"></clr-icon></clr-dg-cell>
+        <clr-dg-cell>
+          <a href="javascript:void(0)" role="tooltip"  aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-right">
+          <span style="padding: 10px;cursor: pointer;"><clr-icon shape="pop-out"(click)="webUrl(user.weburl)"></clr-icon></span>
+           <span class="tooltip-content">{{user.weburl}}</span>
+         </a>
+        </clr-dg-cell>
+
+      <clr-dg-action-overflow>
+
+
+        <!-- <button class="action-item" (click)="read(user.id)">Read File</button> -->
+      </clr-dg-action-overflow>
+
+
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+
+
+
+</div>
+
+
+
+
+  <div class="tablem" id="Div2">
+    <table class="table">
+        <thead>
+             <tr>
+               <th></th>
+     <th><clr-icon shape="container"></clr-icon> Name</th>
+         <th> <clr-icon shape="namespace"></clr-icon> Name Space</th>
+          <th><clr-icon shape="world"></clr-icon> URL</th>
+           <th><clr-icon shape="history"></clr-icon> Status</th>
+           <th><clr-icon shape="bars"></clr-icon> Action</th>
+            </tr>
+          </thead>
+             <tbody>
+                <tr>
+                  <td><clr-icon shape="stop"></clr-icon></td>
+                    <td>  Spring Boot Service </td>
+                     <td></td>
+                     <td>Service1,Service2</td>
+
+                     <td><clr-icon shape="code"></clr-icon>
+
+                      <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+                      <clr-icon shape="node"></clr-icon></td>
+                   <td><clr-icon shape="play"></clr-icon>
+                    <span style="padding: 20px;"><clr-icon shape="Settings"></clr-icon></span>
+                    <span style="padding: 10px;"><clr-icon shape="launchpad"></clr-icon></span>
+                    <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+                    <clr-icon shape="lock"></clr-icon></td>
+                    </tr>
+
+
+
+  </tbody> </table> </div>
+
+  <clr-modal [(clrModalOpen)]="devlopmentPrfile" [clrModalSize]="'lg'">
+      <h3 class="modal-title"><b>Select Profile</b></h3>
+      <div class="modal-body">
+        <clr-datagrid [clrDgLoading]="loading">
+          <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+
+          <div *ngIf="errorco;else loadingSpinner">{{errorco}}</div></clr-dg-placeholder>
+          <clr-dg-column [clrDgField]="'id'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                  No
+              </ng-container>
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'profile_name'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                Profile Name
+              </ng-container>
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'end_date'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                  End Date
+              </ng-container>
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'active_flag'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                  Active Flag
+              </ng-container>
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'desc_header_table'">
+              <ng-container *clrDgHideableColumn="{hidden: false}">
+                  Description
+              </ng-container>
+          </clr-dg-column>
+
+          <clr-dg-row  *ngFor="let user of prrofileData;let i = index">
+              <clr-dg-cell>{{i+1}}</clr-dg-cell>
+              <clr-dg-cell  style="color: rgb(108, 108, 194);" (click)="profilename(user)">{{user.profile_name}}</clr-dg-cell>
+              <clr-dg-cell>{{user.end_date}}</clr-dg-cell>
+              <clr-dg-cell>{{user.active_flag}}</clr-dg-cell>
+              <clr-dg-cell>{{user.desc_header_table}}</clr-dg-cell>
+          </clr-dg-row>
+
+          <clr-dg-footer>
+            <clr-dg-pagination #pagination [clrDgPageSize]="10">
+              <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+              of {{pagination.totalItems}} Records
+            </clr-dg-pagination>
+          </clr-dg-footer>
+        </clr-datagrid>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="copydepoyment" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title"> Create New to copy</h3>
+    <div class="modal-body">
+      <form [formGroup]="copyForm" (ngSubmit)="createscript()">
+        <div class="clr-row">
+          <!-- <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="workflow">Project Name</label>
+            <select colspan="2" formControlName="workflow"  class="clr-dropdown" (change)=" workflowmod($event.target.value)">
+                <option *ngFor="let sub of projectsetup;let i=index" [value]="sub.id">{{sub.projectName}}</option>
+            </select>
+        </div> -->
+        <div class="clr-col-md-6 clr-col-sm-12">
+          <label for="workflow">copy_from</label>
+          <input type="text" style="width: 100%;padding: 15px 15px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;
+    border-radius: 4px;box-sizing: border-box;" formControlName="copy_from"  class="clr-input">
+
+      </div>
+
+        <div class="clr-col-md-6 clr-col-sm-12">
+          <label for="workflow">Deployment Profile Name</label>
+          <select colspan="2" formControlName="Deployment_profile"   class="clr-dropdown">
+              <option *ngFor="let profile of alldeploy;let i=index" [value]="profile.id">{{profile.profile_name}}</option>
+          </select>
+      </div>
+
+    <div class="clr-col-md-6 clr-col-sm-12">
+      <label for="workflow">commit_msg</label>
+      <input type="text" style="width: 100%;padding: 15px 15px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;
+border-radius: 4px;box-sizing: border-box;" formControlName="commit_msg"  class="clr-input">
+
+  </div>
+  <div class="clr-col-md-6 clr-col-sm-12">
+    <label for="workflow">Sure_filepath</label>
+    <input type="text" style="width: 100%;padding: 15px 15px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;
+border-radius: 4px;box-sizing: border-box;" formControlName="Sure_filepath"  class="clr-input">
+
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="copydepoyment = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" >Copy</button>
+          </div>
+  </form>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="modalsetting" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Information Show</h3>
+    <div class="modal-body">
+          <form >
+        <div class="clr-row">
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Title</label>
+           <input type="text" class="clr-input"  name="title" [(ngModel)]="selemval.title">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Type</label>
+           <input type="text" class="clr-input" name="type" [(ngModel)]="selemval.type">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="tags">Version</label>
+            <input type="text" class="clr-input" name="version" [(ngModel)]="selemval.version">
+            </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="tags">workflow buildapp </label>
+              <select colspan="2"  name="workflow_buildapp" [(ngModel)]="selemval.workflow_buildapp" class="clr-dropdown" [attr.disabled]="!editable ? '' : null">
+                <option *ngFor="let sub of workflow_data;let i=index" [value]="sub.id">{{sub.workflow_name}}</option>
+              </select >
+              <!-- <input type="text" class="clr-input" name="workflow_buildapp" [(ngModel)]="selemval.workflow_buildapp"> -->
+              </div>
+           <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="tags">workflow deploy </label>
+                <select colspan="2"  name="workflow_deploy" [(ngModel)]="selemval.workflow_deploy" class="clr-dropdown">
+                  <option *ngFor="let sub of workflow_data;let i=index" [value]="sub.id">{{sub.workflow_name}}</option>
+              </select>
+                <!-- <input type="text" class="clr-input" name="workflow_deploy" [(ngModel)]="selemval.workflow_deploy"> -->
+                </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="tags">workflow deployment</label>
+              <select colspan="2"  name="workflow_deployment" [(ngModel)]="selemval.workflow_deployment " class="clr-dropdown">
+                <option *ngFor="let sub of workflow_data;let i=index" [value]="sub.id">{{sub.workflow_name}}</option>
+            </select>
+             <!-- <input type="text" class="clr-input" name="workflow_deployment" [(ngModel)]="selemval.workflow_deployment "> -->
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="tags">workflowbuild deploy</label>
+            <select colspan="2"  name="workflowbuild_deploy" [(ngModel)]="selemval.workflowbuild_deploy " class="clr-dropdown">
+              <option *ngFor="let sub of workflow_data;let i=index" [value]="sub.id">{{sub.workflow_name}}</option>
+          </select>
+           <!-- <input type="text" class="clr-input" name="workflowbuild_deploy" [(ngModel)]="selemval.workflowbuild_deploy "> -->
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">workflowbuild deploy portno</label>
+         <input type="text" class="clr-input" name="workflowbuild_deploy_portno" [(ngModel)]="selemval.workflowbuild_deploy_portno">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+         <label for="tags">open Port</label>
+      <input type="checkbox" clrCheckbox name="openport" [(ngModel)]="selemval.openport">
+
+                </div>
+
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="modalsetting = false">Cancel</button>
+          <!-- <button type="submit" class="btn btn-primary" >ADD</button> -->
+          </div>
+  </form>
+    </div>
+
+  </clr-modal>
+  <clr-modal [(clrModalOpen)]="modalcheckup" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Health Checkup - {{checkData}}</h3>
+    <div class="modal-body">
+      <div class="clr-row">
+      <div class="clr-col-md-4">
+        <table class="table table-noborder">
+        <tr *ngFor="let running of runningServices; let i = index">
+          <td class="td-title">{{running}}</td>
+          <td class="td-content">
+            <ng-container>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>
+            </ng-container>
+          </td>
+        </tr>
+          <tr *ngFor="let notrunning of notRunningServices; let i = index">
+            <td class="td-title">{{notrunning}}</td>
+          <td class="td-content">
+            <ng-container>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+              </svg>
+            </ng-container>
+          </td>
+        </tr>
+      </table>
+      </div>
+      <div class="clr-col-md-6">
+        <br>
+        <span><b>Health status pass:</b> {{passCount}}/{{totalCount}}</span>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <ng-template #n2> <button  class="btn btn-primary" (click)="proceed()">PROCEED</button></ng-template>
+        <button *ngIf="passCount !== totalCount;else n2" type="button" class="btn btn-outline">Create SR</button>
+
+      </div>
+    </div>
+  </clr-modal>

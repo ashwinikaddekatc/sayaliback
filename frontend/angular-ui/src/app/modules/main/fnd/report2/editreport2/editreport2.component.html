@@ -1,0 +1,50 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>UPDATE REPORT </b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span>
+  <hr />
+
+  <!-- entry form-->
+  <form  (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Report Name</label>
+          <input id="report_name" type="text" name="report_name" [(ngModel)]="project.report_name"  placeholder="Enter tags" class="clr-input">
+       </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Description</label>
+        <input id="description" type="text" name="description"  [(ngModel)]="project.description" placeholder="Enter Description" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file">Report Tags</label>
+        <input id="report_tags" type="text" name="report_tags" [(ngModel)]="project.report_tags" placeholder="Enter tags" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label >Service name</label>
+        <select  class="clr-dropdown" [(ngModel)]="project.servicename" name="servicename">
+          <option  value="null">select service name </option>
+          <option *ngFor="let item of list" value={{item}}>{{item}}</option>
+      </select>
+                  <!-- <select name="servicename" [(ngModel)]="project.servicename" class="clr-dropdown">
+                      <option  value="null">select service name </option>
+                      <option *ngFor="let item of list" value={{item}}>{{item}}</option>
+                  </select> -->
+
+
+      </div>
+
+
+    </div> <!-- end row -->
+    <br>
+    <div class="center">
+      <button type="button" (click)="back()" class="btn btn-primary" >BAck</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid" (click)="updatereport()" >Save report</button>
+      <button type="button" (click)="buildReport()" class="btn btn-primary" [disabled]="!entryForm.valid">BUILD REPORT</button>
+
+    </div>
+
+  </form>
+
+</div>

@@ -1,0 +1,27 @@
+<h4 style="font-weight: 300;display: inline;"><b>{{form_name}}</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+{{formdesc}}
+<hr>
+
+<div class="container">
+  <!-- Header form start -->
+
+  <form [formGroup]="entryForm"  (ngSubmit)="onSubmit()">
+      <div class="clr-row" >
+          <div class="clr-col-md-3 clr-col-sm-12" *ngFor="let data of uiData">
+              <label for="form_name">{{data.label}}</label>
+              <input id="form_name" type="{{data.type}}"  formControlName="{{data.mapping}}" placeholder="{{data.drop_values}}"
+                  class="clr-input">
+                  <!-- <textarea *ngIf="data.type===textarea"></textarea> -->
+          </div>
+
+          <div * ngIf="data.type == textarea; else a">
+            <textarea #a></textarea>
+
+          </div>
+      </div> <!-- row end -->
+      <div class="center" *ngIf="button">
+          <button type="submit" class="btn btn-primary">{{button}}</button>
+      </div>
+  </form>
+</div>

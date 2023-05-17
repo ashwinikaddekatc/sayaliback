@@ -1,0 +1,179 @@
+
+
+<div class="btn-group">
+  <button class="btn"><clr-icon shape="eye"></clr-icon>{{surestar.watchers_count}}</button>
+  <button class="btn"> <clr-icon shape="star"></clr-icon> {{surestar.stars_count}}</button>
+  <button class="btn"> <clr-icon shape="export"></clr-icon>  {{surestar.forks_count}}</button>
+  </div>
+
+<div class="btn-group btn-primary btn-icon" id="setting">
+  <span class="setting">
+    <button class="btn">
+      <clr-icon shape="cog"></clr-icon>
+
+    </button>
+  </span>
+</div>
+<br>
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink>Code <clr-icon shape="code"></clr-icon></button>
+    <clr-tab-content *clrIfActive>
+      <div class="main">
+<p>This is a test repo. This repo will be automatically created by CNS builder once a new project will be defined. This description comes from the project description.</p>
+<div class="btn-group" id="btn">
+  <button class="btn"> <clr-icon shape="history"></clr-icon>1  Commit     </button>
+  <button class="btn"><clr-icon shape="tree-view"></clr-icon>1  Branch</button>
+  <button class="btn"> <clr-icon shape="tag"></clr-icon>0  Tag</button>
+  <button class="btn"> <clr-icon shape="storage"></clr-icon> {{surestar.size/1024}}MiB</button>
+</div>
+
+</div>
+<div class="branch">
+<div class="btn-group special">
+<clr-button-group class="btn-primary">
+
+  <clr-button > <clr-icon shape="tree-view"></clr-icon>Branch:Main</clr-button>
+  <clr-button [clrInMenu]="true">Assign</clr-button>
+  <clr-button [clrInMenu]="true">Download</clr-button>
+  <clr-button [clrInMenu]="true">Main</clr-button>
+
+</clr-button-group>
+</div>
+<span class="fitted item" style="font-size:15px;"><span class="ui breadcrumb repo-path"><a class="section" title="project">{{surestar.name}}</a><span *ngIf="main4fol" class="divider">/</span>
+<span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{main4fol}}</a></span><span *ngIf="main3fol" class="divider">/</span>
+<span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{main3fol}}</a></span><span *ngIf="main2fol" class="divider">/</span>
+<span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{main2fol}}</a></span><span *ngIf="mainfol"class="divider">/</span>
+<span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{mainfol}}</a></span>
+<span *ngIf="springfol" class="divider">/</span><span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{springfol}}</a></span>
+<span *ngIf="secondfol" class="divider">/</span><span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{secondfol}}</a></span>
+<span class="divider">/</span><span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{oldfolder}}</a></span><span class="divider">/</span>
+<span class="section"><a href="javascript://" [routerLink]="['./']" title="springboot">{{foldername}}</a></span></span></span>
+</div>
+
+
+
+
+
+
+
+<table class="table">
+
+  <thead>
+    <tr>
+      <th class="left" style="width: 40%;">
+        <img class="ui avatar image" src="assets/images/git.png" title="ganeshris" width="24" height="24">
+        <span style="padding-left: 5px;">    <a href="/ganeshris"><strong>{{name.name}}</strong></a></span>
+        <span style="padding-left: 10px;">
+                <button class="id">{{gitid.substring(0,10)}}</button>
+              </span></th>
+              <th class="left" >{{msg}}</th>
+      <!-- <th class="left" style="color: #4183C4;">This is initial commit by  <button class="basic compact mini ui icon button commit-button" (click)="toggle()"><clr-icon shape="ellipsis-horizontal"></clr-icon></button>
+        <div *ngIf="showme">
+          {{msg}}
+</div>
+      </th> -->
+      <th class="right">{{date| timePipe}}</th>
+    </tr>
+  </thead>
+  <tbody  >
+
+    <tr *ngFor="let user of suregit" (click) = "onclick(user)" >
+      <td class="left" *ngIf="user.type === 'tree'" style="color: #4183C4;"><clr-icon shape="folder"></clr-icon>
+        <a >
+        {{user.path}}</a></td>
+        <td class="left" *ngIf="user.type === 'tree'" style="color: #4183C4;">{{msg}}</td>
+        <td class="right" *ngIf="user.type === 'tree'">
+          {{date| timePipe}}
+        </td>
+    </tr>
+    <tr *ngFor="let user of suregit" (click) = "onclick1(user)">
+      <td class="left" *ngIf="user.type === 'blob'"><clr-icon shape="file"></clr-icon>
+        <a style="color: #4183C4;">
+        {{user.path}}</a></td>
+      <td class="left" *ngIf="user.type === 'blob'" style="color: #4183C4;">{{msg}}</td>
+      <td class="right" *ngIf="user.type === 'blob'">
+        {{date| timePipe}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button  clrTabLink>Activity <clr-icon shape="thumbs-up"></clr-icon></button>
+    <clr-tab-content *clrIfActive>
+      <h2 class="ui">August 12, 2021 - August 19, 2021</h2>
+      <hr>
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th class="left" style="font-size: 15px;"><b>overview</b></th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left">0 Active Pull Requests</td>
+
+
+
+          </tr>
+          <tr>
+            <td class="left">Mytzlplk</td>
+
+
+          </tr>
+
+        </tbody>
+      </table>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink> PullRequest <clr-icon shape="import"></clr-icon></button>
+    <clr-tab-content *clrIfActive>
+      <div class="btn-group">
+        <button class="btn">Labels</button>
+        <button class="btn">Milestones</button>
+        <div style="padding-left: 50px;">
+          <input name="q" value="" placeholder="Search...">
+          <button class=" btn btn-primary" type="submit">Search</button>
+        </div>
+
+        </div>
+<span class=" new">
+          <button class="btn" style="background: lightgreen;"> New Pull Request</button>
+        </span>
+        <hr>
+        <div class="btn-group">
+          <button class="btn"> <clr-icon shape="error-standard"></clr-icon>0 open </button>
+          <button class="btn">0 closed</button>
+          </div>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Releases <clr-icon shape="tag"></clr-icon></button>
+    <clr-tab-content *clrIfActive>
+      <div class="btn-group">
+        <button class="btn"> Realeases</button>
+        <button class="btn"> Tags</button>
+
+        </div>
+        <div class="btn-group btn-primary btn-icon" id="setting">
+          <span class="setting">
+            <button class="btn">
+              New Release
+
+            </button>
+          </span>
+        </div>
+        <hr>
+    </clr-tab-content>
+  </clr-tab>
+
+</clr-tabs>
+

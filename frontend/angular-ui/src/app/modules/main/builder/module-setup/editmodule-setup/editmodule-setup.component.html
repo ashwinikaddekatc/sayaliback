@@ -1,0 +1,149 @@
+<h4 style="font-weight: 500;display: inline;"><b>Repositories</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 100px;">Edit Mode</span>
+
+
+
+<hr>
+
+
+<div class="read-only-pg pad-16">
+
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="moduleName">Repo Name</label>
+        <input id="moduleName" type="text" name="moduleName" placeholder="Enter Module Name"
+          [(ngModel)]="module.moduleName" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Tags</label>
+        <tag-input  name="tags" [(ngModel)]='arrayTag' [separatorKeyCodes]="[32, 188]"></tag-input>
+        <!-- <input id="tags" type="text"  placeholder="Enter Tags Name"
+          class="clr-input">
+          <div>
+            <span class="label label-purple p7" style="margin-top: .4em;">Fruit</span>
+            <span class="label label-light-blue p7" style="margin-top: .4em;">Meat</span>
+            <span class="label label-orange p7" style="margin-top: .4em;">Drink</span>
+            <span class="label label-purple p7" style="margin-top: .4em;">Vegetables</span>
+          </div> -->
+          </div>
+          </div>
+          <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="description">Description (optional)</label>
+                <textarea name="" id="" cols="10" rows="2"    name="description" placeholder="Enter Your Project Description"
+                [(ngModel)]="module.description">
+                </textarea>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 15px;">
+                  <div>
+                    <label for="add"> <b>Add a README file</b>
+                      <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                        <clr-icon shape="info-standard" size="md"></clr-icon>
+                        <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+                      </a>
+                    </label>
+                    <div><input type="checkbox" name="readme" [(ngModel)]="module.readme"></div>
+
+                    </div>
+                  </div>
+    </div>
+    <div style="margin-top: 40px;">
+      <h4 style="display: inline;">  Configurations</h4>
+    </div>
+    These Configurations defaults From Projectsetup,however you can change as required.
+    <hr>
+    <div class="clr-row">
+      <div class="clr-col-md-3 clr-col-sm-12">
+        <label for="technologyStack">Technology Stack</label>
+        <select id="techStackId" name="tech_stack_id" [(ngModel)]="module.technologyStack" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts.id">{{ts.tech_stack }}
+          </option>
+        </select>
+      </div>
+      <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+        <button  class="btn btn-icon btn-primary" >
+          <clr-icon shape="view-list"></clr-icon>
+        </button>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Repo Prefix</label>
+        <input type="text"  placeholder="Enter A Prefix" class="clr-input" name="modulePrefix"
+        [(ngModel)]="module.modulePrefix" >
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Default Database Name</label>
+        <input type="text"  placeholder="Enter Database Name" class="clr-input" name="dbName" [(ngModel)]="module.dbName">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Default Database Username</label>
+        <input type="text"  placeholder="Enter Database Username" class="clr-input" name="dbUserName" [(ngModel)]="module.dbUserName">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">Default Database Password</label>
+        <input type="text"  placeholder="Enter Database Password" class="clr-input" name="dbPassword" [(ngModel)]="module.dbPassword">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Default Port Number</label>
+        <input colspan="2" type="text"  readonly class="clr-input" name="portNumber" [(ngModel)]="module.portNumber">
+
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h4 style="display: inline;"> Deployment Configurations</h4>
+    </div>
+     These Configurations defaults From Projectsetup,however you can change as required.
+    <hr>
+    <div class="clr-row">
+
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <div>
+              <label for="add"> Miceroservice
+                <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                  <clr-icon shape="info-standard" size="md"></clr-icon>
+                  <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+                </a>
+              </label>
+              <div><input type="checkbox" name="microservice" [(ngModel)]="module.microservice"></div>
+              </div>
+              </div>
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <div>
+                  <label for="add"> Portal deployment
+                    <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                      <clr-icon shape="info-standard" size="md"></clr-icon>
+                      <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+                    </a>
+                  </label>
+                  <div><input type="checkbox" name="portaldeployment" [(ngModel)]="module.portaldeployment"></div>
+                  </div></div>
+
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="technologyStack">Parent Repo</label>
+                    <select  selected="null" class="clr-dropdown" name=" parentrepo" [(ngModel)]="module.parentrepo">
+                      <option value="null">Select A Repo</option>
+                      <option *ngFor="let sub of modules" [value]="sub.moduleName">{{sub.moduleName}}
+                      </option>
+                    </select>
+                  </div>
+    </div>
+
+    <br>
+
+    <br>
+    <div class="center">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+  </form>
+</div>

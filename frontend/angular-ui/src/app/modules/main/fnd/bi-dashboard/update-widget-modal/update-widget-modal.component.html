@@ -1,0 +1,93 @@
+<div class="container">
+  <h3 CLASS="center"><b>Define Widgets </b></h3>
+  <br />
+
+  <!-- update form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+
+    <div *ngIf="name == 'widget1'" class="center">
+       <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="chart_type">Widgets</label>
+          <select id="widgets1" [(ngModel)]="rn_widgets.widgets1" formControlName="widgets1" name="widgets1"  selected="null" class="clr-dropdown">
+            <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <select hidden id="widgets2" [(ngModel)]="rn_widgets.widgets2" formControlName="widgets2" name="widgets2"  selected="null" class="clr-dropdown">
+              <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+            </select>
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <select hidden id="widgets3" [(ngModel)]="rn_widgets.widgets3" formControlName="widgets3" name="widgets3"  selected="null" class="clr-dropdown">
+                <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+              </select>
+          </div>
+
+    </div>
+    <div *ngIf="name == 'widget2'" class="center">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <select hidden id="widgets1" [(ngModel)]="rn_widgets.widgets1" formControlName="widgets1" name="widgets1"  selected="null" class="clr-dropdown">
+              <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+            </select>
+          </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="chart_type">Widgets</label>
+          <select id="widgets2" [(ngModel)]="rn_widgets.widgets2" formControlName="widgets2" name="widgets2"  selected="null" class="clr-dropdown">
+            <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <select hidden id="widgets3" [(ngModel)]="rn_widgets.widgets3" formControlName="widgets3" name="widgets3"  selected="null" class="clr-dropdown">
+              <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div *ngIf="name == 'widget3'" class="center">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <select hidden id="widgets1" [(ngModel)]="rn_widgets.widgets1" formControlName="widgets1" name="widgets1"  selected="null" class="clr-dropdown">
+              <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+            </select>
+          </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+
+          <select hidden id="widgets2" [(ngModel)]="rn_widgets.widgets2" formControlName="widgets2" name="widgets2"  selected="null" class="clr-dropdown">
+            <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="chart_type">Widgets</label>
+            <select  id="widgets3" [(ngModel)]="rn_widgets.widgets3" formControlName="widgets3" name="widgets3"  selected="null" class="clr-dropdown">
+              <option *ngFor="let project of widgetList" [ngValue]="project.name">{{ project.name }}</option>
+            </select>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="chart_type">Widgets</label>
+      <select id="{{name}}" formControlName="{{name}}" name="widgets2"  selected="null" class="clr-dropdown">
+        <option *ngFor="let project of widgetList" [value]="project.name">{{ project.name }}</option>
+      </select>
+    </div> -->
+
+
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" >CREATE</button>
+    </div>
+  </form>
+
+</div>

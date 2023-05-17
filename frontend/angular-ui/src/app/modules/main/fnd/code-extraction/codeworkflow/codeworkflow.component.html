@@ -1,0 +1,130 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="code"></clr-icon> Code Extractor</a></li>
+  <li><a href="javascript://"> <clr-icon shape="code"></clr-icon> Code Extractor Workflow</a></li>
+</ol>
+<br>
+
+
+
+
+
+<div class="button-bar">
+
+  <span class="spacer"></span>
+  <button class="btn btn-sm btn-primary" (click)="reset()">Reset</button>
+
+  <button class="btn btn-sm btn-primary" (click)="changeToHorizonTal()" *ngIf="layout.direction === 'vertical'">HorizonTal Layout</button>
+  <button class="btn btn-sm btn-primary" (click)="changeToVertical()" *ngIf="layout.direction === 'horizontal'">Vertical Layout</button>
+
+</div>
+
+<div class="clr-row" >
+  <div [class]="layout.block1" >
+    <div class="card">
+      <div class="card-header">
+        <h3 style="text-align: center;"> Code Extractor</h3>
+        <div class="clr-col-12" style="text-align: right;">
+          <button id="add" class="btn btn-primary">
+           code Editor
+          </button>
+        </div>
+      </div>
+
+      <div class=" card-block container">
+
+        <clr-timeline [clrLayout]="layout.direction" >
+          <clr-timeline-step [clrState]="timelineStyle.step0.state">
+            <clr-timeline-step-header>Step 0</clr-timeline-step-header>
+            <clr-timeline-step-title><span>Edit Parameters</span> </clr-timeline-step-title>
+            <clr-timeline-step-description class="clr-row">
+              <span><button type="button" class="btn btn-primary" (click)=" this.timelineStyle.step0 ={state:'current',open:false,failed: false };this.timelineStyle.step1 ={state:'not-started',open:true,failed: false }">Next</button>
+              </span>
+              <span><button type="button" class="btn  btn-primary"(click)=" this.timelineStyle.step0 ={ state: 'success', open: false,failed: false  };this.timelineStyle.step1 ={ state: 'current', open: true,failed: false  };  this.current()" >Complete</button>
+              </span>
+            </clr-timeline-step-description>
+
+
+          </clr-timeline-step>
+          <clr-timeline-step class="gemini-ignore" [clrState]="timelineStyle.step1.state">
+                        <clr-timeline-step-header>Step 1</clr-timeline-step-header>
+            <clr-timeline-step-title> <span> Static Extraction</span></clr-timeline-step-title>
+            <clr-timeline-step-description class="clr-row">
+              <span> <button class="btn btn-primary-outline" (click)="this.timelineStyle.step0 ={ state: 'success', open: true,failed: false  };this.timelineStyle.step1 ={ state: 'not-started', open: false,failed: false  };">Back</button>
+              </span>
+              <span> <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step1 ={state:'not-started',open:false,failed: false };this.timelineStyle.step2 ={state:'not-started',open:true,failed: false }">Next</button>
+              </span>
+              <span><button type="button" class="btn  btn-primary" (click)="this.timelineStyle.step1 ={ state: 'success', open: false,failed: false  };this.timelineStyle.step2 ={ state: 'current', open: true, failed: false }; this.current()">Complete</button>
+              </span>
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step  [clrState]="timelineStyle.step2.state" >
+            <clr-timeline-step-header>Step 2</clr-timeline-step-header>
+            <clr-timeline-step-title><span>Build Master Builder</span></clr-timeline-step-title>
+            <clr-timeline-step-description class="clr-row">
+              <span><button class="btn btn-primary-outline" (click)="this.timelineStyle.step1 ={ state: 'success', open: true,failed: false  };this.timelineStyle.step2 ={ state: 'not-started', open: false,failed: false  };">Back</button>
+              </span>
+
+              <span> <button type="button" class="btn  btn-primary"(click)="this.timelineStyle.step2 ={ state: 'success', open: false,failed: false  }; this.current()">Complete</button>
+              </span>
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+
+        </clr-timeline>
+        <!-- <ul class="clr-timeline clr-timeline-horizontal ">
+          <li class="clr-timeline-step disabled">
+            <div class="clr-timeline-step-header">Step 0</div>
+            <clr-icon shape="dot-circle" aria-current="true" aria-label="Current"></clr-icon>
+            <div class="clr-timeline-step-body">
+              <span class="clr-timeline-step-title">Edit Parameters</span>
+
+              <span class="clr-timeline-step-description clr-row"><span><button type="button" class="btn  btn-primary" (click)="this.timelineStyle.step1 ={ state: 'success', open: false };this.timelineStyle.step2 ={ state: 'current', open: true }; this.current()">Complete</button>
+              </span>
+              <span> <button class="btn btn-primary-outline" (click)="this.timelineStyle.step0 ={ state: 'success', open: true };this.timelineStyle.step1 ={ state: 'not-started', open: false };">Back</button>
+              </span>
+              <span> <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step1 ={state:'not-started',open:false};this.timelineStyle.step2 ={state:'not-started',open:true}">Next</button>
+              </span>
+            </span>
+            </div>
+          </li>
+          <li class="clr-timeline-step disabled">
+              <div class="clr-timeline-step-header">Step 1</div>
+              <clr-icon shape="circle" aria-label="Not started"></clr-icon>
+              <div class="clr-timeline-step-body">
+                <span class="clr-timeline-step-title">Static Extraction</span>
+                <span class="clr-timeline-step-description clr-row"><span><button type="button" class="btn  btn-primary" (click)="this.timelineStyle.step1 ={ state: 'success', open: false };this.timelineStyle.step2 ={ state: 'current', open: true }; ">Complete</button>
+                </span>
+                <span> <button class="btn btn-primary-outline" (click)="this.timelineStyle.step0 ={ state: 'success', open: true };this.timelineStyle.step1 ={ state: 'not-started', open: false };">Back</button>
+                </span>
+                <span> <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step1 ={state:'not-started',open:false};this.timelineStyle.step2 ={state:'not-started',open:true}">Next</button>
+                </span>
+              </span>
+
+              </div>
+            </li>
+          <li class="clr-timeline-step">
+              <div class="clr-timeline-step-header">Step 2</div>
+              <clr-icon shape="circle" aria-label="Not started"></clr-icon>
+              <div class="clr-timeline-step-body">
+                <span class="clr-timeline-step-title">Build Master Builder</span>
+                <span class="clr-timeline-step-description clr-row"><span><button type="button" class="btn  btn-primary" (click)="this.timelineStyle.step1 ={ state: 'success', open: false };this.timelineStyle.step2 ={ state: 'current', open: true }; ">Complete</button>
+                </span>
+                <span> <button class="btn btn-primary-outline" (click)="this.timelineStyle.step0 ={ state: 'success', open: true };this.timelineStyle.step1 ={ state: 'not-started', open: false };">Back</button>
+                </span>
+                <span> <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step1 ={state:'not-started',open:false};this.timelineStyle.step2 ={state:'not-started',open:true}">Next</button>
+                </span>
+              </span>
+
+              </div>
+          </li>
+
+          </ul> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

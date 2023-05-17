@@ -1,0 +1,86 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="view-columns"></clr-icon>  Sureboard</a></li>
+  <li><a href="javascript://"> <clr-icon shape="flag"></clr-icon>  User Story</a></li>
+</ol>
+<br>
+
+<div class="dg-wrapper">
+  <div>
+      <b>PROJECT NAME</b>&nbsp;
+      <span class="label label-light-green p7" style="margin-top: .4em; display: inline; cursor: pointer;">switch</span>
+  </div>
+  <div class="clr-row">
+      <div class="clr-col-8">
+        <h3> User Story </h3>
+      </div>
+
+      <div class="clr-col-4" style="text-align: right;">
+        <button class="btn btn-outline" >
+          <clr-icon shape="export"></clr-icon> xlsx
+        </button>
+        <button id="add" class="btn btn-primary" *ngIf="mcreate == 'true'"  (click)="goToAdd()">
+          <clr-icon shape="plus"></clr-icon>ADD
+        </button>
+      </div>
+  </div>
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+      <clr-dg-placeholder>
+        <ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+        <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+      <!-- <clr-dg-placeholder>data not found!</clr-dg-placeholder> -->
+      <!-- Column Name -->
+      <clr-dg-column>
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+          Rule Name
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-column>
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Description
+          </ng-container>
+      </clr-dg-column>
+
+      <!-- Row data -->
+      <clr-dg-row *clrDgItems="let user of alldata" [clrDgItem] >
+        <clr-dg-cell>{{user.name}}</clr-dg-cell>
+        <clr-dg-cell>{{user.description}}</clr-dg-cell>
+
+          <clr-dg-action-overflow>
+              <button class="action-item" *ngIf="medit == 'true'" (click)="gotoEdit(user.id)">Edit<clr-icon shape="edit" class="is-error"></clr-icon></button>
+              <button class="action-item" *ngIf="mdelete == 'true'" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+          </clr-dg-action-overflow>
+          <clr-dg-row-detail *clrIfExpanded>
+            <table class="table">
+              <tr>
+                <td class="td-title"> Name: </td>
+                <td class="td-content">{{user.name}}</td>
+              </tr>
+              </table>
+          </clr-dg-row-detail>
+
+      </clr-dg-row>
+
+
+      <!-- Pagination -->
+      <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+              <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+              of {{pagination.totalItems}} users
+          </clr-dg-pagination>
+      </clr-dg-footer>
+  </clr-datagrid>
+</div>
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>

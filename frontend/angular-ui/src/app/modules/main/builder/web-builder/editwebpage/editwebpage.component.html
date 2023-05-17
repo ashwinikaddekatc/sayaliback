@@ -1,0 +1,189 @@
+<div style="display: inline;">
+  <button class="btn componentbtn" (click)="toggleMenu()"><clr-icon shape="plus"></clr-icon>component</button>
+  <div style="display: inline;">
+      {{dashboardName}}
+  </div>
+</div>
+
+<div class="content-container">
+<nav class="sidenav" *ngIf="toggle">
+  <ul class="nav-list" style="list-style-type: none;">
+    <li *ngFor="let widget of WidgetsMock">
+
+      <!--
+        Draggable widget from store using vanilla javascript event (dragstart)
+        onDrag() is call, it take $event and a widget identifier as parameters
+      -->
+      <a draggable="true" class="nav-link" (dragstart)="onDrag($event, widget.identifier)">
+        <clr-icon shape="drag-handle" style="margin-right: 10px;"></clr-icon>
+          {{ widget.name }}
+        <clr-icon shape="plugin" class="has-badge"></clr-icon>
+      </a>
+    </li>
+  </ul>
+</nav>
+<div [ngClass]="getPageSize(pagesize)">
+      <gridster [options]="options" (drop)="onDrop($event)" style="background-color: transparent;">
+    <gridster-item [item]="item" *ngFor="let item of dashboardArray" (click)="onClick(item)">
+
+      <!-- <div class="btnList" *ngIf="!switchbtn"> -->
+        <div [hidden]="!hideme[item.chartid]" class="itemActions">
+        <span  (click)="removeItem(item)" style="height:22px; width:22px; margin-left: 10px; margin-top: 10px; cursor: pointer;">
+             <clr-icon shape="trash" style="fill: red"></clr-icon>
+        </span>
+         <span class=" drag-handler"  style="height:22px; width:22px; margin-left: 10px; margin-top: 10px; cursor: pointer;">
+             <clr-icon shape="drag-handle" style="fill: blue"></clr-icon>
+         </span>
+         <span   (click)="editGadget(item)" style="height:22px;margin-left: 10px; margin-top: 10px;margin-top: 10px; width:22px; cursor: pointer;">
+             <clr-icon shape="pencil" style="fill: blue"></clr-icon>
+         </span>
+     </div>
+
+
+
+     <div style="display: block" *ngIf="!item.attachmentImgname && item.chartid == 6" >
+      <img  src="/assets/images/icon/cradiant.png" style="width:100% ;">
+    </div>
+     <div style="display: block" *ngIf="item.attachmentImgname && item.chartid == 6" >
+      {{item.attachmentImgname | json}}
+      <!-- <img  src="/assets/images/{{profilePic1}}" style="width:100% ;"> -->
+    </div>
+
+        <!-- <span *ngIf="item.chartid == 2" style="background-color: white; border: 1px solid #ced4da;" [innerHTML]="item.PageContent"></span> -->
+        <!-- <ckeditor [(ngModel)]="item.editordata"
+          #myckeditor="ngModel"
+          name="myckeditor"
+          required
+          [config]="ckeConfigs"
+          debounce="500"
+          (change)="onChange($event)">
+    </ckeditor> -->
+        <!-- <p class="form-text" style=" margin-top: 0px; margin-left: 15px;">{{item.description}}</p> -->
+
+      <ndc-dynamic class="no-drag" [ndcDynamicComponent]="item.component" (click)="editGadget(item)" (moduleInfo)="display($event)"></ndc-dynamic>
+    </gridster-item>
+  </gridster>
+  </div>
+</div>
+<div style="text-align: center;">
+  <button type="submit" class="btn btn-primary btn-adddata " (click)="UpdateLine()" >
+      <b>Update</b>
+  </button>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modeledit"  [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+<h3 class="modal-title">Edit Form</h3>
+<div class="modal-body" >
+  <form *ngIf="editdata" >
+    {{editdata | json}}
+    <!-- <form [formGroup]="entryForm" (ngSubmit)="onSubmit(modelid)" class="clr-form-horizontal" > -->
+      <!-- <span (click)="removeItem(editdata)" class="action-item"><clr-icon shape="trash" class="is-error" style="margin-right: 15px;margin-top: 0px;cursor: pointer; float: right;"></clr-icon></span>
+      <br> -->
+      <div class="clr-row" *ngIf="editdata.chartid == 2">
+        <div class="clr-col-sm-12">
+          <label for="textname">Name</label>
+          <input type="text" name="textname" [(ngModel)]="editdata.textname">
+        </div>
+        <div class="clr-col-sm-12">
+          <!-- <ckeditor #myEditor formControlName="editordata" [editor]="Editor" [config]="Config" (ready)="onReady($event)" (change)="onChange($event)" [(ngModel)]="editdata.editordata"></ckeditor> -->
+          <ckeditor [(ngModel)]="editdata.content" #PageContent="ngModel" name="PageContent" required [config]="ckeConfig" debounce="500"></ckeditor>
+        </div>
+      </div>
+
+      <div class="clr-row" *ngIf="editdata.chartid == 6">
+          <div class="clr-col-sm-12">
+            <label for="attachmentImgname">Image</label>
+            <input type="file"  name="attachmentImgname" (change)="onSelectFile($event)" [(ngModel)]="editdata.attachmentImgname"  accept="image/*">
+          </div>
+          <div class="clr-col-sm-12">
+            <label for="textname">Name</label>
+            <input type="text" name="textname1" [(ngModel)]="editdata.textname1">
+          </div>
+      </div>
+
+      <!-- <div class="clr-row" *ngIf="editdata.chartid == 3">
+        <div class="clr-col-sm-12">
+          <table class="table table-bordered">
+            <thead>
+              <th style="text-align: center;">val1</th>
+              <th style="text-align: center;">val2</th>
+              <th style="text-align: center;">val3</th>
+              <th style="text-align: center;">Action</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of editdata.values; let valueIndex=index;">
+                <td><input class="clr-input" type="text" [(ngModel)]="i.val1" /></td>
+                <td><input class="clr-input" type="text" [(ngModel)]="i.val2" /></td>
+                <td><input class="clr-input" type="text" [(ngModel)]="i.val3" /></td>
+                <td><label  (click)="item.values.splice(valueIndex,1)"><clr-icon shape="minus-circle"></clr-icon></label></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <button class="btn btn-primary pull-left" (click)="addvalues(item.values)"><clr-icon shape="plus-circle"></clr-icon></button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div> -->
+
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="cancelModel()">Cancel</button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit(modelid)">save</button>
+      </div>
+
+    </form>
+  </div>
+</clr-modal>
+
+
+<!-- <clr-modal [(clrModalOpen)]="modeledit2"  [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Edit Form</h3>
+  <div class="modal-body" >
+
+      <form  [formGroup]="entryForm" (ngSubmit)="onSubmit2(modelid)" class="clr-form-horizontal" >
+        {{editdata | json}}
+
+
+        <div class="clr-row" >
+          <div class="clr-col-sm-12">
+            <table class="table table-bordered">
+              <thead>
+                  <tr>
+                    <th>No</th>
+                    <th> A</th>
+                    <th>B</th>
+                    <th>Cancel</th>
+                  </tr>
+              </thead>
+              <tbody >
+                  <tr *ngFor="let attach of editdata1; let i=index" [formGroupName]="i">
+                    <td style="width: 50px;"><input type="text" class="clr-input" formControlName="attachmentId" value={{i+1}} [readonly]="true">  </td>
+                    <td><input type="text" formControlName="a" [(ngModel)]="attach.a"></td>
+                    <td > <input type="text" formControlName="b" [(ngModel)]="attach.b"></td>
+                    <td>
+                        <a  (click)="onRemoveLines1(i)">
+                          <clr-icon shape="trash" class="is-error"></clr-icon>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+                <button type="button" class="btn btn-primary button1" style="margin-left: 20px;" (click)="onAddLines()">
+                  <clr-icon shape="plus"></clr-icon>
+                </button>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="modeledit2 = false">Cancel</button>
+            <button type="submit" class="btn btn-primary">save</button>
+        </div>
+
+      </form>
+    </div>
+  </clr-modal> -->
+

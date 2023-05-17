@@ -1,0 +1,39 @@
+#Div2 {
+  display: none;
+}
+.topbutton{
+  color: white;
+  background-color: #03AC13;
+  border: none;
+}
+select{
+  width: 100%;
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+input[type=text],[type=date],textarea {
+  width: 100%;
+  padding: 15px 15px;
+  background-color:rgb(255, 255, 255);
+ // margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.td-title {
+  text-align: left;
+// color: white;
+  font-weight: bold;
+  // background-color: rgba(63, 122, 231, 0.863);
+  //color: rgb(24, 13, 13);
+}
+th{
+  // background-color:rgb(170, 169, 169);
+  font-weight: bold;
+}
+.td-content{
+  text-align: left;
+  // font-weight: bold;
+}

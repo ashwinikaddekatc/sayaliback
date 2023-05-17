@@ -1,0 +1,49 @@
+.td-title {
+  text-align: right;
+  width: 150px;
+  font-weight: bold;
+  background-color: rgba(63, 122, 231, 0.863);
+  color: white;
+}
+
+.td-content {
+  text-align: left;
+}
+
+.delete, .heading {
+  text-align: center;
+  color: red;
+}
+
+#Div2 {
+  display: none;
+}
+
+h4 {
+  margin-top: 16px;
+}
+
+.s-order-dash-pg {
+  margin: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.s-order-dash-pg .chart-box {
+  margin: 16px;
+  padding: 0 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+#word1 {
+  width: 190px;
+  height: 180px;
+}
+
+.center {
+  text-align: center;
+  margin-top: 5px;
+}/*# sourceMappingURL=allmodule-setup.component.css.map */

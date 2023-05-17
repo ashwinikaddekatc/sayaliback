@@ -1,0 +1,287 @@
+<h4 style="font-weight: 300;display: inline;"><b>Create User Story</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+A Goal(Epic) is a collection of Tasks/Issues, it can be referred to as a sub-function or enhancement
+<hr>
+
+<div class="container">
+    <form [formGroup]="entryForm">
+        <div class="formdiv" style="float:left; width: 69%;">
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" formControlName="name" class="clr-input" placeholder="enter Project Name">
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="priority">Priority</label>
+                    <select colspan="2" formControlName="priority" class="clr-dropdown">
+                        <option>level</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="description">Description(optional)</label>
+                    <textarea id="" cols="10" rows="2" formControlName="description" placeholder="Enter Description"></textarea>
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="basedversion">Based On Version</label>
+                    <select colspan="2" formControlName="based_on_version" class="clr-dropdown">
+                        <option>version 1</option>
+                    </select>
+
+                    <div>
+                        <label for="affectsversion">Affects Version</label>
+                        <input type="checkbox" formControlName="affects_version" clrToggle value="affectsversion" name="affectsversion" />
+                    </div>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="tags">Tags</label>
+                    <tag-input formControlName="tags" name="tags" [(ngModel)]='tags' [separatorKeyCodes]="[32, 188]"></tag-input>
+                    <!-- <input type="text" formControlNmae="tags" placeholder="enter tags" class="clr-input" id="tags"> -->
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                  <label for="description">Status:</label>
+                  <input type="text" placeholder="NotStarted" formControlName="status" value="NotStarted" class="clr-input">
+                </div>
+            </div>
+            <div class="clr-row">
+
+    </div>
+            <div class="clr-row">
+                <div class="clr-col-12"><br>
+                   <span> List Of attachment(s)</span>
+                    <table class="table" formArrayName="pm_User_Uploads">
+                        <thead>
+                        <tr>
+                            <th >No</th>
+                            <th>File Name</th>
+                            <th>External</th>
+                            <th>Cancel</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let attach of controls; let i=index" [formGroupName]="i">
+                            <td style="width: 70px;"><input type="text" class="clr-input" formControlName="attachmentId" value={{i+1}} [readonly]="true">  </td>
+                            <td> <input type="file" id="myFile" formControlName="attachmentFilename" (change)="onFileChanged($event)" accept=".pdf,.doc,.docx,.jpg,.msg"></td>
+                            <td style="width:40px;"><input type="checkbox"> </td>
+                            <td> <a  (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                        </tr>
+
+                                    <button class="btn btn-primary" (click)="onAddLines()">
+                                        <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+                                    </button>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <table class="table" id="read">
+                        <thead>
+                        <tr>
+                            <th class="left"> <clr-icon shape="file"></clr-icon>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="left">
+                                   <h3> <b>GOALS</b></h3>
+                                    <p>Create something a fully polished update to production<br>
+                                        Discovery of decisions,patterns,etc...to inform next steps // chance to iterate on patterns (but not necessarily establish<br/>
+                                        final patterns)
+                                    </p>
+                                    <h3><b>OUT OF SCOPE</b></h3>
+                                    <p>Ultimate page is out of scope <br>
+                                        Minor doc is out od scope
+                                    </p>
+                                    <h3><b>NARATIVE</b></h3>
+                                    <p>Why GraphQL is the right decision <br>
+                                        Dev Velocity >> We have a problem with FE dev velocity .. this project solves it<br>
+                                        We have to do this .. we started this months ago with React migration<br>
+                                        This sets us up well for the future state
+                                    </p>
+                                    <h3><b>RISKS/UNKNOWNS</b></h3>
+                                    <p>Are we willing to change our UX patterns?<br>
+                                        DO we have the bandwidth to research these big changes?<br>
+                                        <br>React migration is incomplete<br><br>
+                                        Increased BE complexity (maintaining REST and GraphQL API)<br>
+                                        Resulting migration is incomplete<br><br>
+                                        Are we ready to continue in dev efficiency, decrease in reliability of BE services(ex validation logic)<br><br>
+                                        For a full migration, we will want to create a focused working group
+                                    </p>
+                                    <h3><b>NOTES</b></h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="progressform" style="float:right; width: 29%;">
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-block">
+                            <div class="card-text">
+
+                                    <div class="radialProgressBar progress-80" style="margin-top: 0px; margin-left: 10px; float:left">
+                                        <div class="overlay">80</div>
+                                    </div>
+                                    <div class="centercard"></div>
+                                    <div >
+
+                                            <span>Total Tasks :</span><b>49</b>
+                                            <br>
+                                            <span>Story Points :</span><b>135</b>
+                                            <br>
+                                            Time<br>
+                                           <span><clr-icon shape="alarm-clock"></clr-icon>
+                                            <div class="progress-static labeled" style="margin-top: 10px; height: 15px;margin-left: 10px;margin-right: 40px;">
+                                                <div class="progress-meter" data-value="100" data-displayval="100%" style="height: 15px;"></div>
+                                                <span style="margin-right: 2px;">100%</span>
+                                              </div></span>
+
+                                    </div>
+                                <div>
+                                    <h5>Watching</h5>
+                                    <span style="margin-top: 5px;">
+                                        <span class="label label-light-blue" style="display: inline;">angular</span>
+                                        <span class="label label-light-purple " style="display: inline;">1</span>
+                                        <span class="label label-light-purple " style="display: inline;">oracle</span>
+                                        <span class="label label-light-purple " style="display: inline;">oracle</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-sm-12">
+                    <label for="project">Project</label>
+                    <select colspan="2" formControlName="project" class="clr-dropdown" (change)="modo($event.target.value)">
+                        <option *ngFor="let sub of project" [value]="sub.id">{{sub.project_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="repository">Repository</label>
+                    <select colspan="2" formControlName="repository" class="clr-dropdown">
+                        <option *ngFor="let sub of repo" [value]="sub.module_name">{{sub.module_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="milestone">Milestone</label>
+                    <select colspan="2" formControlName="milestone" class="clr-dropdown">
+                        <option *ngFor="let sub of milestone" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="iteration">Iteration</label>
+                    <select colspan="2" formControlName="iteration" class="clr-dropdown">
+                        <option *ngFor="let sub of iteration" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                  <label for="iteration">Goal</label>
+                  <select colspan="2" formControlName="goal" class="clr-dropdown">
+                      <option *ngFor="let sub of goal" [value]="sub.name">{{sub.name}}
+                      </option>
+                  </select>
+              </div>
+                <div class="clr-col-sm-12">
+                    <label for="team">Team</label>
+                    <select colspan="2" formControlName="team" class="clr-dropdown">
+                        <option  *ngFor="let sub of team" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="assignee">Assignee</label>
+                    <select colspan="2" formControlName="assignee" class="clr-dropdown">
+                        <option *ngFor="let sub of asign" [value]="sub.fullName">{{sub.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="reportto">Report To</label>
+                    <select colspan="2" formControlName="report_to" class="clr-dropdown">
+                        <option *ngFor="let sub of report" [value]="sub.fullName">{{sub.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="requestor">Requestor (SPOC)</label>
+                    <select colspan="2" formControlName="requestor" class="clr-dropdown">
+                        <option *ngFor="let sub of requestor" [value]="sub.fullName">{{sub.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="owner">Owner</label>
+                    <select colspan="2" formControlName="owner" class="clr-dropdown">
+                        <option *ngFor="let sub of owner" [value]="sub.fullName">{{sub.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="type">Type</label>
+                    <select colspan="2" formControlName="type" class="clr-dropdown">
+                        <option *ngFor="let sub of type" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="starttime">Start Time</label>
+                    <input type="datetime-local" id="dt" formControlName="start_time" [value]="currentdate">
+                    <!-- <select colspan="2" formControlName="start_time" class="clr-dropdown">
+                        <option >10:00
+                        </option>
+                    </select> -->
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="endtime">End Time</label>
+                    <input type="datetime-local" formControlName="end_time">
+                    <!-- <select colspan="2" formControlName="end_time" class="clr-dropdown">
+                        <option >12:00
+                        </option>
+                    </select> -->
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="timeestimate">Time Estimates in Hrs</label>
+                    <input type="time" formControlName="time_estimates_in_hrs">
+                    <!-- <select colspan="2" formControlName="time_estimates_in_hrs" class="clr-dropdown">
+                        <option >11:00
+                        </option>
+                    </select> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="clr-row"> -->
+            <div class="center">
+                <div class="btn-group">
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-1"  (click)="goBack()"/>
+                    <label for="btn-demo-check-1">Cancle</label>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                    <label for="btn-demo-check-2">Submit</label>
+                </div>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  />
+                    <label for="btn-demo-check-2"><clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>Task</label>
+                </div>
+            </div>
+        <!-- </div> -->
+    </form>
+</div>

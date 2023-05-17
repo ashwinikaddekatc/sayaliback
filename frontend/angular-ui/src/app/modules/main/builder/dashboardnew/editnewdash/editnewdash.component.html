@@ -1,0 +1,134 @@
+<!-- <ol class="breadcrumb breadcrumb-arrow font-trirong">
+    <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+    <li><a href="javascript://"  [routerLink]="['/cns-portal/project/all']"> <clr-icon shape="flag"></clr-icon>  Projects</a></li>
+    <li><a href="javascript://" > <clr-icon  shape="objects"></clr-icon>  Repositories</a></li>
+    <li><a href="javascript://" ><clr-icon shape="grid-view"></clr-icon>  Components</a></li>
+    <li><a href="javascript://"><clr-icon shape="application"></clr-icon>  Wireframe</a></li>
+</ol> -->
+
+<div style="display: inline;">
+  <button class="btn componentbtn" (click)="toggleMenu()"><clr-icon shape="plus"></clr-icon>component</button>
+  <div style="display: inline;">
+      {{dashboardName}}
+  </div>
+</div>
+
+<div class="content-container">
+<nav class="sidenav" *ngIf="toggle">
+  <ul class="nav-list" style="list-style-type: none;">
+    <li *ngFor="let widget of WidgetsMock">
+
+      <!--
+        Draggable widget from store using vanilla javascript event (dragstart)
+        onDrag() is call, it take $event and a widget identifier as parameters
+      -->
+      <a draggable="true" class="nav-link" (dragstart)="onDrag($event, widget.identifier)">
+        <clr-icon shape="drag-handle" style="margin-right: 10px;"></clr-icon>
+          {{ widget.name }}
+        <clr-icon shape="plugin" class="has-badge"></clr-icon>
+      </a>
+    </li>
+  </ul>
+</nav>
+<div style="width: 100%;">
+      <gridster [options]="options" (drop)="onDrop($event)" style="background-color: transparent;">
+    <gridster-item [item]="item" *ngFor="let item of dashboardArray">
+      <button class="btn btn-icon btn-danger" style="margin-left: 10px; margin-top: 10px;" (click)="removeItem(item)">
+        <clr-icon shape="trash"></clr-icon>
+      </button>
+      <button class="btn btn-icon drag-handler" style="margin-left: 10px; margin-top: 10px;">
+        <clr-icon shape="drag-handle"></clr-icon>
+      </button>
+              <button class="btn btn-icon" style="margin-top: 10px;float: right;" (click)="editGadget(item)">
+        <clr-icon shape="pencil"></clr-icon>
+      </button>
+      <h4 style="margin-top: 0px; margin-left: 10px;">{{item.name}}</h4>
+      <ndc-dynamic class="no-drag" [ndcDynamicComponent]="item.component" (moduleInfo)="display($event)"></ndc-dynamic>
+    </gridster-item>
+  </gridster>
+  </div>
+</div>
+<div style="text-align: center;">
+  <button type="submit" class="btn btn-primary btn-adddata " (click)="UpdateLine()" >
+      <b>Update</b>
+  </button>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modeledit"  [clrModalStaticBackdrop]="true">
+<h3 class="modal-title">Configure Chart</h3>
+<div class="modal-body" >
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit(modelid)" class="clr-form-horizontal" >
+    <div class="clr-row">
+      <div class="clr-col-sm-12">
+        <label for="charttitle">Chart Title</label>
+        <input id="chartparameter" type="text" formControlName="charttitle" class="clr-input" [(ngModel)]="gadgetsEditdata.charttitle" >
+      </div>
+    </div>
+    <div class="clr-row">
+      <div class="clr-col-sm-12">
+        <label for="id">ID</label>
+        <input id="datasource" type="text" formControlName="id" class="clr-input" [(ngModel)]="gadgetsEditdata.id">
+      </div>
+    </div>
+    <div class="clr-row" >
+      <div class="clr-col-sm-12">
+        <div class="clr-form-control" style="margin-top: 5px;margin-bottom: 10px;">
+          <div class="clr-control-container">
+            <div class="clr-checkbox-wrapper">
+              <input type="checkbox" id="slices" formControlName="slices" [(ngModel)]="gadgetsEditdata.slices" class="clr-checkbox" />
+              <label for="slices" class="clr-control-label">Show colors in gradient</label>
+              </div>
+            <div class="clr-checkbox-wrapper">
+              <input type="checkbox" id="chartcolor" formControlName="chartcolor" [(ngModel)]="gadgetsEditdata.chartcolor" class="clr-checkbox" />
+              <label for="chartcolor" class="clr-control-label">Show colors in gradient</label>
+            </div>
+            <div class="clr-checkbox-wrapper">
+              <input type="checkbox" id="donut" formControlName="donut"[(ngModel)]="gadgetsEditdata.donut" class="clr-checkbox" />
+              <label for="donut" class="clr-control-label">Show donut</label>
+            </div>
+            <div class="clr-checkbox-wrapper">
+              <input type="checkbox" id="chartlegend" formControlName="chartlegend" [(ngModel)]="gadgetsEditdata.chartlegend" class="clr-checkbox" />
+              <label for="chartlegend" class="clr-control-label">Show Chart Legend</label>
+            </div>
+            <div class="clr-checkbox-wrapper">
+              <input type="checkbox" id="showlabel" formControlName="showlabel" [(ngModel)]="gadgetsEditdata.showlabel" class="clr-checkbox" />
+              <label for="showlabel" class="clr-control-label">Show Chart Label</label>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="clr-row" >
+      <div class="clr-col-sm-12">
+        <label for="charturl">API URL</label>
+        <input type="text" id="charturl" formControlName="charturl" class="clr-input" [(ngModel)]="gadgetsEditdata.charturl">
+      </div>
+    </div>
+
+    <div class="clr-row">
+      <div class="clr-col-sm-12">
+        <label for="chartparameter">API parameter</label>
+        <input id="chartparameter" type="text" formControlName="chartparameter" class="clr-input" [(ngModel)]="gadgetsEditdata.chartparameter">
+      </div>
+    </div>
+    <div class="clr-row">
+      <div class="clr-col-sm-12">
+        <label for="datasource">Data Source</label>
+        <select colspan="2" formControlName="datasource" selected="null" class="clr-dropdown" [(ngModel)]="gadgetsEditdata.datasource">
+          <option selected>Default</option>
+          <!-- <option *ngFor="let ts of activeTechnologyDropDown" [value]="ts.id">{{ ts.name }}
+          </option> -->
+          </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="modeledit = false">Cancel</button>
+    <button type="submit" class="btn btn-primary">save</button>
+    </div>
+
+  </form>
+</div>
+</clr-modal>
+

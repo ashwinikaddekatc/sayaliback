@@ -1,0 +1,130 @@
+<div class="container">
+
+  <h4 style="font-weight: 300;display: inline;"><b>BUILDER RULE LIBRARY </b></h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+  <hr>
+  <!-- entry form-->
+  <form  (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tech_stack">Technology Stack</label>
+        <select id="tech_stack" name="tech_stack" [(ngModel)]="ruledata.tech_stack" selected="null" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="object_type">Object Type</label>
+        <select id="object_type" name="object_type" [(ngModel)]="ruledata.object_type" selected="null" class="clr-dropdown">
+          <option value="null">Choose Object Type</option>
+          <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="sub_object_type">Sub Object Type</label>
+        <select id="sub_object_type" name="sub_object_type"  [(ngModel)]="ruledata.sub_object_type" selected="null" class="clr-dropdown">
+          <option value="null">Choose Sub Object Type</option>
+          <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="rule_name">Version</label>
+        <input id="rule_name" type="text" name="version" [(ngModel)]="ruledata.version"  placeholder="Enter Object Name Variable"
+          class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="identifier_end_string">Keyword</label>
+        <input id="identifier_end_string" type="text" name="keyword" [(ngModel)]="ruledata.keyword"
+          placeholder="Enter replacement String"  class="clr-input" >
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="sub_object_type">Service Name</label>
+        <select id="sub_object_type" name="service" [(ngModel)]="ruledata.service"  class="clr-dropdown">
+            <option>Angular</option>
+            <option>Spring boot</option>
+        </select>
+
+    </div>
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="identifier_end_string">Priority</label>
+      <input id="identifier_end_string" type="text" name="priority" [(ngModel)]="ruledata.priority"
+        placeholder="Enter only number"  class="clr-input" >
+
+    </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Is Active</label>
+       <input type="checkbox" clrCheckbox name="isactive"
+       [(ngModel)]="selected ===ruledata.isactive" (change)="ruledata.isactive === $event.target.checked ? 'y' : 'n'">
+        </div> -->
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label class="switch">Is Active</label>
+        <input id="file_code" type="checkbox" name="isactive" [(ngModel)]="ruledata.isactive"  style="margin-top: 20px;"
+        clrCheckbox>
+      </div>
+
+      <div class="clr-col-sm-12">
+        <label for="identifier_end_string">Replacement String</label>
+        <textarea id="identifier_end_string" type="text" name="replacement_string" [(ngModel)]="ruledata.replacement_string"
+          placeholder="Enter replacement String" rows="10" cols="200" class="clr-textarea" ></textarea>
+
+      </div>
+
+
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="rule_type">Rule Type</label>
+        <input id="rule_type" type="text" formControlName="rule_type" placeholder="Enter Rule Type" class="clr-input">
+        <div *ngFor="let item of errorMsg">
+          <span *ngIf="item.field === 'rule_type'" class="text text-danger">{{ item.message }}</span>
+        </div>
+      </div> -->
+
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="identifier_start_string">Identifier Starting String</label>
+        <input id="identifier_start_string" type="text" name="identifier_start_string"
+          placeholder="Enter Starting String" class="clr-input">
+
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="identifier_end_string">Identifier Ending String</label>
+        <input id="identifier_end_string" type="text" name="identifier_end_string"
+          placeholder="Enter Ending String" class="clr-input">
+
+      </div>
+
+      <div class="clr-col-md-6 clr-col-sm-12">
+        <label for="identifier_end_string">Replacement String</label>
+        <textarea id="identifier_end_string" type="text" name="replacement_string"
+          placeholder="Enter replacement String" rows="6" cols="200" class="clr-textarea" ></textarea>
+
+      </div> -->
+
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="group_id">Group Id</label>
+        <input id="group_id" type="text" formControlName="group_id" placeholder="Enter Group Id" class="clr-input">
+        <div *ngFor="let item of errorMsg">
+          <span *ngIf="item.field === 'group_id'" class="text text-danger">{{ item.message }}</span>
+        </div>
+      </div> -->
+    </div>
+        <!-- ROW END -->
+
+    <div class="center">
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+  </form>
+
+
+</div>

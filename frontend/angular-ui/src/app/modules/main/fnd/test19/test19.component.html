@@ -1,0 +1,45 @@
+<div class="s-order-dash-pg">
+
+
+  <div class="chart-box">
+      <h4> select</h4>
+          <ngx-charts-bar-vertical
+              [view]="[990, 270]"
+              [barPadding]="1"
+              [scheme]="barColorScheme"
+              [results]="testdb1Data"
+              [roundDomains]="true"
+              [showGridLines]="true"
+              [xAxis]="true"
+              [yAxis]="true"
+              [legend]="false"
+              [roundEdges]="false"
+          >
+          </ngx-charts-bar-vertical>
+    </div>
+  <div class="chart-box">
+      <h4> select </h4>
+          <ngx-charts-bar-vertical
+              [view]="view"
+              [barPadding]="1"
+              [scheme]="barColorScheme"
+              [results]="testdb2Data"
+              [roundDomains]="true"
+              [showGridLines]="true"
+              [xAxis]="true"
+              [yAxis]="true"
+              [legend]="false"
+              [roundEdges]="false"
+          >
+          </ngx-charts-bar-vertical>
+    </div>
+  <div class="chart-box">
+        <h4> test </h4>
+        <ngx-charts-advanced-pie-chart
+          style="position:relative"
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="wig24Data"
+        >
+        </ngx-charts-advanced-pie-chart>
+      </div></div>

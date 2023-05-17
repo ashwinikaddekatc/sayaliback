@@ -1,0 +1,113 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="crown"></clr-icon>Super Admin</a></li>
+  <li><a href="javascript://">Dynamic Form</a></li>
+</ol>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>Dynamic Form </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+
+
+      <button id="add"  class="btn btn-primary"  (click)="goToAdd()" >
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'formname'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Form Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'jobName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Form Description
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="' jobGroup'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Related To
+   </ng-container> </clr-dg-column >
+    <clr-dg-column [clrDgField]="'jobStatus'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Page Event    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'jobClass'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Button Caption
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'description'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Go To Form
+    </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of data" [clrDgItem]="user" >
+      <clr-dg-cell>{{user.form_name}}</clr-dg-cell>
+      <clr-dg-cell>{{user.form_desc}}</clr-dg-cell>
+      <clr-dg-cell>{{user.related_to}}</clr-dg-cell>
+      <clr-dg-cell>{{user.page_event}}</clr-dg-cell>
+      <clr-dg-cell>{{user.button_caption}}</clr-dg-cell>
+      <clr-dg-cell> <a (click)="goToForm(user.form_id)" attr.data-itemid="{{user.form_id}}">OPEN FORM</a></clr-dg-cell>
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="buildDynamicForm(user.form_id)">Build <clr-icon shape="pop-out" class="is-error"></clr-icon> </button>
+        <button class="action-item"  (click)="goToEdit(user.form_id)">Edit<clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item"  (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+      </clr-dg-action-overflow>
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Form Name:{{user.form_name}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Form_desc:{{user.form_desc}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Related_to:{{user.related_to}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Page_event:{{user.page_event}}</td>
+          </tr>
+
+
+          <table id="lines" class="table" >
+            <thead>
+              <tr>
+                <th class="left">Lable</th>
+                <th class="left" >Type</th>
+                <th class="left" >Mapping</th>
+                <th class="left" >ReadOnly</th>
+                <th class="left" >Drop Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of user.components">
+                <td class="left"> {{person.label}}</td>
+                <td class="left">{{person.type}}</td>
+                <td class="left">{{person.mapping}} </td>
+                <td class="left">{{person.readonly}}</td>
+                <td class="left"> {{person.drop_values}}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.form_id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.form_id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.form_id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>

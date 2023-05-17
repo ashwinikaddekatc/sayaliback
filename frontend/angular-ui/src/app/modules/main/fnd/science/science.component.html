@@ -1,0 +1,95 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"  [routerLink]="['../project/all']"> <clr-icon shape="flag"></clr-icon>Project</a></li>
+
+</ol>
+
+
+<div class="section">
+  <p> Query Parameters </p>
+</div>
+<br>
+<form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+<!-- Date Parameter -->
+  <label for="to_tech_stack">Date Parameter</label>
+   <div class="clr-row">
+                 <div class="clr-col-md-4 clr-col-sm-12">
+                              <select id="date_para" name="date_para" formControlName="date_para" (change)="addDateParam($event.target.value)" selected="null" class="clr-dropdown">
+                                <option value="null">select</option>
+                                <option *ngFor="let ts of date_list" [value]="ts">{{ ts }}
+                                </option>
+                              </select>
+                            </div>
+                 <div class="clr-col-md-4 clr-col-sm-12">
+
+                              <input  placeholder="Pick a date" formControlName="from_date" class="clr-input"
+                              (change)="onDateChange($event.target.value)" name="from_date" id="from_date"/>
+
+                  </div>
+
+  </div>
+  <div style="padding: 2px 2px; font-size: 15px; border-radius: 10px;" type="submit" >
+          <button   (click)="onAddDate()" class="btn btn-primary">Add</button>
+          <button   class="btn btn-primary">filter</button>
+  </div> <!-- Add Parameter -->
+  <label for="to_tech_stack">Add Parameters</label>
+  <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+             <select id="adhoc_para"  (change)="addAdhocParam($event.target.value)" formControlName="adhoc_para" selected="null" class="clr-dropdown">
+                      <option value="null">select</option>
+                      <option *ngFor="let ts of adhoc_list" [value]="ts">{{ ts }}
+                      </option>
+              </select>
+
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+                  <select id="condition"  (change)="addCondition($event.target.value)" selected="null" formControlName="condition" class="clr-dropdown">
+                          <option value="null">--Select Condition--</option>
+                          <option value="=" >EQUALS</option>
+  <option value=">" >GREATER</option>
+  <option value="<">LESS</option>
+ <option value="BETWEEN">BETWEEN</option>
+                      </select>
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+                  <input id="value_1" type="text"  (change)="addValue1($event.target.value)" placeholder="Value 1"
+                  class="clr-input">
+          </div>
+
+ </div>
+ <div class="clr-row">
+ <div class="clr-col-md-4 clr-col-sm-12">
+          <input id="value_2" (change)="addValue2($event.target.value)" formControlName="value_2" type="text"  placeholder="Value 2"
+          class="clr-input">
+  </div>
+</div>
+<div style="padding: 2px 2px; font-size: 15px; border-radius: 10px;" type="submit" >
+  <button   (click)="onAddAdhoc()"  class="btn btn-primary">Add</button>
+  <button   class="btn btn-primary">filter</button>
+</div>
+
+<div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="to_tech_stack">Parameters Pane</label>
+              <textarea id="para_pane" formControlName="para_pane" style="height: 150px;width: 600px;" type="text"
+              >
+              </textarea>
+       </div>
+</div>
+<div style="padding: 2px 2px; font-size: 15px; border-radius: 10px;" type="submit" >
+      <button class="btn btn-primary">Run Report</button>
+</div>
+
+</form>
+
+
+<div class="section">
+<p> Query Result </p>
+</div>
+
+<div class="pad-16">
+
+
+</div>

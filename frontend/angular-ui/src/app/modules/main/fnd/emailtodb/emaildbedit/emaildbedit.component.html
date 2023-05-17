@@ -1,0 +1,92 @@
+<h4 style="font-weight: 300;display: inline;"> Email to DB</h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span><br>
+<hr>
+
+<form>
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Name</label><br>
+            <input type="text" class="clr-input">
+
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name"> Description (optional)</label><br>
+            <textarea rows="3" cols="40" placeholder="Describe yourself here..."></textarea>
+            <!-- <input type="text" id="fname" formControlName="first_name"> -->
+
+        </div>
+
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="workflow_name">Active</label>
+            <input type="checkbox"  clrToggle value="billable" name="billable" />
+        </div>
+
+    </div>
+
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">From Email</label><br>
+            <input type="email" class="clr-input" placeholder="bs.reports@cust.com...">
+
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="projectName">Email Key</label><b> *Make sure your email subject has the key in it</b>
+            <span class="label label-light-green p7"
+                style="margin-top: .2em;margin-left:200px; display: inline-block; cursor: pointer;">Generate</span>
+            <input id="projectName" type="text" class="clr-input" placeholder="Enter the Email" class="clr-input" required>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Data Type</label><br>
+            <select selected="null"   class="clr-dropdown">
+                <option value="null">Attachment Excel</option>
+                <option>Type1</option>
+                <option>Type2</option>
+            </select>
+
+        </div>
+    </div>
+
+
+
+    <h4 style="font-weight: 300;display: inline;">Configration</h4>
+    <!-- <span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span><br> -->
+    <hr>
+    <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">username</label> <span class="label label-light-green p7"
+                style="margin-top: .2em;margin-left:150px; display: inline; cursor: pointer;">Generate</span>
+            <input type="text" class="clr-input" [(ngModel)]="dbData.username" name="username">
+
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">password</label><br>
+            <input type="password" class="clr-input" [(ngModel)]="dbData.password" name="password">
+
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="center">
+        <div class="btn-group">
+            <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-1" />
+                <label for="btn-demo-check-1">Cancel</label>
+            </div>
+            <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-2" checked />
+                <label for="btn-demo-check-2" (click)="onSubmit()">Update</label>
+            </div>
+        </div>
+        <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+    </div>
+</form>

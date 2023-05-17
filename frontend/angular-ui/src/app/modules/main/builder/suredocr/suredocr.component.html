@@ -1,0 +1,77 @@
+<div class="btn-group">
+  <button class="btn"><clr-icon shape="eye"></clr-icon>  11</button>
+  <button class="btn"> <clr-icon shape="star"></clr-icon>  15</button>
+  <button class="btn"> <clr-icon shape="export"></clr-icon>  35</button>
+  </div>
+
+  <div class="btn-group" id="center">
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-1" checked />
+      <label for="btn-demo-check-1">REPO VIEW</label>
+    </div>
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-2"  />
+      <label for="btn-demo-check-2">PROJECT VIEW</label>
+    </div></div>
+
+
+  <div class="btn-group btn-primary" id="group">
+    <button class="btn">Scan</button>
+    <button class="btn">DEPLOY ON SUREFARM</button>
+    <span class="setting">
+      <button class="btn">
+        <clr-icon shape="cog"></clr-icon>
+
+      </button>
+    </span>
+
+  </div>
+<br>
+  <div class="example" id="search">
+    <input type="text" placeholder="Search.." name="search2">
+    <button type="submit" class="btn-primary" style="background: #0072a3;"><i class="fa fa-search"></i></button>
+  </div>
+
+
+
+
+<div >
+    <table class="table" >
+        <thead>
+             <tr>
+               <th>
+                <input type="checkbox" clrCheckbox  checked />
+               </th>
+     <th >
+          <clr-icon shape="tag" solid></clr-icon>
+
+         Tag</th>
+         <th> <clr-icon shape="qr-code"></clr-icon> Image ID</th>
+          <th><clr-icon shape="calendar"></clr-icon> Created</th>
+           <th><clr-icon shape="user"></clr-icon> Author</th>
+           <th><clr-icon shape="eye" solid></clr-icon> Docker version</th>
+           <th>Vulnerabilities</th>
+           <th>Labels</th>
+           <th>Pull command</th> </tr>
+          </thead>
+             <tbody *ngFor="let user of suredokr;let i = index">
+
+                <tr>
+                  <td> <input type="checkbox" clrCheckbox /></td>
+                    <td> <a ng-bind-html="tag.name" href="tag//myfirstimage/latest" class="ng-binding">{{user.RepoTags}}</a> </td>
+                     <td>{{dokerid[i].substring(7,19)}}</td>
+                      <td >{{user.Created* 1000 | date}}</td>
+                      <td> ganeshris</td>
+                      <td >20.10.7</td>
+<td><span class="label label-light-blue">production <span class="badge">12</span></span></td>
+<td>
+
+<span class="label label-light-blue">Austin</span>
+<span class="label label-light-blue">New York</span>
+<span class="label label-light-blue">Palo Alto</span>
+<span class="label label-light-blue">San Francisco</span>
+</td>
+<td><clr-icon shape="copy"></clr-icon></td>
+ </tr> </tbody> </table> </div>
+
+

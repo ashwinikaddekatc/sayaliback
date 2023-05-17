@@ -1,0 +1,49 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>Action Builder Header</b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span>
+  <hr />
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+    <div class="clr-row">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="actionName">Action Name</label>
+        <input class="clr-input" type="text" id="actionName" formControlName="actionName"
+          placeholder="Enter Action Name">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="controllerName">Controller Name</label>
+        <input class="clr-input" type="text" id="controllerName" formControlName="controllerName"
+          placeholder="Enter Controller Name">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'controllerName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="methodName">Method Name</label>
+        <input class="clr-input" type="text" id="methodName" formControlName="methodName"
+          placeholder="Enter Method Name">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'methodName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="fileLocation">File Location</label>
+        <input class="clr-input" id="fileLocation" type="text" formControlName="fileLocation"
+          placeholder="Enter File Location">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'fileLocation'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </div>
+  </form>
+</div>

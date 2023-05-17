@@ -1,0 +1,78 @@
+
+<!-- <ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">pipes</a></li>
+
+</ol> -->
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+
+    <div class="clr-col-12" style="text-align: right;">
+
+      <!-- <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button> -->
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading">
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Workflow Id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'projectid'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Project Id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Job Type
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Created At
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of pdata;let i = index">
+      <clr-dg-cell>{{user.wf_id}}</clr-dg-cell>
+      <clr-dg-cell>{{user.ref}}</clr-dg-cell>
+      <clr-dg-cell>{{user.job_type}}</clr-dg-cell>
+      <clr-dg-cell>{{user.createdAt|date}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="goToEdit(user.id)"><clr-icon shape="play" class="is-info"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user.id)">Delete</button>
+      </clr-dg-action-overflow>
+
+
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.studentid}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.studentid)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+<router-outlet></router-outlet>

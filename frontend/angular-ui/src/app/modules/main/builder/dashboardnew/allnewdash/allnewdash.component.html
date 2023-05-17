@@ -1,0 +1,117 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"  [routerLink]="['/cns-portal/project/all']"> <clr-icon shape="flag"></clr-icon>  Projects</a></li>
+  <li><a href="javascript://" > <clr-icon  shape="objects"></clr-icon>  Repositories</a></li>
+  <li><a href="javascript://" ><clr-icon shape="grid-view"></clr-icon>  Components</a></li>
+  <li><a href="javascript://"><clr-icon shape="application"></clr-icon>  dashboard</a></li>
+</ol>
+
+<br>
+
+<div class="dg-wrapper">
+    <div class="clr-row">
+      <div class="clr-col-8">
+        <h3>Dashboards </h3>
+      </div>
+      <div class="clr-col-4" style="text-align: right;">
+        <button type="button" class="btn btn-icon btn-primary" aria-label="settings">
+            <clr-icon shape="grid-view"></clr-icon>
+          </button>
+        <button class="btn btn-outline" (click)="onExport()">
+          <clr-icon shape="export"></clr-icon> xlsx
+        </button>
+        <button id="add" class="btn btn-primary"  (click)="openModal()">
+          <clr-icon shape="plus"></clr-icon>ADD
+        </button>
+      </div>
+    </div>
+
+    <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+        <clr-dg-placeholder><clr-spinner [clrMedium]="true">Loading ...</clr-spinner></clr-dg-placeholder>
+
+        <clr-dg-column [clrDgField]="'dashboard_name'">
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Dashboard Name
+            </ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'description'">
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Description
+            </ng-container>
+        </clr-dg-column >
+        <clr-dg-column [clrDgField]="'secuirity_profile'">
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+              Security Profile
+            </ng-container>
+        </clr-dg-column >
+
+        <clr-dg-row *clrDgItems="let user of data" [clrDgItem]="user">
+            <clr-dg-cell>{{user.dashboard_name}}</clr-dg-cell>
+            <clr-dg-cell>{{user.description}}</clr-dg-cell>
+            <clr-dg-cell>{{user.secuirity_profile}}</clr-dg-cell>
+
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+          <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+        </clr-dg-action-overflow>
+
+        <clr-dg-row-detail *clrIfExpanded >
+          <table class="table">
+            <tr>
+              <td class="td-title">Name: </td>
+              <td class="td-content">{{user.dashboard_name}}</td>
+            </tr>
+            <tr>
+              <td class="td-title">Description:</td>
+              <td class="td-content">{{user.description}}</td>
+            </tr>
+            <tr>
+                <td class="td-title">Security Profile:</td>
+                <td class="td-content">{{user.secuirity_profile}}</td>
+              </tr>
+          </table>
+        </clr-dg-row-detail>
+      </clr-dg-row>
+
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+          <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+          of {{pagination.totalItems}} users
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+
+  <clr-modal [(clrModalOpen)]="addModall" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <div class="modal-body">
+        <div class="s-order-dash-pg">
+            <div class="chart-box" id="word1" (click)="gotoadd()"><br>
+              <img style="margin: auto; display: block;" src="/assets/images/fromscratch.png" height="90" width="90">
+              <h5 class="center"> <b>Start from scratch</b>  </h5>
+            </div>
+            <div class="chart-box" id="word1" ><br>
+              <img style="margin: auto; display: block;" src="/assets/images/copytemplate.png" height="90" width="90">
+              <h5 class="center"> <b>Import from a template</b>  </h5>
+            </div>
+            <div class="chart-box" id="word1"><br>
+              <img style="margin: auto; display: block;" src="/assets/images/database.png" height="90" width="90">
+              <h5 class="center"> <b>Import from  public project</b>  </h5>
+            </div>
+          </div>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="modalDelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <div class="modal-body" *ngIf="rowSelected.id">
+      <h1 class="delete">Are You Sure Want to delete?</h1>
+      <h2 class="heading">{{rowSelected.id}}</h2>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalDelete = false">Cancel</button>
+        <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+      </div>
+    </div>
+  </clr-modal>
+
+
+

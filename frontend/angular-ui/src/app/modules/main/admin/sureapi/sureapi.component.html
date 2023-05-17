@@ -1,0 +1,156 @@
+<div>
+  <h4 style="font-weight: 300;display: inline;">Sure Api</h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Test Connection</span><br>
+
+</div>
+<hr>
+<form [formGroup]="entryForm" >
+<div class="clr-row">
+  <div class="clr-col-md-2 clr-col-sm-12">
+    <label for="description"> Request Method</label>
+    <select  selected="null" class="clr-dropdown" formControlName="request_method">
+      <option value="null">Choose Method</option>
+      <option selected>GET</option>
+      <option>POST</option>
+      <option>PUT</option>
+      <option>PATCH</option>
+      <option>DELETE</option>
+      <option>COPY</option>
+    </select>
+  </div>
+  <div class="clr-col-md-10 clr-col-sm-12">
+    <label for="projectName">URL</label>
+    <input id="projectName" type="text"  placeholder="https://example.com"
+      class="clr-input" formControlName="url">
+  </div>
+  </div>
+  <!-- <clr-tabs>
+    <clr-tab>
+      <button clrTabLink>Params</button>
+      <clr-tab-content *clrIfActive>
+        <br>
+        <div class="clr-row">
+          <div class="clr-col-lg-12">
+            <table class="table" style="width:100%;" >
+              <thead>
+                <tr>
+                  <th class="left" style="width:125px;">KEY</th>
+                  <th class="left" style="width:125px;">VALUE</th>
+                  <th class="left" style="width:125px;">DESCRIPTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr >
+                  <td class="left">
+  <input type="text" class="clr-input">
+                  </td>
+                  <td class="left">
+                    <input type="text" class="clr-input">
+                  </td>
+                  <td class="left">
+                    <input type="text" class="clr-input">
+                  </td>
+                </tr>
+              </tbody>
+              <button type="button" class="btn btn-primary button1" >
+                <clr-icon shape="plus"></clr-icon>
+              </button>
+            </table>
+          </div>
+        </div>
+
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button  clrTabLink>Authorization</button>
+      <clr-tab-content *clrIfActive>
+        <div class=clr-row>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="technologyStack">Type</label>
+            <select  selected="null" class="clr-dropdown" formControlName="type">
+              <option value="null">Choose Type</option>
+              <option>No AUTH</option>
+              <option>API KEY</option>
+              <option>Bearer Token</option>
+              <option>Basic Oauth</option>
+              <option>Digest Auth</option>
+            </select>
+          </div>
+          <div class=" clr-col-md-8 clr-col-sm-12">
+            <label for="description"> Access Token</label>
+              <textarea  id="" cols="10" rows="2"  name=" remarks"  placeholder="Enter body" formControlName="token">
+              </textarea>
+          </div>
+        </div>
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button clrTabLink>Body</button>
+      <clr-tab-content *clrIfActive>
+        <div class="clr-col-sm-12">
+          <label for="description">Body</label>
+            <textarea  id="" cols="15" rows="2"  name=" remarks"  placeholder="Enter body" formControlName="body">
+            </textarea>
+        </div>
+      </clr-tab-content>
+    </clr-tab>
+
+  </clr-tabs> -->
+  <div class=clr-row>
+
+    <div class="clr-col-sm-12">
+      <label for="description">Body</label>
+        <textarea  id="" cols="10" rows="2"  name=" remarks"  placeholder="Enter body" formControlName="body">
+        </textarea>
+    </div></div>
+<div class=clr-row>
+
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="technologyStack">Type</label>
+    <select  selected="null" class="clr-dropdown" formControlName="type">
+      <option value="null">Choose Type</option>
+      <option>No AUTH</option>
+      <option>API KEY</option>
+      <option>Bearer Token</option>
+      <option>Basic Oauth</option>
+      <option>Digest Auth</option>
+    </select>
+  </div>
+  <div class=" clr-col-md-8 clr-col-sm-12">
+    <label for="description"> Access Token</label>
+      <textarea  id="" cols="10" rows="2"  name=" remarks"  placeholder="Enter body" formControlName="token">
+      </textarea>
+  </div>
+</div>
+<div>
+  <h4 style="font-weight: 200;display: inline;">Credentials</h4>
+</div><hr>
+<div class=clr-row>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="projectName">Username</label>
+    <input id="projectName" type="text"  placeholder="Username" formControlName="username"
+      class="clr-input">
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="projectName">Password</label>
+    <input id="projectName" type="text"  placeholder="Password" formControlName="password"
+      class="clr-input">
+  </div>
+</div>
+
+  <div style="float: right;">
+    <button type="submit" class="btn btn-primary" (click)="onsubmit()">TEST</button>
+    </div>
+  </form>
+          <div style="margin-top: 40px;">
+            <h4 style="font-weight: 300;display: inline;">Response</h4>
+      </div>
+      <hr>
+      code
+      <span class="label success" style="background-color: green;color:white;">200</span><br>
+      <div class="clr-row" style="padding-top: 10px;">
+        <textarea  id="" cols="10" rows="10"  name=" remarks">{{getdata}}
+        </textarea>
+
+      </div>
+

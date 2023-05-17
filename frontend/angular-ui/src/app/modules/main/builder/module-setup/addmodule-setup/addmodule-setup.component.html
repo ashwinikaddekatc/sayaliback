@@ -1,0 +1,220 @@
+<h4 style="font-weight: 500;display: inline;">New Repositories</h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+A Repository can be Module or a set of microservices with individual configurations.
+<hr>
+
+<div class="container">
+
+
+  <!-- COPY MODULE -->
+
+
+  <!--
+  <div class="section">
+    <p> Module Details </p>
+  </div> -->
+  <!-- entry form-->
+  <!-- <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="moduleName">Module Name</label>
+        <input id="moduleName" type="text" formControlName="moduleName" placeholder="Enter Module Name"
+          class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description</label>
+        <input id="description" type="text" formControlName="description" placeholder="Enter Description"
+          class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="modulePrefix">Module Prefix</label>
+        <input id="modulePrefix" type="text" formControlName="modulePrefix" placeholder="Enter A Prefix"
+          class="clr-input">
+
+      </div>
+    </div>
+    <br>
+
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </div>
+  </form> -->
+</div>
+
+
+
+
+<div class="container">
+
+
+
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="moduleName">Repo Name</label>
+        <input id="moduleName" type="text" formControlName="moduleName" placeholder="Enter Module Name"
+          class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.moduleName.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.moduleName.errors.required" class="error_mess">*This field is Required</div>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Tags</label>
+        <tag-input formControlName="tags" name="tags" [(ngModel)]='tags' [separatorKeyCodes]="[32, 188]"></tag-input>
+
+          </div>
+          </div>
+          <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="description">Description (optional)</label>
+              <textarea name="" id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+              </textarea>
+              <div *ngIf="submitted && entryForm.controls.description.errors" class="error_mess">
+                <div *ngIf="submitted && entryForm.controls.description.errors.required" class="error_mess">*This field is Required</div>
+            </div>
+              </div>
+
+              <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 15px;">
+              <div>
+                <label for="add"> <b>Add a README file</b>
+                  <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                    <clr-icon shape="info-standard" size="md"></clr-icon>
+                    <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+                  </a>
+                </label>
+                <div><input type="checkbox" formControlName="readme"></div>
+
+                </div>
+                <div *ngIf="submitted && entryForm.controls.readme.errors" class="error_mess">
+                  <div *ngIf="submitted && entryForm.controls.readme.errors.required" class="error_mess">*This field is Required</div>
+              </div>
+              </div>
+</div>
+
+<div style="margin-top: 40px;">
+  <h4 style="display: inline;">  Configurations</h4>
+</div>
+These Configurations defaults From Projectsetup,however you can change as required.
+<hr>
+
+<div class="clr-row">
+  <div class="clr-col-md-3 clr-col-sm-12">
+    <label for="technologyStack">Technology Stack</label>
+    <select  selected="null" class="clr-dropdown" name="technologyStack" formControlName="technologyStack" [(ngModel)]="projectiddata.technologyStack">
+      <option value="null">Choose Technology</option>
+      <option *ngFor="let ts of tech_stacks" [value]="ts.id">{{ts.tech_stack}} </option>
+    </select>
+    <div *ngIf="submitted && entryForm.controls.technologyStack.errors" class="error_mess">
+      <div *ngIf="submitted && entryForm.controls.technologyStack.errors.required" class="error_mess">*This field is Required</div>
+  </div>
+  </div>
+  <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+    <button  class="btn btn-icon btn-primary" >
+      <clr-icon shape="view-list"></clr-icon>
+    </button>
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="projectPrefix">Repo Prefix</label>
+    <input type="text"  placeholder="Enter A Prefix" class="clr-input" formControlName="modulePrefix" [(ngModel)]="projectiddata.projectPrefix">
+    <div *ngIf="submitted && entryForm.controls.modulePrefix.errors" class="error_mess">
+      <div *ngIf="submitted && entryForm.controls.modulePrefix.errors.required" class="error_mess">*This field is Required</div>
+  </div>
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="projectPrefix">Default Database Name</label>
+    <input type="text"  placeholder="Enter Database Name" class="clr-input" formControlName="dbName" name="dbName" [(ngModel)]="projectiddata.dbName">
+    <div *ngIf="submitted && entryForm.controls.dbName.errors" class="error_mess">
+      <div *ngIf="submitted && entryForm.controls.dbName.errors.required" class="error_mess">*This field is Required</div>
+  </div>
+  </div>
+
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="projectPrefix">Default Database Username</label>
+    <input type="text"  placeholder="Enter Database Username" class="clr-input" name="dbUserName" formControlName="dbUserName" [(ngModel)]="projectiddata.dbUserName">
+    <div *ngIf="submitted && entryForm.controls.dbUserName.errors" class="error_mess">
+      <div *ngIf="submitted && entryForm.controls.dbUserName.errors.required" class="error_mess">*This field is Required</div>
+  </div>
+  </div>
+
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="dbPassword">Default Database Password</label>
+    <input type="text"  placeholder="Enter Database Password" class="clr-input" name="dbPassword" formControlName="dbPassword" [(ngModel)]="projectiddata.dbPassword">
+    <div *ngIf="submitted && entryForm.controls.dbPassword.errors" class="error_mess">
+      <div *ngIf="submitted && entryForm.controls.dbPassword.errors.required" class="error_mess">*This field is Required</div>
+  </div>
+  </div>
+
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="portNumber">Default Port Number</label>
+    <input colspan="2" type="text"  readonly class="clr-input" name="portNumber"
+     formControlName="portNumber" [(ngModel)]="projectiddata.portNumber">
+     <div *ngIf="submitted && entryForm.controls.portNumber.errors" class="error_mess">
+      <div *ngIf="submitted && entryForm.controls.portNumber.errors.required" class="error_mess">*This field is Required</div>
+  </div>
+  </div>
+</div>
+<div style="margin-top: 40px;">
+  <h4 style="display: inline;"> Deployment Configurations</h4>
+</div>
+ These Configurations defaults From Projectsetup,however you can change as required.
+<hr>
+
+<div class="clr-row">
+
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <div>
+          <label for="add"> Default Repo
+            <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+              <clr-icon shape="info-standard" size="md"></clr-icon>
+              <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+            </a>
+          </label>
+          <div><input type="checkbox"></div>
+          </div></div> -->
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <div>
+              <label for="add"> Miceroservice
+                <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                  <clr-icon shape="info-standard" size="md"></clr-icon>
+                  <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+                </a>
+              </label>
+              <div><input type="checkbox"  formControlName="microservice" value="isUser" [checked]="isUser" (change)="onCheckChange($event.target.value)" ></div>
+              </div>
+
+              </div>
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <div>
+                  <label for="add"> Portal deployment
+                    <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md">
+                      <clr-icon shape="info-standard" size="md"></clr-icon>
+                      <span class="tooltip-content">README file is an exhaustive description of the Repository.</span>
+                    </a>
+                  </label>
+                  <div><input type="checkbox" formControlName="portaldeployment"></div>
+                  </div>
+                  <div *ngIf="submitted && entryForm.controls.portaldeployment.errors" class="error_mess">
+                    <div *ngIf="submitted && entryForm.controls.portaldeployment.errors.required" class="error_mess">*This field is Required</div>
+                </div></div>
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="technologyStack">Parent Repo</label>
+                    <select  selected="null" class="clr-dropdown" formControlName="parentrepo">
+                      <option value="null">Select A Repo</option>
+                      <option *ngFor="let sub of modules" [value]="sub.moduleName">{{sub.moduleName}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && entryForm.controls.parentrepo.errors" class="error_mess">
+                      <div *ngIf="submitted && entryForm.controls.parentrepo.errors.required" class="error_mess">*This field is Required</div>
+                  </div>
+                  </div>
+    </div>
+
+    <br>
+
+    <div class="center">
+      <button type="submit" class="btn btn-primary">SUBMIT</button>
+    </div>
+  </form>
+</div>

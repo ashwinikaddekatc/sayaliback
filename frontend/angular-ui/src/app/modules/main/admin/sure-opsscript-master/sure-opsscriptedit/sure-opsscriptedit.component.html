@@ -1,0 +1,57 @@
+<h4 style="font-weight: 300;display: inline;"><b>SureOps Script Master</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+<hr>
+<!-- <hr> -->
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Script Name</label>
+              <input id="workflow_name" type="text" name="script_name" [(ngModel)]="data.script_name" placeholder="Enter Workflow Name" class="clr-input">
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="select_technology">Select Technology-Stack</label>
+
+                <select  selected="null" class="clr-dropdown" name="technologyStack"  [(ngModel)]="data.techstack">
+                  <option value="null">Choose Technology</option>
+                  <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ts.tech_stack}} </option>
+                </select>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Version</label>
+              <input id="workflow_name" type="text" name="version" [(ngModel)]="data.version" placeholder="Enter Workflow Name" class="clr-input">
+            </div>
+        </div>
+
+        <div class="clr-row">
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="description">Description</label>
+                <textarea  cols="10" rows="2"   name="description" [(ngModel)]="data.description" placeholder="Enter Description"></textarea>
+
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="workflow_name">Is_Active</label>
+            <input type="checkbox" name="isactive" [(ngModel)]="data.isactive" clrToggle value="billable" name="billable" />
+
+          </div>
+        </div>
+
+        <!-- <div class="clr-row">
+            <div class="clr-col-md-6 clr-col-sm-12">
+              <label for="workflow_name">Script</label>
+            <textarea  cols="15" rows="10" name="script" [(ngModel)]="data.script" placeholder="Enter Script Name">
+                </textarea>
+            </div>
+        </div> -->
+
+        <div class="center">
+            <div class="btn-group">
+              <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                <label for="btn-demo-check-2">Update</label>
+              </div>
+            </div>
+        </div>
+    </form>
+</div>

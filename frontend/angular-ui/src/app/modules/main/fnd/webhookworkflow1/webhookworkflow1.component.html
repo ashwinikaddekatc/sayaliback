@@ -1,0 +1,42 @@
+<div class="container shadow p-3 mb-5 bg-white rounded" style="border: 0.5px solid grey;">
+  <h1 style="text-align: center;" ><b>data</b></h1><hr style="color: grey;"/>
+
+ <ul class="clr-timeline clr-timeline-horizontal ">
+   <li class="clr-timeline-step disabled" *ngFor="let data of arrayTag">
+     <div class="clr-timeline-step-header">{{data.step}}</div>
+     <clr-icon *ngIf="data.state == 'current'"  shape="dot-circle" aria-current="true" aria-label="Current" ></clr-icon>
+     <clr-icon *ngIf="data.state == 'success'"   shape="success-standard" class="ng-star-inserted" aria-current="false" aria-label="Completed" ></clr-icon>
+     <clr-icon *ngIf="data.state == 'not-started'"  shape="circle" aria-current="true" aria-label="Not started" ></clr-icon>
+     <clr-icon *ngIf="data.state == 'error'" shape="error-standard" aria-label="Error" ></clr-icon>
+
+     <div class="clr-timeline-step-body">
+       <span class="clr-timeline-step-title">Initialize Variables</span>
+       <span class="clr-timeline-step-description">Initialize var for Project</span>
+       <span class="clr-timeline-step-description clr-row"><span><button class="btn btn-primary">Output</button></span>
+       <span><button class="btn btn-success" >C-LOG</button></span></span>
+     </div>
+   </li>
+   <!-- <li class="clr-timeline-step disabled">
+       <div class="clr-timeline-step-header">Step 1</div>
+       <clr-icon shape="dot-circle" aria-current="true" aria-label="Current"></clr-icon>
+       <div class="clr-timeline-step-body">
+         <span class="clr-timeline-step-title">Add Script</span>
+         <span class="clr-timeline-step-description">Add Script For Dockerfile</span>
+         <span class="clr-timeline-step-description clr-row"><button class="btn btn-primary">Output</button>
+          <button class="btn btn-success">C-LOG</button></span>
+       </div>
+     </li>
+   <li class="clr-timeline-step">
+       <div class="clr-timeline-step-header">Step 2</div>
+       <clr-icon shape="circle" aria-label="Not started"></clr-icon>
+       <div class="clr-timeline-step-body">
+         <span class="clr-timeline-step-title">Create Script</span>
+         <span class="clr-timeline-step-description">Create DockerFile</span>
+         <span class="clr-timeline-step-description clr-row"><button class="btn btn-primary">Output</button>
+          <button class="btn btn-success">C-LOG</button></span>
+       </div>
+   </li> -->
+
+   </ul>
+  </div>
+

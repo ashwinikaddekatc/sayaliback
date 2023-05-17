@@ -1,0 +1,229 @@
+<h4 style="font-weight: 300;display: inline;"><b>Create Milestone</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+A collection of epics representing a larger initiative and features having common golas
+<hr>
+
+<div class="container">
+    <form [formGroup]="entryForm">
+        <div class="formdiv" style="float:left; width: 69%;">
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" formControlName="name" class="clr-input" placeholder="enter Project Name">
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="priority">Priority</label>
+                    <select colspan="2" formControlName="priority" class="clr-dropdown">
+                        <option>level</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="description">Description(optional)</label>
+                    <textarea id="" cols="10" rows="2" formControlName="description" placeholder="Enter Description"></textarea>
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <div>
+                      <label for="description">Status:</label>
+                      <input type="text" placeholder="NotStarted" value="NotStarted" class="clr-input">
+
+                    </div>
+                    <div>
+                      <label for="billable">Billable</label>
+                      <input type="checkbox" formControlName="billiable" clrToggle value="billable" name="billable" />
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="tags">Tags</label>
+                    <tag-input formControlName="tags" name="tags" [separatorKeyCodes]="[32, 188]" [(ngModel)]='tags'></tag-input>
+                    <!-- <input type="text" formControlNmae="tags" placeholder="enter tags" class="clr-input" id="tags"> -->
+                </div>
+            </div>
+
+            <div class="clr-row">
+                <div class="clr-col-12">
+                   <span>List Of attachment(s)</span>
+                    <table class="table" formArrayName="pm_milestone_Uploads">
+                        <thead>
+                        <tr >
+                            <th >No</th>
+                            <th>File Name</th>
+                            <th>External</th>
+                            <th>Cancel</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let attach of controls; let i=index" [formGroupName]="i">
+                            <td style="width: 70px;"><input type="text" class="clr-input" formControlName="attachmentId" value={{i+1}} [readonly]="true">  </td>
+                            <td> <input type="file" id="myFile" formControlName="attachmentFilename" (change)="onFileChanged($event)" accept=".pdf,.doc,.docx,.jpg,.msg"></td>
+                            <td style="width:40px;"><input type="checkbox"> </td>
+                            <td> <a  (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                        </tr>
+
+                                    <button class="btn btn-primary" (click)="onAddLines()">
+                                        <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+                                    </button>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <table class="table" id="read">
+                        <thead>
+                        <tr>
+                            <th class="left"> <clr-icon shape="file"></clr-icon>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="left">
+                                   <h3> <b>GOALS</b></h3>
+                                    <p>Create something a fully polished update to production<br>
+                                        Discovery of decisions,patterns,etc...to inform next steps // chance to iterate on patterns (but not necessarily establish<br/>
+                                        final patterns)
+                                    </p>
+                                    <h3><b>OUT OF SCOPE</b></h3>
+                                    <p>Ultimate page is out of scope <br>
+                                        Minor doc is out od scope
+                                    </p>
+                                    <h3><b>NARATIVE</b></h3>
+                                    <p>Why GraphQL is the right decision <br>
+                                        Dev Velocity >> We have a problem with FE dev velocity .. this project solves it<br>
+                                        We have to do this .. we started this months ago with React migration<br>
+                                        This sets us up well for the future state
+                                    </p>
+                                    <h3><b>RISKS/UNKNOWNS</b></h3>
+                                    <p>Are we willing to change our UX patterns?<br>
+                                        DO we have the bandwidth to research these big changes?<br>
+                                        React migration is incomplete<br>
+                                        Increased BE complexity (maintaining REST and GraphQL API)<br>
+                                        Resulting migration is incomplete<br>
+                                        Are we ready to continue in dev efficiency, decrease in reliability of BE services(ex validation logic)<br>
+                                        For a full migration, we will want to create a focused working group
+                                    </p>
+                                    <h3><b>NOTES</b></h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="progressform" style="float:right; width: 29%;">
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-block">
+                            <div class="card-text">
+                                    <div class="radialProgressBar progress-80" style="margin-top: 5px; margin-left: 0px; float:left">
+                                        <div class="overlay">80</div>
+                                    </div>
+
+                                <div class="centercard"></div>
+                                <div class="rightcard">
+
+                                        <span>Stories: </span><b>8</b><clr-icon shape="zoom-in"></clr-icon>
+                                   <br>
+                                        <span>Points: </span><b>6</b>
+                                        <br>
+                                        <span>Features: </span><b>4</b>(50%)
+                                        <br>
+                                        <span>Bugs: </span><clr-icon shape="bug"></clr-icon><b>1</b>(13%)
+                                        <br>
+                                        <span>Chores: </span><clr-icon shape="wrench"></clr-icon><b>3</b>(38%)
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-sm-12">
+                    <label for="project">Project</label>
+                    <select colspan="2" formControlName="project" class="clr-dropdown" (change)="modo($event.target.value)">
+                        <option *ngFor="let sub of project" [value]="sub.id" >{{sub.project_name}} </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="repository">Repository</label>
+                    <select colspan="2" formControlName="repository" class="clr-dropdown">
+                        <option *ngFor="let sub of repo" [value]="sub.module_name">{{sub.module_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="iteration">Iteration</label>
+                    <select colspan="2" formControlName="iteration" class="clr-dropdown">
+                        <option *ngFor="let sub of iteration" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="team">Team</label>
+                    <select colspan="2" formControlName="team" class="clr-dropdown">
+                        <option *ngFor="let sub of team" [value]="sub.name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="reportto">Report To</label>
+                    <select colspan="2" formControlName="report_to" class="clr-dropdown">
+                        <option *ngFor="let sub of report" [value]="sub.fullName">{{sub.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="starttime">Start Time</label>
+                    <input type="datetime-local" formControlName="start_time">
+                    <!-- <select colspan="2" formControlName="start_time" class="clr-dropdown">
+                        <option >project 1
+                        </option>
+                    </select> -->
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="endtime">End Time</label>
+                    <input type="datetime-local" formControlName="end_time">
+                    <!-- <select colspan="2" formControlName="end_time" class="clr-dropdown">
+                        <option >project 1
+                        </option>
+                    </select> -->
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="timeestimate">Time Estimates in Hrs</label>
+                    <input type="time" formControlName="time_estimates_in_hrs">
+                    <!-- <select colspan="2" formControlName="time_estimates_in_hrs" class="clr-dropdown">
+                        <option >project 1
+                        </option>
+                    </select> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="clr-row"> -->
+            <div class="center">
+                <div class="btn-group">
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-1" (click)="goBack()"/>
+                    <label for="btn-demo-check-1">Cancle</label>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                    <label for="btn-demo-check-2">Submit</label>
+                </div>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  />
+                    <label for="btn-demo-check-2"><clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>Goal</label>
+                </div>
+            </div>
+        <!-- </div> -->
+    </form>
+</div>

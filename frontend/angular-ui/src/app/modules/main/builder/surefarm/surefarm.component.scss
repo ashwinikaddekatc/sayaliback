@@ -1,0 +1,27 @@
+.right{
+  float:right;
+  width:200px;
+
+}
+.center{
+  float:left;
+  width:30px;
+  border-right: 3px solid rgb(170, 168, 168);
+  Padding-bottom: 70px; /* Key*/
+  Margin-bottom:-70px; /* Key*/
+}
+.letter{
+  width:400px;
+padding: 20px;
+  //padding-top: 20px;
+  //padding-bottom: 20px;
+  Overflow: hidden; /* key*/
+  //border:1px solid black;
+}
+.left{
+  float:left;
+  width:100px;
+text-align: right;
+
+}
+

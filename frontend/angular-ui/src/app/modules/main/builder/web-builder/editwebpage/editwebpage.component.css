@@ -1,0 +1,76 @@
+.componentbtn {
+  color: white;
+  background-color: #03AC13;
+  border: none;
+}
+
+.content-container {
+  min-height: 100vh;
+  height: initial;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.clr-checkbox {
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  width: 100%;
+  margin-left: 20px;
+  margin-bottom: 18px;
+}
+
+.clr-input, .clr-dropdown {
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.75rem;
+  margin-top: 3px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.a4-size {
+  width: 793.7007874px;
+  height: 1122.5196850527px;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+
+.a3-size {
+  width: 1122.519685px;
+  height: 1587.4015748px;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+
+.a2-size {
+  width: 1587.4015748px;
+  height: 2245.0393701px;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+
+.a1-size {
+  width: 2245.0393701px;
+  height: 3178.5826772px;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+
+.itemActions {
+  position: absolute;
+  z-index: 5px;
+}
+
+.itemActions > gridster-item {
+  background: #942911;
+  position: relative;
+  top: 30px;
+  left: -10px;
+  width: 150px;
+  height: 30px;
+}/*# sourceMappingURL=editwebpage.component.css.map */

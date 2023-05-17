@@ -1,0 +1,14 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://">Projects</a></li>
+</ol>
+<br>
+<div class="btn-group btn-link" >
+  <button class="btn btn-icon" (click)="gridViewIsActive=!gridViewIsActive">
+      <clr-icon *ngIf="!gridViewIsActive" class="is-solid" shape="grid-view" size="24"></clr-icon>
+      <clr-icon *ngIf="gridViewIsActive" class="is-solid" shape="view-list" size="24"></clr-icon>
+  </button>
+
+</div>
+<app-projectcard *ngIf="!gridViewIsActive" [apps]="apps"></app-projectcard>
+<app-allprojectsetup *ngIf="gridViewIsActive" ></app-allprojectsetup>

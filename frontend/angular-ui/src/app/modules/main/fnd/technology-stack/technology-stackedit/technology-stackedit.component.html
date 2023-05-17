@@ -1,0 +1,55 @@
+<div class="container">
+  <h4 style="font-weight: 300;display: inline;"><b>Technology Stack</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+
+<!-- <span style="display: inline; float: right;"> <button id="add" class="btn btn-primary" ><clr-icon shape="plus" ></clr-icon>Import</button></span> -->
+<hr>
+
+
+    <!-- entry form-->
+    <form  (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+        <!-- <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tech_stack">Technology Stack</label>
+          <select id="tech_stack" formControlName="tech_stack" selected="null" class="clr-dropdown">
+            <option value="null">Choose Technology</option>
+            <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+            </option>
+          </select>
+        </div> -->
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Technology Stack Name</label>
+          <input id="tags" type="text" name="techstack" [(ngModel)]="tdata.tech_stack" placeholder="Enter tech stack" class="clr-input">
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Version</label>
+          <input id="tags" type="text" name="version" [(ngModel)]="tdata.version" placeholder="Enter tags" class="clr-input">
+        </div>
+      </div>
+        <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12" >
+            <label for="file" style="margin-top: 20px;">Description</label>
+            <textarea  id="" cols="10" rows="2"  name=" remarks" name="description" [(ngModel)]="tdata.description" placeholder="Enter Description">
+            </textarea>
+               </div>
+            <div class="clr-col-md-4 clr-col-sm-12" >
+              <label for="file" style="margin-top: 20px;">Tags</label>
+              <textarea  id="" cols="10" rows="2"  name=" remarks" name="tags" [(ngModel)]="tdata.tags" placeholder="Enter Tags">
+              </textarea>
+              </div>
+        </div>
+        <!-- <div class="clr-col-md-4 clr-col-sm-12" >
+          <label for="file">Upload Zip</label>
+          <input style="color: crimson;" type="file" name="base_prj_file_name"
+          accept=".zip,.rar,.7zip" (change)="onSelectFile($event)" >
+        </div> -->
+     <!-- end row   [(ngModel)]="tdata.base_prj_file_name" observeFiles-->
+      <br>
+      <div class="center">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+
+  </div>

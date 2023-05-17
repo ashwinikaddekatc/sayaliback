@@ -1,0 +1,71 @@
+<h4 style="font-weight: 300;display: inline;"><b>New Webhook</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+
+<hr>
+
+
+
+
+
+
+
+
+<div class="container">
+  <!-- entry form-->
+  <form>
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Webhook Name</label>
+        <input id="projectName" type="text" name="webhook_name" placeholder="Enter Webhook Name" [(ngModel)]="tdata.webhook_name"
+          class="clr-input" required>
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description (optional)</label>
+          <textarea  id="" cols="10" rows="2"  name="desc" name="description" placeholder="Enter Description" [(ngModel)]="tdata.description">
+          </textarea>
+
+      </div>
+
+      </div>
+      <div class="clr-row" >
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="workflow">On Entity</label>
+            <input type="text" list="config" class="clr-input" name="on_entity" [(ngModel)]="tdata.on_entity">
+          <datalist id="config" >
+            <option *ngFor="let sub of entitydata" [value]="sub">{{sub}}</option>
+        </datalist>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="workflow">On Event</label>
+          <select colspan="2" name="on_event" [(ngModel)]="tdata.on_event" class="clr-dropdown">
+              <option selected>On_Retrived</option>
+              <option >On_Inserted</option>
+              <option >On_Updated</option>
+              <option >On_Deleted</option>
+          </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow">On_Incoming_webhook</label>
+        <input type="text" list="income" class="clr-input" name="on_incoming_webhook" [(ngModel)]="tdata.on_incoming_webhook">
+        <datalist id="income">
+          <option *ngFor="let sub of data" [value]="sub.id" [selected]="sub.webhook_name">{{sub.webhook_name}}</option>
+      </datalist>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+          <label for="btn-demo-check-2">Submit</label>
+        </div>
+        </div>
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+    </div>
+  </form>
+</div>

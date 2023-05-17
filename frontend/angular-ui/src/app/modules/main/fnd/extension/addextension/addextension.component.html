@@ -1,0 +1,52 @@
+<h4 style="font-weight: 300;display: inline;"><b>Extension Field</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+<hr>
+
+<div class="container">
+
+  <!-- Header form start -->
+  <form [formGroup]="extFieldForm" (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="form_name">Type:</label>
+              <select formControlName="type" selected="null" class="clr-dropdown">
+                <option value="null">Choose Type</option>
+                <option *ngFor="let type of types" [ngValue]="type">{{ type | uppercase }}</option>
+            </select>
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="form_desc">Field Name:</label>
+              <input colspan="2" type="text" formControlName="field_name" placeholder="Enter Field Name"
+              class="clr-input">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="related_to">Mapping:</label>
+              <select formControlName="mapping" selceted="null" class="clr-dropdown">
+                <option value="null">Choose Mapping</option>
+                <option *ngFor="let lookup of lookups" [ngValue]="lookup">{{ lookup | uppercase }}</option>
+            </select>
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="page_event">Datatype:</label>
+              <select formControlName="data_type" selceted="null" class="clr-dropdown">
+                <option value="null">Choose Datatype</option>
+                <option *ngFor="let dt of datatypes" [ngValue]="dt">{{ dt | uppercase }}
+                </option>
+            </select>
+          </div>
+
+      </div> <!-- row end -->
+
+
+      <div class="center">
+          <button type="submit" class="btn btn-primary" [disabled]="!extFieldForm.valid">SUBMIT</button>
+      </div>
+  </form>
+</div>
+
+
+
+
+
+
+

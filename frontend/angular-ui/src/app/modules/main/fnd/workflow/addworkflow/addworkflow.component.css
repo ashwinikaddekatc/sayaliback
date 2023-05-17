@@ -1,0 +1,30 @@
+.center {
+  text-align: center;
+}
+
+input[type=text], [type=date], textarea {
+  width: 100%;
+  padding: 15px 15px;
+  background-color: rgb(255, 255, 255);
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+select {
+  width: 100%;
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.clr-input {
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.75rem;
+  margin-top: 3px;
+  width: 100%;
+  margin-bottom: 10px;
+}/*# sourceMappingURL=addworkflow.component.css.map */

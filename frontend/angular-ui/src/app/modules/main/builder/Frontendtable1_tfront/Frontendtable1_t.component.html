@@ -1,0 +1,127 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://"> Frontendtable1_t</a></li>
+</ol>
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>list </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+      <button id="add" class="btn btn-primary" (click)="goToAdd(product)" >
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div></div>
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Form Name
+    </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of product" [clrDgItem]="user">
+      <clr-dg-cell style="cursor: pointer;"(click)="goToForm(user.name)">{{user.name}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="onEdit(user)">Edit</button>
+        <button class="action-item" (click)="onDelete(user)">Delete</button>
+      </clr-dg-action-overflow>
+         </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">User Edit</h3>
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <form clrForm (ngSubmit)="onUpdate(rowSelected.id)">
+      <clr-input-container>
+        <label>name<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.name" name="name" />
+      </clr-input-container>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+      <button type="submit" class="btn btn-primary" >Update</button>
+      </div>
+    </form>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">ENTRY FORM</h3>
+  <div class="modal-body">
+     <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+   <div class="clr-row" style="height: fit-content;">
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> Table name:</label>
+          <input type="text" clrCheckbox formControlName="table_name" />
+        </div>
+
+        <!-- <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> Form name:</label>
+          <input type="text" clrCheckbox formControlName="name" />
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label> Form DropDown:</label>
+          <select class="form-select form-control form-control-sm" aria-label="size 3 select example" formControlName="data_type">
+            <option value="" selected>Select Dropdown value</option>
+            <option>String</option>
+            <option>Boolean</option>
+            <option>Integer</option>
+            <option>Date</option>
+          </select>
+        </div> -->
+      </div>
+      <div class="clr-row">
+        <div class="clr-col-12">
+           <span>Entity Name</span>
+            <table class="table" formArrayName="entity_name">
+                <thead>
+                <tr >
+                    <th >No</th>
+                    <th>Field Value</th>
+                    <th>Data Type</th>
+                    <th>Cancel</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let attach of controls; let i=index" [formGroupName]="i">
+                    <td style="width: 40px;"><input type="text" class="clr-input" value={{i+1}} [readonly]="true">  </td>
+                    <td style="width:170px;"> <input type="text" formControlName="name"></td>
+                    <td><select class="form-select form-control form-control-sm" aria-label="size 3 select example" formControlName="data_type">
+                      <option value="" selected>Select Dropdown value</option>
+                      <option>String</option>
+                      <option>Boolean</option>
+                      <option>Integer</option>
+                      <option>Date</option>
+                    </select> </td>
+                    <td> <a  (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                </tr>
+
+                            <a class="btn btn-primary" (click)="onAddLines()">
+                                <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+                            </a>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+ <div class="modal-footer">
+<button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >ADD</button>
+        </div>
+</form>
+  </div>
+</clr-modal>

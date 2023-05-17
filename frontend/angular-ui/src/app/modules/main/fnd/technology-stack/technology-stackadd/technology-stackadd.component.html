@@ -1,0 +1,69 @@
+<div class="container">
+  <h4 style="font-weight: 300;display: inline;"><b>Technology Stack</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+
+<!-- <span style="display: inline; float: right;"> <button id="add" class="btn btn-primary" ><clr-icon shape="plus" ></clr-icon>Import</button></span> -->
+<hr>
+
+
+    <!-- entry form-->
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+      <!-- <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Technology Stack</label>
+          <input id="tags" type="text" formControlName="tech_stack" placeholder="Enter tech stack" class="clr-input">
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Tags</label>
+          <input id="tags" type="text" formControlName="tags" placeholder="Enter tags" class="clr-input">
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12" >
+          <label for="file" style="margin-top: 20px;">Upload Zip</label>
+          <input style="color: crimson;margin-top: 20px;" type="file" accept=".zip,.rar,.7zip" (change)="onSelectFile($event)" >
+        </div>
+      </div>  -->
+
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Name</label>
+          <input id="tags" type="text" formControlName="tech_stack" placeholder="Enter tech stack" class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.tech_stack.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.tech_stack.errors.required" class="error_mess">*This field is Required</div>
+        </div>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Version</label>
+          <input id="tags" type="text" formControlName="version" placeholder="Enter tags" class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.version.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.version.errors.required" class="error_mess">*This field is Required</div>
+        </div>
+        </div>
+        </div>
+       <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12" >
+          <label for="file" style="margin-top: 20px;">Description</label>
+          <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+          </textarea>
+          <div *ngIf="submitted && entryForm.controls.description.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.description.errors.required" class="error_mess">*This field is Required</div>
+        </div>
+             </div>
+          <div class="clr-col-md-4 clr-col-sm-12" >
+            <label for="file" style="margin-top: 20px;">Tags</label>
+            <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="tags" placeholder="Enter Tags">
+            </textarea>
+            <div *ngIf="submitted && entryForm.controls.tags.errors" class="error_mess">
+              <div *ngIf="submitted && entryForm.controls.tags.errors.required" class="error_mess">*This field is Required</div>
+          </div>
+            </div>
+      </div>
+      <br>
+      <div class="center">
+        <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+      </div>
+    </form>
+
+  </div>

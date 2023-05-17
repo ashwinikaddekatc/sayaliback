@@ -1,0 +1,166 @@
+
+<h4 style="font-weight: 300;display: inline;"><b>Create Iteration</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+A collection of Milestones having a time bound sprint
+<hr>
+
+<div class="container">
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+        <div class="formdiv" style="float:left; width:69%">
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" formControlName="name" class="clr-input" placeholder="enter Project Name">
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="category">Category</label>
+                    <select colspan="2" formControlName="category" class="clr-dropdown">
+                        <option>level</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="description">Description(optional)</label>
+                    <textarea id="" cols="10" rows="2" formControlName="description" placeholder="Enter Description"></textarea>
+                </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                  <label for="description">Status:</label>
+                 <input type="text" placeholder="NotStarted" value="NotStarted" class="clr-input">
+                        <!-- <span>Status:</span>
+                        <b formControlName="status">NotStarted</b> -->
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="tags">Tags</label>
+                    <!-- <input type="text" formControlNmae="tags" placeholder="enter tags" class="clr-input" id="tags"> -->
+                    <tag-input formControlName="tags" name="tags" [(ngModel)]='tags' [separatorKeyCodes]="[32, 188]"></tag-input>
+                    <!-- <tag-input [(ngModel)]="items" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input> -->
+                </div>
+
+            </div>
+
+            <div class="clr-row">
+                <div class="clr-col-12 clr-col-sm-12"><br>
+                   <span>List Of attachment(s)</span>
+                    <table class="table" formArrayName="doc">
+                        <thead>
+                        <tr>
+                            <th >No</th>
+                            <th>File Name</th>
+                            <th>External</th>
+                            <th>Cancel</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let attach of controls; let i=index" [formGroupName]="i">
+                                <td style="width: 70px;"><input type="text" class="clr-input" formControlName="attachmentId" value={{i+1}} [readonly]="true">  </td>
+                                <td> <input type="file" id="myFile" formControlName="attachmentFilename" (change)="onFileChanged($event)" accept=".pdf,.doc,.docx,.jpg,.msg"></td>
+                                <td style="width:40px;"><input type="checkbox"> </td>
+                                <td> <a  (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                            </tr>
+                        </tbody>
+                        <button type="button" class="btn btn-primary button1" style="margin-left: 20px;" (click)="onAddLines()">
+                            <clr-icon shape="plus"></clr-icon>
+                          </button>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="progressform" style="float:right; width:29%">
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-block">
+                            <div class="card-text">
+                                    <div class="radialProgressBar progress-80" style="margin-top: 5px; margin-left: 0px; float:left">
+                                        <div class="overlay">80</div>
+                                    </div>
+                                    <div class="centercard"></div>
+                                    <div class="rightcard">
+                                        <span>Stories: </span><b>8</b><clr-icon shape="zoom-in"></clr-icon>
+                                        <span>Points: </span><b>6</b><br>
+                                        <span>Features: </span><b>4</b>(50%)<br>
+                                        <span>Bugs: </span><clr-icon shape="bug"></clr-icon><b>1</b>(13%)<br>
+                                        <span>Chores: </span><clr-icon shape="wrench"></clr-icon><b>3</b>(38%)
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-sm-12">
+                    <label for="project">Project</label>
+                    <select colspan="2" formControlName="project" class="clr-dropdown" (change)="modo($event.target.value)">
+                        <option id="word" *ngFor="let sub of project" [value]="sub.id" >{{sub.project_name}}</option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="repository">Repository</label>
+                    <select colspan="2" formControlName="repository" class="clr-dropdown">
+                        <option *ngFor="let sub of repo" [value]="sub.module_name">{{sub.module_name}}</option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="team">Team</label>
+                    <select colspan="2" formControlName="team" class="clr-dropdown">
+                        <option *ngFor="let sub of team" [value]="sub.module_name">{{sub.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="report_to">Report To</label>
+                    <select colspan="2" formControlName="report_to" class="clr-dropdown">
+                        <option *ngFor="let sub of report" [value]="sub.module_name">{{sub.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="start_time">Start Time</label>
+                    <input type="datetime-local" formControlName="start_time">
+                    <!-- <select colspan="2" formControlName="start_time" class="clr-dropdown">
+                        <option >09:00
+                        </option>
+                    </select> -->
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="end_time">End Time</label>
+                    <input type="datetime-local" formControlName="end_time">
+                    <!-- <select colspan="2" formControlName="end_time" class="clr-dropdown">
+                        <option >10:30
+                        </option>
+                    </select> -->
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="time_estimates_in_hrs">Time Estimates in Hrs</label>
+                    <input type="time" formControlName="time_estimates_in_hrs">
+                    <!-- <select colspan="2" formControlName="time_estimates_in_hrs" class="clr-dropdown">
+                        <option >11:00
+                        </option>
+                    </select> -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="clr-row"> -->
+            <div class="center">
+                <div class="btn-group">
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-1" />
+                    <label for="btn-demo-check-1" (click)="goBack()">Cancle</label>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                    <label for="btn-demo-check-2">Submit</label>
+                </div>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  />
+                    <label for="btn-demo-check-2"><clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>Goal</label>
+                </div>
+            </div>
+        <!-- </div> -->
+    </form>
+</div>

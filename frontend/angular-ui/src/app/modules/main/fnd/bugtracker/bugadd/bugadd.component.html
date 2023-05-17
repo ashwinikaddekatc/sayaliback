@@ -1,0 +1,138 @@
+<h4 style="font-weight: 300;display: inline;"><b>Bug Tracker</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span><br>
+<hr>
+
+<div class="container">
+    <form [formGroup]="entryForm">
+        <div class="formdiv" style="float:left; width: 55%;
+          background-color: #ffffff;
+          padding: 5px;
+          box-shadow: 2px 2px 2px 2px white; ">
+            <div class="clr-row">
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="name">Select Project </label>
+                    <input type="text" list="config" class="clr-dropdown" formControlName="select_project">
+                    <datalist id="config">
+                    <option *ngFor="let item of projectsetup" [ngValue]="item.id">{{item.projectName}}</option>
+                </datalist>
+                                   </div>
+                <div class="clr-col-md-6 clr-col-sm-12">
+                    <label for="priority">Select Status</label>
+                    <select colspan="2"  class="clr-dropdown" formControlName="select_status">
+                        <option>Back Log</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clr-row">
+              <div class="clr-col-md-6 clr-col-sm-12">
+                  <label for="name">Select Priority </label>
+                  <select colspan="2"  class="clr-dropdown" formControlName="select_priority">
+                    <option>low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select>                </div>
+              <div class="clr-col-md-6 clr-col-sm-12">
+                  <label for="priority">Title</label>
+                  <input type="text" formControlName="title">
+              </div>
+          </div>
+          <div class="clr-row">
+            <div class="clr-col-md-6 clr-col-sm-12">
+                <label for="name">Type </label>
+                <input type="text" formControlName="type">
+                             </div>
+            <div class="clr-col-md-6 clr-col-sm-12">
+                <label for="priority">Key No</label>
+                <input type="text" formControlName="key_no">
+            </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-md-6 clr-col-sm-12">
+              <label for="name">Assign </label>
+              <input type="text" formControlName="assignee">
+                           </div>
+          <div class="clr-col-md-6 clr-col-sm-12">
+              <label for="priority">Reporter</label>
+              <input type="text" formControlName="reporter">
+          </div>
+      </div>
+          <div class="clr-row">
+            <div class="clr-col-md-12 clr-col-sm-12">
+                <label for="description">Steps</label>
+                <textarea id="" cols="10" rows="2"  placeholder="Enter Steps" formControlName="steps"></textarea>
+            </div>
+
+        </div>
+            <div class="clr-row">
+                <div class="clr-col-md-12 clr-col-sm-12">
+                    <label for="description">Description(optional)</label>
+                    <textarea id="" cols="10" rows="2"  placeholder="Enter Description" formControlName="description"></textarea>
+                </div>
+
+            </div>
+            <div class="clr-row">
+              <div class="clr-col-md-12 clr-col-sm-12">
+                  <label for="description">Bug Attachment</label><br>
+           <input type="file" style="padding-bottom: 35px"  (change)="onFileChanged($event)" formControlName="fileName">
+              </div>
+
+          </div>
+
+
+
+        </div>
+        <div class="progressform" style="float:right; width: 40%;background-color: #ffffff;
+        padding: 5px;
+        box-shadow: 2px 2px 2px 2px white;">
+
+            <div class="clr-row">
+                <!-- <div class="clr-col-sm-12">
+                    <label for="project">Project</label>
+                   <select>
+                    <option></option>
+                   </select>
+                </div>
+                <div class="clr-col-sm-12">
+                    <label for="repository">Repository</label>
+                    <select>
+                      <option></option>
+                     </select>
+                </div> -->
+
+
+
+
+            </div>
+            <div class="clr-row">
+              <div  class="clr-col-sm-12">
+                <img src="../../../../assets/images/images.png" alt="" style="height: 50px;">
+                title of project bug
+                <span class="label label-purple p7" style="margin-top: .4em;"> <b>time</b> </span><br>
+                <hr>
+                <img src="../../../../assets/images/images.png" alt="" style="height: 50px;">
+                title of project bug
+                <span class="label label-purple p7" style="margin-top: .4em;"> <b>time</b> </span><br>
+                <hr>
+
+              </div></div>
+        </div>
+
+        <!-- <div class="clr-row"> -->
+            <div class="center">
+                <div class="btn-group">
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-1"(click)="goBack()"/>
+                    <label for="btn-demo-check-1">Cancle</label>
+                </div>
+                <div class="checkbox btn">
+                    <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                    <label for="btn-demo-check-2">Submit</label>
+                </div>
+                </div>
+
+            </div>
+        <!-- </div> -->
+    </form>
+</div>

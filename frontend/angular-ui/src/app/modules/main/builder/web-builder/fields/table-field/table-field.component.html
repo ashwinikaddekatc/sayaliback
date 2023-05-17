@@ -1,0 +1,64 @@
+<!-- <table class="table table-striped table-bordered" style="margin-top: 0px;">
+    <thead>
+        <tr>
+            <th>Item Code</th>
+            <th>Item Description</th>
+            <th>Total Unit</th>
+            <th>Unit Price</th>
+            <th>Line Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr >
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+   -->
+   <clr-datagrid [clrDgLoading]="loading" style="top: 14px;">
+    <clr-dg-placeholder><clr-spinner [clrMedium]="true">Loading ...</clr-spinner></clr-dg-placeholder>
+        <clr-dg-column >
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Item Code
+            </ng-container>
+        </clr-dg-column>
+        <clr-dg-column >
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Item Descriptiom
+            </ng-container>
+        </clr-dg-column>
+        <clr-dg-column >
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Total Unit
+            </ng-container>
+        </clr-dg-column>
+        <clr-dg-column >
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Unit Price
+            </ng-container>
+        </clr-dg-column >
+        <clr-dg-column >
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Line Total
+            </ng-container>
+        </clr-dg-column >
+
+        <clr-dg-row  >
+        <clr-dg-cell></clr-dg-cell>
+        <clr-dg-cell  style="color: rgb(108, 108, 194);" ></clr-dg-cell>
+        <clr-dg-cell ></clr-dg-cell>
+        <clr-dg-cell></clr-dg-cell>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} Records
+        </clr-dg-pagination>
+        </clr-dg-footer>
+</clr-datagrid>

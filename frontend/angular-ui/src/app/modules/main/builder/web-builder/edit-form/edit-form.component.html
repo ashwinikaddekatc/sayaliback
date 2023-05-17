@@ -1,0 +1,38 @@
+<h4 style="font-weight: 300;display: inline;"><b>Define Webpage</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span>
+<hr><br>
+
+<div class="container">
+    <form  (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="report_builder_name">Report Name</label>
+              <input id="report_builder_name" type="text" name="report_builder_name" [(ngModel)]="data.report_builder_name" class="clr-input">
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="secuirity_profile">Security Profile</label>
+                <input id="secuirity_profile" type="text" name="secuirity_profile" [(ngModel)]="data.secuirity_profile" class="clr-input">
+            </div>
+        </div>
+
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="page_size">Page Size</label>
+              <select colspan="2" class="clr-dropdown" [(ngModel)]="data.page_size" name="page_size">
+                  <option value="A4" selected >A4</option>
+                  <option value="A3"> A3</option>
+                  <option value="A2">A2</option>
+                  <option value="A1">A1</option>
+              </select>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="description">Description</label>
+              <textarea  cols="10" rows="2"  name=" description" name="description" [(ngModel)]="data.description" placeholder="Enter Description"></textarea>
+            </div>
+        </div>
+
+        <div class="center">
+          <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+      </div>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>CREATE NEW REPORT </b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span>
+  <hr />
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Report Name</label>
+          <input id="report_name" type="text" formControlName="report_name" placeholder="Enter tags" class="clr-input">
+       </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Description</label>
+        <input id="description" type="text" formControlName="description" placeholder="Enter Description" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file">Report Tags</label>
+        <input id="report_tags" type="text" formControlName="report_tags" placeholder="Enter tags"  class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label >Service name</label>
+                  <select  formControlName="servicename" class="clr-dropdown">
+                      <option  value="null">select service name </option>
+                      <option *ngFor="let item of list" value={{item}}>{{item}}</option>
+                  </select>
+      </div>
+
+    </div> <!-- end row -->
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">save report</button>
+    </div>
+  </form>
+
+</div>

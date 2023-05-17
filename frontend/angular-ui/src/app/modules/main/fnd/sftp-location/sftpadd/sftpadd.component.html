@@ -1,0 +1,140 @@
+<h4 style="font-weight: 300;display: inline;"><b>Add SFTP Location</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+<hr>
+<div class="container">
+    <!-- entry form-->
+        <div class="clr-row">
+            <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12">
+                <div>
+                    <div class="clr-row">
+                        <div class="clr-col-md-4 clr-col-sm-12">
+                            <div class="clr-col-sm-12">
+                            <label for="projectName">Webhook Name</label>
+                            <input id="projectName" type="text" placeholder="Enter Project Name"
+                                class="clr-input" required>
+                            </div>
+                            <div class="clr-col-sm-12">
+                                <label for="projectName">Location Type</label>
+                                <select selected="null"   class="clr-dropdown">
+                                    <option value="null">Choose Type</option>
+                                    <option>Location1</option>
+                                    <option>Location2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clr-col-md-6 clr-col-sm-12">
+                            <div class="clr-col-sm-12">
+                            <label for="description" class="d1">Description</label>
+                            <textarea id="t1" cols="10" rows="2" name="desc" placeholder="Enter Description" style="width:100%">
+                            </textarea>
+                            </div>
+                        </div>
+                        <div class="clr-col-md-2 clr-col-sm-12">
+                            <div class="clr-col-sm-12">
+                                <label for="workflow_name">Active</label>
+                                <input type="checkbox"  clrToggle value="billable" name="billable" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<br>
+<h4 style="font-weight: 300;display: inline;">Configration - <b>Server</b></h4>
+<hr>
+<form [formGroup]="entryForm">
+<div class="clr-row" style="margin-right: 20px;">
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Host
+            <!-- <span class="label label-light-green p7"
+                style="margin-top: .4em;margin-left:300px; display: inline; cursor: pointer;">Generate</span> -->
+        </label>
+        <input  type="text"  formControlName="host" placeholder="Enter the Email" class="clr-input"  >
+    </div>
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Port
+        </label>
+        <input  type="text"  formControlName="port" placeholder="Enter the Password" class="clr-input" >
+    </div>
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">User Name
+        </label>
+        <input  type="text"  formControlName="user" placeholder="Enter the Password" class="clr-input" >
+    </div>
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Password
+        </label>
+        <input  type="password"  formControlName="password" placeholder="Enter the Password" class="clr-input">
+    </div>
+</div>
+</form>
+<br>
+<h4 style="font-weight: 300;display: inline;">Configration - <b>File</b></h4>
+<hr>
+<div class="clr-row" style="margin-right: 20px;">
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Account
+            <!-- <span class="label label-light-green p7"
+                style="margin-top: .4em;margin-left:300px; display: inline; cursor: pointer;">Generate</span> -->
+        </label>
+        <input type="text"  placeholder="Enter the Email" class="clr-input"  required>
+    </div>
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Directory
+        </label>
+        <input  type="text"  placeholder="Enter the Password" class="clr-input" 
+            required>
+    </div>
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Filename With Placeholder
+        </label>
+        <input  type="text" placeholder="Enter the Password" class="clr-input" 
+            required>
+    </div>
+    <div class="clr-col-md-5 clr-col-sm-12">
+        <label for="projectName">Archive Directory
+        </label>
+        <input  type="text"  placeholder="Enter the Password" class="clr-input"
+            required>
+    </div>
+</div>
+<br>
+<h4 style="font-weight: 300;display: inline;">Configration - <b>Scheduler</b></h4>
+<hr>
+<div class="clr-row">
+    <div class="clr-col-md-3 clr-col-sm-12">
+      <label for="technologyStack">Cron</label>
+     <input type="text" class="clr-input">
+    </div>
+
+  <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+    <button  class="btn btn-icon btn-primary">
+      <clr-icon shape="view-list"></clr-icon>
+    </button>
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="technologyStack">Every</label><br>
+    <!-- <span class="label label-light-blue p7" style="margin-top: .4em;"(click)="val($event)">5 Min</span>
+    <span class="label label-success" style="margin-top: .4em;"(click)="val($event)">30 Min</span>
+    <span class="label label-purple p7" style="margin-top: .4em;"(click)="val($event)">1 hr</span> -->
+    <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" >5 Min</span>
+    <span class="label label-success" style="margin-top: .4em;cursor: pointer;" >30 Min</span>
+    <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" >1 Hr</span>
+    </div>
+</div>
+<br>
+<div class="center">
+    <div class="btn-group">
+      <div class="checkbox btn">
+        <input type="checkbox" id="btn-demo-check-1"/>
+        <label for="btn-demo-check-1" (click)="cancel()">Cancel</label>
+      </div>
+      <div class="checkbox btn">
+        <input type="checkbox" id="btn-demo-check-2" checked/>
+        <label for="btn btn-primary" (click)="onSubmit()">Update</label>
+      </div>
+    </div>
+    </div>
+
+</div>
+    <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->

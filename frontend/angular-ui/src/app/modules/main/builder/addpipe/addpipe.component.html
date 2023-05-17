@@ -1,0 +1,47 @@
+<div class="container">
+
+
+
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Project Id</label>
+        <input id="projectName" type="text"  placeholder="Enter Project Name" formControlName="projectid"
+          class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Repo Id
+       </label>
+        <input id="name" type="text"  placeholder="Enter Namespace" formControlName="repoid"
+          class="clr-input">
+      </div>
+      </div>
+
+
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="projectName">Template Id</label>
+          <input id="tags" type="text"  placeholder="Enter Tags Name" formControlName="templateid"
+            class="clr-input">
+          </div>
+
+
+</div>
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" checked  (click)="add()"/>
+          <label for="btn-demo-check-2" >Submit</label>
+        </div>
+        </div>
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+    </div>
+  </form>
+</div>

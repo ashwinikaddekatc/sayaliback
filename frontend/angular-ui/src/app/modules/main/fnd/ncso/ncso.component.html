@@ -1,0 +1,1145 @@
+<body>
+  <h4 style="font-weight: 500;display: inline;"> Non-Container Service Order</h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 50px;">Add Mode</span>
+
+    <span  style="float: right;color: rgb(75, 51, 214);">
+     <button  style="background-color: #6cb3d1; color:white">
+       <clr-icon shape="ellipsis-vertical" class="is-solid" size="25"></clr-icon>
+     </button></span>
+
+  <hr>
+
+
+  <!--whocolums-->
+
+  <clr-modal [(clrModalOpen)]="info">
+    <h3 class="modal-title"><b>Transaction History</b></h3>
+    <div class="modal-body">
+      <table s-header>
+
+        <tr>
+          <td>CreatedBY: </td>
+          <td> SYSADMIN</td>
+        </tr>
+        <tr>
+          <td>CreatedOn: </td>
+          <td> 25-10-2021 </td>
+        </tr>
+        <tr>
+          <td>Updated BY: </td>
+          <td>SYSADMIN </td>
+        </tr>
+        <tr>
+          <td>UpdatedBy: </td>
+          <td> 25-10-2021 </td>
+        </tr>
+      </table>
+
+    </div>
+  </clr-modal>
+
+  <!--diputeid-->
+  <clr-modal [(clrModalOpen)]="dipute" [clrModalSize]="'lg'">
+    <h3 class="modal-title"><b>Select From List :</b></h3>
+    <div class="modal-body">
+      <div class="clr-row">
+        <div class="clr-col-md-12 clr-col-sm-12" style="margin-top: 8px;">
+            <input id="student_name" type="text"  placeholder="Enter Search Criteria" class="clr-input"  name="searchtext">
+         </div>
+        <!-- <div class="clr-col-md-3 clr-col-sm-12">
+          <button class="btn btn-primary" (click)="searchdispute()">Search </button>
+       </div>-->
+          </div>
+
+
+       <clr-datagrid [clrDgLoading]="loading">
+        <clr-dg-placeholder><clr-spinner> [clrMedium]="true"Loading ...</clr-spinner></clr-dg-placeholder>
+        <clr-dg-column [clrDgField]="'i'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          No
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'creditNote.disputeId'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Dipute ID
+        </ng-container></clr-dg-column>
+
+        <clr-dg-column [clrDgField]="'billing.invoiceNo'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Invoice Number
+          </ng-container>
+          </clr-dg-column >
+        <clr-dg-column [clrDgField]="'billing.invoiceDateFormated'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Invoice Date
+        </ng-container></clr-dg-column>
+
+
+
+        <clr-dg-row *clrDgItems="let user of alldata | filter:searchtext; let i=index;" [clrDgItem]="user">
+          <clr-dg-cell>{{i+1}}</clr-dg-cell>
+         <!-- <clr-dg-cell (click)="getID(user.creditNote.disputeId)" style="color: rgb(108, 108, 194);">{{user.creditNote.disputeId}}</clr-dg-cell>
+         -->
+         <clr-dg-cell (click)="onrowclickdipute(i,user)" style="color: rgb(108, 108, 194);">{{user.creditNote.disputeId}}</clr-dg-cell>
+          <clr-dg-cell>{{user.billing.invoiceNo}}</clr-dg-cell>
+          <clr-dg-cell>{{user.billing.invoiceDateFormated}}</clr-dg-cell>
+
+
+
+          <clr-dg-row-detail *clrIfExpanded>
+            <table class="table">
+              <tr>
+                <td class="td-title">NO</td>
+                <td class="td-content">{{user.id}}</td>
+              </tr>
+              <tr>
+                <td class="td-title"> Dipute ID</td>
+                <td class="td-content">{{user.disputeId}}</td>
+              </tr>
+
+              <tr>
+                <td class="td-title"> Invoice Number</td>
+                <td class="td-content">{{user.invoiceNo}}</td>
+              </tr>
+              <tr>
+                <td class="td-title"> Invoice Date</td>
+                <td class="td-content">phone:{{user.invoiceDate}}</td>
+              </tr>
+
+            </table>
+          </clr-dg-row-detail>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} Records
+          </clr-dg-pagination>
+         <!-- <button class="btn btn-icon btn-primary" *ngIf="currentpagei!=0"  (click)="setpageinv(currentpagei-1,$event)"><i class="fa fa-angle-double-left"></i></button>
+              <button type="button" class="btn">
+                {{currentpagei}}/{{totalpagenoi}}
+            </button>
+              <button class="btn btn-icon btn-primary" *ngIf="currentpagei!=totalpagenoi-1" (click)="setpageinv(currentpagei+1,$event)"><i class="fa fa-angle-double-right"></i></button>
+          -->
+            </clr-dg-footer>
+      </clr-datagrid>
+
+
+
+
+    </div>
+  </clr-modal>
+
+  <div class="clr-row">
+  <!--  <div class="clr-col-lg-3 clr-col-12">
+      <div class="card">
+        <div class="card-header">
+          Prepared By
+        </div>
+        <div class="card-block">
+          <div class="card-media-block">
+            <div class="card-media-description">
+              <span class="card-media-title">
+                Name:
+                </span>
+              <span class="card-media-text">
+                Position Description:{{userdata.positionDesc}}
+              </span>
+              <span>
+                Request Time:
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="clr-col-lg-3 clr-col-12">
+      <div class="card">
+        <div class="card-header">
+          Approved By
+        </div>
+        <div class="card-block">
+          <div class="card-media-block">
+            <div class="card-media-description">
+              <span class="card-media-title">
+                Name:
+                </span>
+              <span class="card-media-text">
+                Position Description:
+              </span>
+              <span>
+                Approved Date:
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>-->
+    <div class="clr-col-lg-3 clr-col-12">
+      <div class="card">
+        <div class="card-header">
+          Re-Invoice
+        </div>
+        <div class="card-block">
+          <div class="card-media-block">
+            <div class="card-media-description" >
+              <span class="card-media-title">
+                Dipute Id:
+                <span >id</span>
+                </span>
+                <span  style="right: 10px;position: absolute;color: blue;">
+                  <clr-icon shape="view-list"></clr-icon>
+                </span>
+              <span class="card-media-text">
+                Invoice No:
+                <span > </span>
+                <span  style="right: 10px;position: absolute;color: blue;">
+                  <clr-icon shape="details"></clr-icon>
+                  </span>
+
+              </span>
+              <span>
+                Invoice Date:
+                <span > </span>
+                </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+  <form  [formGroup]="entryForm">
+
+      <h6 style="font-weight: 700;">Order Details</h6>
+      <hr>
+      <div class="clr-row">
+        <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Status</label>
+            <input  type="text"  class="clr-input"  name="status"  >
+         </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="tags" class="req">Invoice Type<span class="required-field">*</span></label>
+          <select  id=""  name="invoiceType" >
+            <option >NC_SERVICE_ORDER</option>
+            <option >DGST</option>
+            <option >WATER</option>
+          </select><!-- to set value used [attr.value]="sub.invoiceType" -->
+
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="tags">Customer Order No</label>
+          <input id="phone" type="text"  class="clr-input"  name="customerOrderNo" >
+        </div>
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="tags">Service Request By</label>
+          <input  type="text"  class="clr-input"  name="serviceRequestBy" >
+       </div>
+
+      </div>
+        <div class="clr-row">
+
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Service Rendered From</label>
+            <input id="department" type="text"   class="clr-input"  name="serviceRenderedFrom" >
+          </div>
+
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Service Rendered To</label>
+            <input id="phone" type="text"  class="clr-input"  name="serviceRenderedTo" >
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Vessel Code</label>
+            <input  type="text" #input  class="clr-input"  name="vesselCode">
+
+         </div>
+         <div class="clr-col-md-3 clr-col-sm-12" style="margin-top: 25px;">
+          <button style="margin-right: 5px;" (click)="opennavismodal()">NAVIS</button>
+          <button (click)=" openpmodmodal()">PMOD</button>
+        </div>
+
+        </div>
+          <div class="clr-row">
+            <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Vessel Name</label>
+              <input  type="text"  class="clr-input"  name="vesselName" >
+            </div>
+
+            <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">In Voyage</label>
+              <input  type="text"  class="clr-input" name="inVoyage" >
+            </div>
+            <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Out Voyage</label>
+              <input  type="text"  class="clr-input"  name="outVoyage" >
+
+           </div>
+           <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Service Id</label>
+             <input  type="text"  class="clr-input"  name="serviceId" >
+                </div>
+          </div>
+            <div class="clr-row">
+
+              <div class="clr-col-md-3 clr-col-sm-12">
+                <label for="tags">Line Code</label>
+                <input  type="text"  class="clr-input"  name="lineCode" >
+              </div>
+              <div class="clr-col-md-3 clr-col-sm-12">
+                <label for="tags">Call No/Sign</label>
+                <input  type="text"  class="clr-input"  name="callNo" >
+              </div>
+              <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">LOA</label>
+                  <input  type="text"  class="clr-input"  name="loa" >
+               </div>
+
+              <div class="clr-col-md-3 clr-col-sm-12">
+                <label for="tags">LOA UOM</label>
+                <input  type="text"  class="clr-input"  name="loaUom" >
+              </div>
+              </div>
+
+                <div class="clr-row">
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">GT</label>
+                  <input  type="text"  class="clr-input"  name="gt" >
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">Location</label>
+                  <input  type="text"  class="clr-input"  name="location" >
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">ATA</label>
+                  <input  type="text"  class="clr-input"  name="ata" >
+               </div>
+               <div class="clr-col-md-3 clr-col-sm-12">
+                <label for="tags">ATD</label>
+                <input  type="text"  class="clr-input"  name="atd" >
+              </div>
+              </div>
+                <div class="clr-row">
+
+
+
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="tags">Po NO.</label>
+                    <input  type="text"  class="clr-input"  name="poNumber" >
+                  </div>
+                  <div class="clr-col-md-2 clr-col-sm-12">
+                    <label for="tags" class="req">Customer Code<span class="required-field">*</span></label>
+                    <input type="text" class="clr-input"  name="customerCode"  required>
+
+                  </div>
+                 <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+                  <button  class="btn btn-icon btn-primary" (click)="opencustmod()">
+                    <clr-icon shape="view-list"></clr-icon>
+                  </button>
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">Speical Price</label>
+                  <input  type="text"  class="clr-input"  name="specialPrice" >
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">Customer Name</label>
+                  <input  type="text"  class="clr-input"  name="customerName" >
+                </div>
+                  </div>
+
+                    <div class="clr-row">
+                      <div class="clr-col-md-4 clr-col-sm-12">
+                          <label for="tags">Remarks</label>
+                          <textarea name="" id="" cols="10" rows="2"  name=" remarks" >
+                          </textarea>
+                       </div>
+
+
+                      </div>
+    <!-- end row -->
+
+    <h6> List of attachment(s)</h6>
+
+  <div >
+    <table class="table" formArrayName="orderAttachments">
+        <thead>
+         <tr>
+         <th>No</th>
+          <th> File Name</th>
+           <th>External</th>
+           <th>Cancel</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let attach of controls1; let i=index" [formGroupName]="i">
+              <td style="width: 70px;"><input type="text" class="clr-input" formControlName="attachmentId" value={{i+1}} [readonly]="true">  </td>
+              <td><input type="file" formControlName="attachmentFilename" (change)="onFileChanged($event)" accept=".pdf,.doc,.docx,.jpg,.msg">
+               </td>
+              <td style="width:40px;"> <input type="checkbox"  checked></td>
+              <td>
+                <a  (click)="onRemoveLines1(i)">
+                  <clr-icon shape="trash" class="is-error"></clr-icon>
+                </a>
+              </td>
+            </tr>
+
+
+        </tbody>
+          <button type="button" class="btn btn-primary button1" style="margin-left: 20px;" (click)="onAddLines1()">
+            <clr-icon shape="plus"></clr-icon>
+          </button>
+
+        </table> </div>
+
+        <div >
+          <div class="section">
+            <h6> List of item(s)</h6>
+            </div>
+          <table class="table" id="table" formArrayName="orderItems">
+              <thead>
+               <tr>
+               <th>No</th>
+                <th class="req"> Item Code</th>
+                 <th class="req">Item Descriptiom</th>
+                 <th class="req">Total Unit</th>
+                 <th>Unit Price</th>
+                 <th>Line Total</th>
+                 <th>Cancel</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+                    <td style="width: 70px;"><input type="text" class="clr-input" formControlName="lineId" value={{i+1}} [readonly]="true"></td>
+
+                      <td ><input type="text" style="width: 130px;" class="clr-input" formControlName="itemCode" [(ngModel)]="useritem[i].itemCode"  name="itemCode">
+                         <button style="margin-left: 12px;height: 30px;width: 30px;" (click)="gotoitem(i)">V</button>
+
+                      </td>
+                    <td><input type="text" class="clr-input" formControlName="itemDesc" [(ngModel)]="useritem[i].itemDesc" name="itemDesc"></td>
+
+
+                 <td style="width: 150px;text-align: right;"><input type="text" class="clr-input" formControlName="totalUnitString" name="num1" SIZE="10" MAXLENGTH="20" STYLE="text-align: right"  [(ngModel)]="num1[i]"  (keyup)="sum(i)"  id="number2" required (blur)="twosetnum1(i)" (keypress)="onlyDecimalNumberKey($event,i)"></td>
+                 <td style="width: 150px;"><input type="text" class="clr-input" formControlName="unitPriceString" id="b" name="num2" SIZE="10" MAXLENGTH="20" STYLE="text-align: right" [(ngModel)]="num2[i]" (keyup)="sum(i)" (keypress)="onlyDecimalNumberKey($event,i)" #b (blur)="twosetnum1(i)"></td>
+                 <td style="width: 200px;"><input type="text" class="clr-input"  name="result"  [value]="lines[i]"  id="mul"    [readonly]="true" (click)="twosetnum1(i)"></td>
+
+
+                 <td> <a  (click)="onRemoveLines(i)">
+                      <clr-icon shape="trash" class="is-error"></clr-icon>
+                    </a></td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="4"></td>
+                    <td colspan="1"><b>Grand Total</b> </td>
+                    <td colspan="1"><input type="text" class="clr-input" id="val"  #result [value]="grandtotalstring"  [readonly]="true" > </td>
+                    <td></td>
+                  </tr>
+
+              </tbody>
+                <button type="button" class="btn btn-primary button1" style="margin-left: 20px;" (click)="onAddLines()">
+                  <clr-icon shape="plus"></clr-icon>
+                </button>
+              </table>
+
+            </div>
+
+
+
+  <br>
+
+    <div style="text-align: center;">
+      <button class="btn btn-primary">Save</button>
+      <button class="btn btn-success" >Close</button>
+      <button class="btn btn-primary" >Ready for Approval</button>
+
+    </div>
+  </form>
+
+
+  <!--invoice-->
+
+  <clr-modal [(clrModalOpen)]="invoice" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Billing Information</h3>
+
+    <div class="modal-body">
+
+      <form >
+        <div class="clr-row">
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Billing Id</label>
+            <input  type="text"  class="clr-input"  name="billingId" readonly>
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Waive</label>
+            <input  type="text"  class="clr-input"  name="waive"  readonly >
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Invoice No</label>
+            <input type="text" class="clr-input"  name="invoiceNo"  readonly>
+         </div>
+         <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="tags">Invoice Type</label>
+          <input  type="text"  class="clr-input" name="invoiceType"  readonly>
+        </div>
+          </div>
+          <div class="clr-row">
+              <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Invoice Date</label>
+              <input  type="text"  class="clr-input"  name="invoiceDate"  readonly>
+            </div>
+            <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Invoice Status</label>
+              <input type="text" class="clr-input"  name="invoiceStatus"  readonly>
+           </div>
+           <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Dipute Id</label>
+            <input  type="text"  class="clr-input"  name="disputeId"  readonly>
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Credit Note No</label>
+            <input  type="text"  class="clr-input"  name="creditNoteNo"  readonly>
+          </div>
+            </div>
+            <div class="clr-row">
+              <div class="clr-col-md-3 clr-col-sm-12">
+                <label for="tags">TOS Code</label>
+                <input type="text" class="clr-input"  name="tosCode"  readonly>
+             </div>
+             <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Order Id</label>
+              <input  type="text"  class="clr-input"  name="orderId"  readonly>
+            </div>
+            <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Customer Code</label>
+              <input  type="text"  class="clr-input"  name="customerCode"  readonly>
+            </div>
+            <div class="clr-col-md-3 clr-col-sm-12">
+              <label for="tags">Group Id</label>
+              <input type="text" class="clr-input" name="groupId"    readonly>
+           </div>
+              </div>
+
+                <div class="clr-row">
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="tags">Special Price</label>
+                    <input  type="text"  class="clr-input" name="specialPrice"  readonly>
+                  </div>
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="tags">Service Id</label>
+                    <input  type="text"  class="clr-input" name="serviceId"   readonly>
+                  </div>
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="tags">Vessel Code</label>
+                    <input type="text" class="clr-input" name="vesselCode"    readonly>
+                 </div>
+                 <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="tags">Vessel Name</label>
+                  <input  type="text"  class="clr-input" name="vesselName"    readonly>
+                </div>
+                  </div>
+                  <div class="clr-row">
+                    <div class="clr-col-md-3 clr-col-sm-12">
+                      <label for="tags">In Voyage</label>
+                      <input  type="text"  class="clr-input" name="inVoyage"  readonly>
+                    </div>
+                    <div class="clr-col-md-3 clr-col-sm-12">
+                      <label for="tags">Out Voyage</label>
+                      <input type="text" class="clr-input" name="outVoyage"  readonly>
+                   </div>
+                   <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="tags">Line Code</label>
+                    <input  type="text"  class="clr-input" name="lineCode"    readonly>
+                  </div>
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="tags">Call No</label>
+                    <input  type="text"  class="clr-input" name="callNo"  readonly>
+                  </div>
+                    </div>
+                    <div class="clr-row">
+
+                      <div class="clr-col-md-3 clr-col-sm-12">
+                        <label for="tags">LOA</label>
+                        <input type="text" class="clr-input" name="loa"   readonly>
+                     </div>
+                     <div class="clr-col-md-3 clr-col-sm-12">
+                      <label for="tags">LOA UOM</label>
+                      <input  type="text"  class="clr-input" name="loaUom"  readonly>
+                    </div>
+                    <div class="clr-col-md-3 clr-col-sm-12">
+                      <label for="tags">GT</label>
+                      <input  type="text"  class="clr-input" name="gt"  readonly>
+                    </div>
+                    <div class="clr-col-md-3 clr-col-sm-12">
+                      <label for="tags">Po No</label>
+                      <input type="text" class="clr-input" name="poNumber"  readonly>
+                   </div>
+                      </div>
+
+                        <div class="clr-row">
+                          <div class="clr-col-md-3 clr-col-sm-12">
+                            <label for="tags">ATA</label>
+                            <input  type="text"  class="clr-input" name="ata"  readonly>
+                          </div>
+                          <div class="clr-col-md-3 clr-col-sm-12">
+                            <label for="tags">ATD</label>
+                            <input  type="text"  class="clr-input" name="atd"  readonly>
+                          </div>
+                          <div class="clr-col-md-3 clr-col-sm-12">
+                            <label for="tags">Location</label>
+                            <input type="text" class="clr-input" name="location"  readonly>
+                         </div>
+                         <div class="clr-col-md-3 clr-col-sm-12">
+                          <label for="tags">Organation ID</label>
+                          <input  type="text"  class="clr-input" name="orgId"  readonly>
+                        </div>
+                          </div>
+                          <div class="clr-row">
+                            <div class="clr-col-md-3 clr-col-sm-12">
+                              <label for="tags">Confirm By</label>
+                              <input  type="text"  class="clr-input" name="confirmBy"readonly>
+                            </div>
+                            <div class="clr-col-md-3 clr-col-sm-12">
+                              <label for="tags">Confirm Date</label>
+                              <input type="text" class="clr-input" name="confirmDate"   readonly>
+                           </div>
+                           <div class="clr-col-md-3 clr-col-sm-12">
+                            <label for="tags">Posted</label>
+                            <input  type="text"  class="clr-input"   name="posted" readonly>
+                          </div>
+                          <div class="clr-col-md-3 clr-col-sm-12">
+                            <label for="tags">Post Date</label>
+                            <input  type="text"  class="clr-input"  name="postDate"  readonly>
+                          </div>
+                            </div>
+                            <div class="clr-row">
+                              <div class="clr-col-md-6 clr-col-sm-12">
+                                <label for="tags">Remarks</label>
+                                <textarea  cols="30" rows="3"  name="remark"  readonly></textarea>
+                              </div>
+                              </div>
+
+
+
+        <div class="section">
+          <p> List Of Attachment(s)</p>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-lg-12">
+            <table class="table" style="width:100%;" >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>FileName</th>
+                  <th>External</th>
+                  <th>Cancle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr >
+                  <td> </td>
+                  <td></td>
+                  <td><input type="checkbox" checked></td>
+                  <td><input type="checkbox"></td>
+                </tr>
+
+              </tbody>
+              <button type="button" class="btn btn-primary button1" style="margin-left: 20px;">
+                Attachment Update
+              </button>
+            </table>
+          </div>
+        </div>
+        <br>
+        <div class="section">
+          <p> List Of Item(s)</p>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-lg-12">
+            <table class="table" style="width:100%;" >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>ItemCode</th>
+                  <th>Item Description</th>
+                  <th>Total Unit</th>
+                  <th>Unit Price</th>
+                  <th>Line Total</th>
+                  <th>UOM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr >
+                  <td> </td>
+
+                </tr>
+
+
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="clr-row">
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Created By</label>
+            <input  type="text"  class="clr-input" name="createdBy"  readonly>
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Created On</label>
+            <input  type="text"  class="clr-input" name="createdOn"  readonly>
+          </div>
+          <div class="clr-col-md-3 clr-col-sm-12">
+            <label for="tags">Updated By</label>
+            <input type="text" class="clr-input" name="updatedBy"  readonly>
+         </div>
+         <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="tags">Updated On</label>
+          <input  type="text"  class="clr-input" name="updatedOn"   readonly>
+        </div>
+          </div>
+        </form>
+    </div>
+
+  </clr-modal>
+
+
+  <!--customer code-->
+  <clr-modal [(clrModalOpen)]="customer" [clrModalSize]="'lg'">
+    <h3 class="modal-title"><b>Select From List:</b></h3>
+    <div class="modal-body">
+      <div class="clr-row">
+        <div class="clr-col-md-12 clr-col-sm-12" style="margin-top: 8px;">
+            <input id="data" type="text" placeholder="Enter search Criteria" class="clr-input" name="searchcusttext">
+         </div>
+
+        </div>
+
+
+       <clr-datagrid [clrDgLoading]="loading">
+        <clr-dg-placeholder><clr-spinner [clrMedium]="true">Loading ...</clr-spinner></clr-dg-placeholder>
+        <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          No
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'customerCode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Customer Code
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'customerId'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Customer Id
+        </ng-container></clr-dg-column>
+
+        <clr-dg-column [clrDgField]="'customerName'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+            Customer Name
+          </ng-container>
+          </clr-dg-column >
+
+
+
+
+        <clr-dg-row  >
+          <clr-dg-cell></clr-dg-cell>
+          <clr-dg-cell  style="color: rgb(108, 108, 194);" ></clr-dg-cell>
+          <clr-dg-cell ></clr-dg-cell>
+          <clr-dg-cell></clr-dg-cell>
+
+
+
+          <clr-dg-row-detail *clrIfExpanded>
+            <table class="table">
+              <tr>
+                <td class="td-title">NO</td>
+                <td class="td-content">{{user.id}}</td>
+              </tr>
+              <tr>
+                <td class="td-title"> Customer Code</td>
+                <td class="td-content">{{user.customerCode}}</td>
+              </tr>
+              <tr>
+                <td class="td-title">Customer Id</td>
+                <td class="td-content">{{user.customerId}} </td>
+              </tr>
+              <tr>
+                <td class="td-title"> Customer Name<td>
+                <td class="td-content">{{user.customerName}}</td>
+              </tr>
+
+
+            </table>
+          </clr-dg-row-detail>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} Records
+          </clr-dg-pagination>
+          <!--<button class="btn btn-icon btn-primary" *ngIf="currentpagec!=0"  (click)="setpagecust(currentpagec-1,$event)"><i class="fa fa-angle-double-left"></i></button>
+          <button type="button" class="btn">
+            {{currentpagec}}/{{totalpagenoc}}
+        </button>
+          <button class="btn btn-icon btn-primary" *ngIf="currentpagec!=totalpagenoc-1" (click)="setpagecust(currentpagec+1,$event)"><i class="fa fa-angle-double-right"></i></button>
+      -->
+
+        </clr-dg-footer>
+      </clr-datagrid>
+
+
+
+
+    </div>
+  </clr-modal>
+
+  <!--item-->
+  <clr-modal [(clrModalOpen)]="item" [clrModalSize]="'lg'">
+    <h3 class="modal-title"><b>Query Criteria </b></h3>
+    <div class="modal-body">
+      <div class="clr-row">
+        <div class="clr-col-md-12 clr-col-sm-12">
+            <input id="data" type="text" placeholder="Enter search Criteria" class="clr-input" name="searchitemtext" [(ngModel)]="searchitemtext">
+         </div>
+        </div>
+    <!--  <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="tags">Item Code:</label>
+            <input id="student_name" type="text"  class="clr-input">
+         </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Item Description:</label>
+          <input id="department" type="text"  class="clr-input">
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Invoice Type:</label>
+          <select name="" id="">
+            <option value="">water</option>
+          </select>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="dipute = false">Clear</button>
+        <button type="submit"  class="btn btn-outline" >Query</button>
+        <button type="submit"  class="btn btn-primary" >Reset</button>
+        </div>-->
+       <h3> List of Result(s)</h3>
+       <clr-datagrid [clrDgLoading]="loading">
+
+        <clr-dg-placeholder>Loading........</clr-dg-placeholder>
+
+
+        <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Id
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'itemCode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Item Code
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'itemDesc'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        Item Description
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'invoiceType'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          invoiceType
+          </ng-container></clr-dg-column>
+
+
+
+
+        <clr-dg-row *clrDgItems="let user of itemdata | filter:searchitemtext;let i = index" [clrDgItem]="user">
+          <clr-dg-cell>{{user.id}}</clr-dg-cell>
+          <clr-dg-cell (click)="getitemid(user.id)" style="color: rgb(108, 108, 194);">{{user.itemCode}}</clr-dg-cell>
+          <clr-dg-cell>{{user.itemDesc}}</clr-dg-cell>
+          <clr-dg-cell>{{user.invoiceType}}</clr-dg-cell>
+
+              <clr-dg-row-detail *clrIfExpanded>
+            <table class="table">
+              <tr>
+                <td class="td-title">NO</td>
+                <td class="td-content">{{user.id}}</td>
+              </tr>
+              <tr>
+                <td class="td-title"> Item Code</td>
+                <td class="td-content">{{user.itemCode}}</td>
+              </tr>
+              <tr>
+                <td class="td-title">Item Description</td>
+                <td class="td-content">{{user.itemDesc}} </td>
+              </tr>
+
+
+
+            </table>
+          </clr-dg-row-detail>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Records per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} Records
+          </clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+
+
+
+
+    </div>
+  </clr-modal>
+
+
+
+  <clr-modal [(clrModalOpen)]="navis" [clrModalSize]="'lg'">
+    <h3 class="modal-title"><b>Select From List:</b></h3>
+    <div class="modal-body">
+      <div class="clr-row">
+        <div class="clr-col-md-12 clr-col-sm-12" style="margin-top: 8px;">
+            <input  type="text" placeholder="Enter search Criteria" class="clr-input" name="searchnavistext" [(ngModel)]="searchnavistext">
+         </div>
+        <!-- <div class="clr-col-md-3 clr-col-sm-12">
+          <button class="btn btn-primary" (click)="searchnavis()">Search </button>
+       </div>-->
+        </div>
+
+
+       <clr-datagrid [clrDgLoading]="loading">
+        <clr-dg-placeholder> <clr-spinner [clrMedium]="true">Loading ...</clr-spinner>
+        </clr-dg-placeholder>
+        <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          No
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'vesselCode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Vessel Code
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'vesselName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Vessel Name
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'inVoyage'"><ng-container *clrDgHideableColumn="{hidden: false}">
+            In Voyage
+          </ng-container></clr-dg-column >
+          <clr-dg-column [clrDgField]="'outVoyage'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            Out Voyage
+            </ng-container> </clr-dg-column >
+       <clr-dg-column [clrDgField]="'serviceId'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Service ID
+           </ng-container> </clr-dg-column >
+       <clr-dg-column [clrDgField]="'callNo'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+                Call NO./Sign
+         </ng-container> </clr-dg-column >
+         <clr-dg-column [clrDgField]="'lineCode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Line Code
+          </ng-container> </clr-dg-column >
+          <clr-dg-column [clrDgField]="'loa'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          LOA
+          </ng-container> </clr-dg-column >
+          <clr-dg-column [clrDgField]="'loaUom'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          LOA UOM
+            </ng-container> </clr-dg-column >
+         <clr-dg-column [clrDgField]="'gt'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        GT
+         </ng-container> </clr-dg-column >
+         <clr-dg-column [clrDgField]="'ataFormated'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          ATA
+          </ng-container> </clr-dg-column >
+          <clr-dg-column [clrDgField]="'atdFormated'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          ATD
+            </ng-container> </clr-dg-column >
+          <clr-dg-column [clrDgField]="'location'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Location
+            </ng-container> </clr-dg-column >
+
+
+
+
+        <clr-dg-row *clrDgItems="let user of datanavis | filter:searchnavistext ;let i = index" [clrDgItem]="user">  <!-- | filter:searchnavistext-->
+          <clr-dg-cell>{{i+1}}</clr-dg-cell>
+          <clr-dg-cell  >{{user.vesselCode}}</clr-dg-cell>
+          <clr-dg-cell (click)="getnavisid(user.vesselName,user.inVoyage)" style="color: rgb(108, 108, 194);">{{user.vesselName}}</clr-dg-cell>
+          <clr-dg-cell>{{user.inVoyage}}</clr-dg-cell>
+          <clr-dg-cell>{{user.outVoyage}}</clr-dg-cell>
+          <clr-dg-cell>{{user.serviceId}}</clr-dg-cell>
+          <clr-dg-cell>{{user.callNo}}</clr-dg-cell>
+          <clr-dg-cell>{{user.lineCode}}</clr-dg-cell>
+          <clr-dg-cell>{{user.loa}}</clr-dg-cell>
+          <clr-dg-cell>{{user.loaUom}}</clr-dg-cell>
+          <clr-dg-cell>{{user.gt}}</clr-dg-cell>
+          <clr-dg-cell>{{user.ataFormated}}</clr-dg-cell>
+          <clr-dg-cell>{{user.atdFormated}}</clr-dg-cell>
+          <clr-dg-cell>{{user.location}}</clr-dg-cell>
+
+
+
+          <clr-dg-row-detail *clrIfExpanded>
+            <table class="table">
+              <tr>
+                <td class="td-title">NO</td>
+                <td class="td-content">{{user.vesselCode}}</td>
+              </tr>
+              <tr>
+                <td class="td-title">vesselName</td>
+                <td class="td-content">{{user.vesselName}}</td>
+              </tr>
+
+
+
+            </table>
+          </clr-dg-row-detail>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+         <!-- <button class="btn btn-icon btn-primary" *ngIf="currentpagen!=0"  (click)="setpagenavis(currentpagen-1,$event)"><i class="fa fa-angle-double-left"></i></button>
+          <button type="button" class="btn">
+            {{currentpagen}}/{{totalpagenon}}
+        </button>
+          <button class="btn btn-icon btn-primary" *ngIf="currentpagen!=totalpagenon-1" (click)="setpagenavis(currentpagen+1,$event)"><i class="fa fa-angle-double-right"></i></button>
+      -->
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Records per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} Records
+      </clr-dg-pagination>
+     </clr-dg-footer>
+      </clr-datagrid>
+
+
+
+
+    </div>
+  </clr-modal>
+
+
+  <clr-modal [(clrModalOpen)]="pmod" [clrModalSize]="'lg'">
+    <h3 class="modal-title"><b>Select From List:</b></h3>
+    <div class="modal-body">
+      <div class="clr-row">
+        <div class="clr-col-md-12 clr-col-sm-12" style="margin-top: 8px;">
+            <input  type="text" placeholder="Enter search Criteria" class="clr-input" name="searchpmodtext" [(ngModel)]="searchpmodtext">
+         </div>
+        <!-- <div class="clr-col-md-3 clr-col-sm-12">
+          <button class="btn btn-primary" (click)="searchpmod()">Search </button>
+       </div>-->
+        </div>
+
+
+       <clr-datagrid [clrDgLoading]="loading">
+        <clr-dg-placeholder><clr-spinner [clrMedium]="true">Loading ...</clr-spinner></clr-dg-placeholder>
+        <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          No
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'vesselCode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Vessel Code
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'vesselName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Vessel Name
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'vcn'"><ng-container *clrDgHideableColumn="{hidden: false}">
+            VCN
+          </ng-container></clr-dg-column >
+
+       <clr-dg-column [clrDgField]="'callNo'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+                Call Sign
+         </ng-container> </clr-dg-column >
+         <clr-dg-column [clrDgField]="'lineCode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Line Code
+          </ng-container> </clr-dg-column >
+          <clr-dg-column [clrDgField]="'loa'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          LOA
+          </ng-container> </clr-dg-column >
+
+         <clr-dg-column [clrDgField]="'gt'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        GT
+         </ng-container> </clr-dg-column >
+         <clr-dg-column [clrDgField]="'ataFormated'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          ATA
+          </ng-container> </clr-dg-column >
+          <clr-dg-column [clrDgField]="'atdFormated'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          ATD
+            </ng-container> </clr-dg-column >
+
+
+
+
+
+        <clr-dg-row *clrDgItems="let user of datapmod | filter:searchpmodtext;let i = index" [clrDgItem]="user">
+          <clr-dg-cell>{{i+1}}</clr-dg-cell>
+          <clr-dg-cell>{{user.vesselCode}}</clr-dg-cell>
+          <clr-dg-cell (click)="onclickpmod(i,user)" style="color: rgb(108, 108, 194);">{{user.vesselName}}</clr-dg-cell>
+          <clr-dg-cell>{{user.vcn}}</clr-dg-cell>
+          <clr-dg-cell>{{user.callNo}}</clr-dg-cell>
+          <clr-dg-cell>{{user.lineCode}}</clr-dg-cell>
+          <clr-dg-cell>{{user.loa}}</clr-dg-cell>
+          <clr-dg-cell>{{user.gt}}</clr-dg-cell>
+          <clr-dg-cell>{{user.ataFormated}}</clr-dg-cell>
+          <clr-dg-cell>{{user.atdFormated}}</clr-dg-cell>
+
+
+
+
+          <clr-dg-row-detail *clrIfExpanded>
+            <table class="table">
+              <tr>
+                <td class="td-title">vesselCode</td>
+                <td class="td-content">{{user.vesselCode}}</td>
+              </tr>
+              <tr>
+                <td class="td-title">vesselName</td>
+                <td class="td-content">{{user.vesselName}}</td>
+              </tr>
+
+
+
+            </table>
+          </clr-dg-row-detail>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+         <!-- <button class="btn btn-icon btn-primary" *ngIf="currentpagep!=0"  (click)="setpagepmod(currentpagep-1,$event)"><i class="fa fa-angle-double-left"></i></button>
+          <button type="button" class="btn">
+            {{currentpagep}}/{{totalpagenop}}
+        </button>
+          <button class="btn btn-icon btn-primary" *ngIf="currentpagep!=totalpagenop-1" (click)="setpagepmod(currentpagep+1,$event)"><i class="fa fa-angle-double-right"></i></button>
+      --> <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Records per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} Records
+      </clr-dg-pagination>
+     </clr-dg-footer>
+      </clr-datagrid>
+
+
+
+
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="modalclose"  [clrModalStaticBackdrop]="true">
+    <div class="modal-body">
+      <h5 class="delete">If You have made changes without saving ,your changes will be lost ?</h5>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalclose = false">NO</button>
+      <button type="button"  class="btn btn-primary" >YES</button>
+      </div>
+    </div>
+  </clr-modal>
+  <!--ready approval modal-->
+  <clr-modal [(clrModalOpen)]="modalapproved" [clrModalStaticBackdrop]="true">
+    <div class="modal-body">
+      <h5 class="delete">Are You Sure Perform "Ready For Approval"?</h5>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalapproved = false">Cancle</button>
+      <button type="button"  class="btn btn-primary" >Ok</button>
+      </div>
+    </div>
+  </clr-modal>
+
+
+
+

@@ -1,0 +1,105 @@
+<div class="container">
+
+  <h4 style="font-weight: 300;display: inline;"><b>EXCEPTION RULE LIBRARY </b></h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+  <hr>
+
+  <!-- entry form-->
+  <form  (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tech_stack">Technology Stack</label>
+        <select id="tech_stack" name="tech_stack" selected="null" [(ngModel)]="ruleData.tech_stack" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="object_type">Object Type</label>
+        <select id="object_type" name="object_type" selected="null" [(ngModel)]="ruleData.object_type" class="clr-dropdown">
+          <option value="null">Choose Object Type</option>
+          <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="sub_object_type">Sub Object Type</label>
+        <select id="sub_object_type" name="sub_object_type" selected="null" [(ngModel)]="ruleData.sub_object_type" class="clr-dropdown">
+          <option value="null">Choose Sub Object Type</option>
+          <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 5px;">
+        <label for="object_name_variable">Object Name Variable</label>
+        <input id="object_name_variable" type="text" name="object_name_variable" [(ngModel)]="ruleData.object_name_variable"
+          placeholder="Enter Object Name Variable" class="clr-input">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 5px;">
+        <label for="object_name_dynamic_string">Object Name Dynamic String</label>
+        <input id="object_name_dynamic_string" type="text" name="object_name_dynamic_string" [(ngModel)]="ruleData.object_name_dynamic_string"
+          placeholder="Enter Object Name Dynamic String" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 5px;">
+        <label for="service">Service Name</label>
+        <select id="service" name="service" [(ngModel)]="ruleData.service"  class="clr-dropdown">
+          <option>Angular</option>
+          <option>Spring boot</option>
+      </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="path">path</label>
+        <input id="path" type="text" name="path" [(ngModel)]="ruleData.path"
+          placeholder="Enter Path" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="type">Type</label>
+        <input id="type" type="text" name="type" [(ngModel)]="ruleData.type"
+          placeholder="Enter Type" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file_name">File Name</label>
+        <input id="file_name" type="text" name="file_name" [(ngModel)]="ruleData.file_name"
+          placeholder="Enter File Name" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="startstring">Start String</label>
+        <input id="startstring" type="text" name="startstring" [(ngModel)]="ruleData.startstring"
+          placeholder="Enter Start String" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="endstring">End String</label>
+        <input id="endstring" type="text" name="endstring" [(ngModel)]="ruleData.endstring"
+          placeholder="Enter End String" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="linestring">Line String</label>
+        <input id="linestring" type="text"name="linestring" [(ngModel)]="ruleData.linestring"
+          placeholder="Enter Line String" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="keyword">keyword</label>
+        <input id="keyword" type="text" name="keyword" [(ngModel)]="ruleData.keyword"
+          placeholder="Enter Keyword" class="clr-input">
+      </div>
+      <div class="clr-col-sm-12">
+        <label for="replaceWith">Replacement String</label>
+        <textarea id="replaceWith" type="text" name="replaceWith" [(ngModel)]="ruleData.replaceWith"
+          placeholder="Enter replacement String" rows="10" cols="200" class="clr-textarea" ></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+  </form>
+</div>

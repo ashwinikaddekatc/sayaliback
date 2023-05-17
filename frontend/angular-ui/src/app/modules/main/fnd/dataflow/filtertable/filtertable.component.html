@@ -1,0 +1,59 @@
+<h4 style="font-weight: 300;display: inline;"><b>Connector Mapping</b></h4>
+<hr>
+<div class="container">
+
+<form  (ngSubmit)="onUpdate()">
+
+
+    <div class="clr-row fieldWrapper" >
+        <div class="clr-col-12">
+            <table class="table table-striped table-bordered" style="margin-top: 0px;">
+                <thead>
+                    <tr>
+                        <th>ANDOR</th>
+                        <th>FIELD NAME</th>
+                        <th>CONDITION</th>
+                        <th>VALUE</th>
+                        <th class="right" style="width:125px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  *ngFor="let data of serverData; let i = index">
+                        <td ><select colspan="2" [(ngModel)]="data.andor" [ngModelOptions]="{standalone: true}" name="andor" class="clr-dropdown">
+                            <option [ngValue]="null">Select Values</option>
+                            <option *ngFor="let sub of andor" [ngValue]="sub">{{sub}}</option>
+                            </select>
+                        </td>
+                        <td><select colspan="2"  [(ngModel)]="data.fields_name" [ngModelOptions]="{standalone: true}" name="fields_name" class="clr-dropdown">
+                            <option  [ngValue]="null">Select Values</option>
+                            <option *ngFor="let sub of sourceTable" [ngValue]="sub">{{sub}}</option>
+                            </select>
+                        </td>
+                        <td>
+                         <select colspan="2" [(ngModel)]="data.condition" [ngModelOptions]="{standalone: true}" name="condition" class="clr-dropdown">
+                            <option  [ngValue]="null">Select Values</option>
+                            <option *ngFor="let sub of condition" [ngValue]="sub">{{sub}}</option>
+                            </select>
+                        </td>
+                        <td><input type="text"   [(ngModel)]="data.value" [ngModelOptions]="{standalone: true}" name="value" class="clr-input"/></td>
+                        <td style="width:40px;">
+                            <a (click)="deleteRow(i)">
+                                <clr-icon shape="trash" class="is-error"></clr-icon>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                    <clr-icon shape="plus"></clr-icon>
+                </button>
+            </table>
+        </div>
+    </div>
+
+    <div class="center">
+        <button type="submit" form-control class="btn btn-primary" (click)="onUpdate()">SUBMIT</button>
+        <button type="button" form-control class="btn btn-primary" (click)="back()">Back</button>
+    </div>
+</form>
+</div>

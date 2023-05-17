@@ -1,0 +1,44 @@
+<div class="container">
+    <h3 style="font-weight: 300;display: inline;"><b>Edit List Builder Header</b></h3>
+    <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span>
+    <hr />
+    <form (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="techStack">Technology Stack</label>
+              <select  name="tech_Stack" [(ngModel)]="lineBuilder_Header.tech_Stack" selected="null" class="clr-dropdown">
+                <option value="null">Choose Technology</option>
+                <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+                </option>
+              </select>
+      
+            </div>
+      
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="lb_name">Line Builder Name</label>
+              <input  type="text"  name="lb_name" [(ngModel)]="lineBuilder_Header.lb_name" placeholder="Enter lb name" class="clr-input">
+      
+            </div>
+      
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="description">Description</label>
+              <input  type="text"  name="description" [(ngModel)]="lineBuilder_Header.description" placeholder="Enter description" class="clr-input">
+            </div>
+      
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="menuName">Menu Name</label>
+              <input  type="text"   name="menuName" [(ngModel)]="lineBuilder_Header.menuName" placeholder="Enter menu Name" class="clr-input">
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 15px;">
+              <div><label for="build">build</label>
+                <div><input type="checkbox"   name="build" [(ngModel)]="lineBuilder_Header.build"></div>
+              </div>
+            </div>
+          </div>
+      <br>
+      <div class="center">
+        <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+      </div>
+    </form>
+  </div>
+  

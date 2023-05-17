@@ -1,0 +1,87 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="clock"></clr-icon>  Job</a></li>
+  <li><a href="javascript://">  Connector Mapping</a></li>
+</ol>
+<br>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>Connector Mapping </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+      <button type="button" class="btn btn-icon btn-primary" aria-label="settings">
+          <clr-icon shape="grid-view"></clr-icon>
+        </button>
+      <button class="btn btn-outline" (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary"  (click)="addConnector()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+      <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+        <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+      <clr-dg-column [clrDgField]="'id'" [clrDgSortOrder]="descSort">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Id
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgField]="'name'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Connector Name
+          </ng-container>
+      </clr-dg-column >
+
+      <clr-dg-row *clrDgItems="let user of data" [clrDgItem]="user">
+          <clr-dg-cell>{{user.id}}</clr-dg-cell>
+          <clr-dg-cell>{{user.name}}</clr-dg-cell>
+
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Id: </td>
+            <td class="td-content">{{user.id}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Name:</td>
+            <td class="td-content">{{user.name}}</td>
+          </tr>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modalDelete = false">Cancel</button>
+      <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+
+

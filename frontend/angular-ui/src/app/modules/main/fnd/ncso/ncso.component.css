@@ -1,0 +1,46 @@
+input[type=text], [type=date], [type=datetime-local], textarea {
+  width: 100%;
+  padding: 15px 15px;
+  background-color: rgb(255, 255, 255);
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.required-field {
+  color: red;
+}
+
+.req {
+  color: red;
+}
+
+.center {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .horizontal, .middle, .horizontal1, .middle1 {
+    width: 100%;
+  }
+}
+select {
+  width: 100%;
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.section p {
+  background-color: rgb(206, 201, 201);
+  padding: 10px;
+  font-size: 18px;
+}
+
+.td-title {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(63, 122, 231, 0.863);
+}/*# sourceMappingURL=ncso.component.css.map */

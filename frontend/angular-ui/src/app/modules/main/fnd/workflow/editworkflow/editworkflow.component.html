@@ -1,0 +1,59 @@
+<h4 style="font-weight: 300;display: inline;"><b>Workflow</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+A Project Contains all modules/repositories/microservices etc.
+<hr>
+<!-- <hr> -->
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Workflow Name</label>
+              <input id="workflow_name" type="text" name="workflow_name" [(ngModel)]="data.workflow_name" class="clr-input">
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="select_technology">Select Technology</label>
+
+                <select  selected="null" class="clr-dropdown" name="select_technology" [(ngModel)]="data.select_technology">
+                  <option value="null">Choose Technology</option>
+                  <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ts.tech_stack}} </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="tags">Tags</label>
+                <tag-input  name="tags" [(ngModel)]='arrayTag' [separatorKeyCodes]="[188,9]"></tag-input>
+                <!-- <input id="tags" type="text" name="tags" [(ngModel)]="data.tags" class="clr-input"> -->
+                <!-- <div>
+                    <span class="label label-purple p7" style="margin-top: .4em;">Fruit</span>
+                    <span class="label label-light-blue p7" style="margin-top: .4em;">Meat</span>
+                    <span class="label label-orange p7" style="margin-top: .4em;">Drink</span>
+                    <span class="label label-purple p7" style="margin-top: .4em;">Vegetables</span>
+                  </div> -->
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="app_category">App Category</label>
+                <tag-input  name="categoryarray" [(ngModel)]='categoryarray' [separatorKeyCodes]="[188,9]"></tag-input>
+                <!-- <input id="app_category" type="text" name="app_category" [(ngModel)]="data.app_category" class="clr-input">
+                <div>
+                    <span class="label label-purple p7" style="margin-top: .4em;">Fruit</span>
+                    <span class="label label-light-blue p7" style="margin-top: .4em;">Meat</span>
+                    <span class="label label-orange p7" style="margin-top: .4em;">Drink</span>
+                    <span class="label label-purple p7" style="margin-top: .4em;">Vegetables</span>
+                  </div> -->
+            </div>
+        </div>
+
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="description">Description</label>
+                <textarea  cols="10" rows="2"  name=" description"  [(ngModel)]="data.description"></textarea>
+            </div>
+        </div>
+
+        <div class="center">
+            <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+        </div>
+    </form>
+</div>

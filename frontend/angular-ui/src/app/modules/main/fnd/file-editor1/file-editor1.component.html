@@ -1,0 +1,61 @@
+<div class="container">
+  <h3 style="text-align: center;"><b>FILE EDITOR</b></h3>
+  <div class="clr-row">
+    <div class="clr-col-4">
+      <!-- FILE VIEWER -->
+      <label for="files">Files</label>
+      <select class="clr-dropdown" id="files" name="files" (change)="readFile($event)">
+        <option value="-1" selected>choose file</option>
+        <option *ngFor="let file of fileList" [value]="file.id">{{ file.fileName }}
+        </option>
+      </select>
+    </div>
+    <div class="clr-col-4">
+      <!-- FILE VIEWER (change)="keyword($event)"-->
+      <label for="files"> Rule Keyword</label>
+      <select class="clr-dropdown" id="files" name="files" (change)="keyword($event)" >
+        <option value="-1" selected>choose keyword</option>
+        <option *ngFor="let file of ruleLibrary" [value]="file.keyword">{{ file.keyword }}
+        </option>
+      </select>
+
+    </div >
+
+    <div class="clr-col-2">
+      <button style="margin-top: 20px;"  class="btn btn-primary"
+      (click)="insertdata()">Insert</button>
+    </div>
+    <br>
+    <br>
+    <!--   </div> -->
+  </div>
+    <!-- <div class="clr-col-12" style="margin-top: 50; border: 1px solid black; height: 50vh auto;" > -->
+
+
+      <!-- codemirror implementation -->
+      <button style="float: right; margin-top: -42px;" class="btn btn-primary"
+        (click)="saveTextIntoFile()">Save</button>
+      <!-- <ngx-codemirror
+    #editor
+    [options]="codeMirrorOptions"
+    [(ngModel)]="fileData.text"
+    (ngModelChange)="setEditorContent($event)">
+  </ngx-codemirror> -->
+      <!-- <textarea [(ngModel)]="fileData.text" rows="20"></textarea>
+      (click)="selecteddata($event)"
+     (select)="onTextSelected(textbox.value.indexof(textbox.selectionStart,textbox.selectionEnd))"
+    (select)="onTextSelected(textbox.value.substring(textbox.selectionStart, textbox.selectionEnd))"-->
+    <textarea class="form-control" style="width:100%; height: 500px;">{{fileData.text}}</textarea>
+      <!-- <ngx-codemirror
+       class="CodeMirror"
+        [options]="codeMirrorOptions"
+        [(ngModel)]="fileData.text"
+
+        #textbox
+(select)="select($event.target.value)"
+       >
+      </ngx-codemirror> -->
+
+    <!-- </div> -->
+
+</div>

@@ -1,0 +1,82 @@
+<div class="container">
+
+  <h4 style="font-weight: 300;display: inline;"><b>BI Dashboard</b></h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+  Dashboard Details.
+
+  <hr>
+  <br />
+  <!-- Header form start -->
+  <form (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="form_name">Dashboard Name</label>
+              <input id="dashboard_name" name="dashboard_name" type="text" [(ngModel)]="rn_dash_header.dashboard_name"  placeholder="Enter Dashboard Name"
+                  class="clr-input">
+              <div *ngFor="let error of fieldErrors">
+                  <span *ngIf="error.field === 'form_name'" class="text text-danger">{{ error.message }}</span>
+              </div>
+          </div>
+      </div> <!-- row end -->
+
+      <br>
+      <!-- <div class="section">
+          <p> Line Details </p>
+      </div> -->
+      <!-----H-L LINE part(FormArray For Multiple Lines)---->
+      Line Details
+      <hr>
+      <div class="clr-row">
+          <div class="clr-col-lg-12">
+              <table class="table" style="width:100%;">
+                  <thead>
+                      <tr>
+                         <th class="left" style="width:125px;">{{ components?.length > 1 ? 'Widgets Actions' : '' }}</th>
+                          <th class="left" style="width:125px;">Section Type</th>
+                          <th class="right" style="width:125px;">{{ components?.length > 1 ? 'Actions' : '' }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of components; let i=index">
+                          <td class="left">
+                                  <a *ngIf="components.length > 1" (click)="onCliclLine(item.id)">
+                                  <clr-icon shape="details" class="is-error"></clr-icon>
+
+
+                                 </a>
+                          </td>
+
+                          <td class="left">
+                              <select colspan="2" id="section_type" [(ngModel)]="item.section_type" [ngModelOptions]="{standalone: true}" [attr.name]="item.section_type"   selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Choose Section Type</option>
+                                  <option value="1*1">1*1</option>
+                                  <option value="1*2">1*2</option>
+                                  <option value="1*3">1*3</option>
+                                  <option value="1*4">1*4</option>
+                                  <option value="2*2">2*2</option>
+                                  <option value="2*3">2*3</option>
+                              </select>
+                          </td>
+
+                          <td style="width:40px;">
+                              <a *ngIf="components.length > 1" (click)="onRemoveLines(i)">
+                                  <clr-icon shape="trash" class="is-error"></clr-icon>
+                              </a>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                      <clr-icon shape="plus"></clr-icon>
+                  </button>
+              </table>
+          </div>
+      </div>
+      <br>
+      <div class="center">
+          <button type="submit" class="btn btn-primary" >SUBMIT</button>
+          <button type="button" (click)="BuildDash()" class="btn btn-primary" >BUILD DASH</button>
+
+      </div>
+  </form>
+</div>

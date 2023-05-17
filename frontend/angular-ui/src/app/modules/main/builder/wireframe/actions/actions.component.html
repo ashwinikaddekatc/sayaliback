@@ -1,0 +1,46 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"  [routerLink]="['/cns-portal/project/all']"> <clr-icon shape="flag"></clr-icon>  {{pname}}</a></li>
+  <li><a href="javascript://"  [routerLink]="['../module1']"> <clr-icon  shape="objects"></clr-icon>  {{modulename}}</a></li>
+  <li><a href="javascript://"><clr-icon shape="application"></clr-icon>  Components</a></li>
+</ol>
+<h5 style="display: inline;"><b>Select a Component</b></h5><br>
+Select Componets To Add in your app, the count Here Show Existing Components in the project.
+<hr>
+
+<br>
+
+
+
+
+
+
+<div class="container">
+
+
+  <div *ngIf="tools1;" class="clr-row clr-align-items-start clr-justify-content-start">
+    <div *ngFor="let app of tools1; let index = i" class="clr-col-auto" >
+      <div class="clr-row">
+        <div class="clr-col-lg-12 clr-col-md-6 clr-col-12" style="width: 300px;">
+            <div class="card" [routerLink]="app.action">
+                <div class="card-block">
+                    <div class="card-title">
+
+                      <h3 *ngIf="app.title !== 'DashboardsNew' && app.title !=='Wireframes' && app.title !== 'Reports'&& app.title !== 'Actions' && app.title !=='ListBuilder'"  style="text-align: center;">{{moduleId}}</h3>
+                      <h3 *ngIf="app.title == 'DashboardsNew'" style="text-align: center;">{{dcount}}</h3>
+                      <h3 *ngIf="app.title == 'Reports'" style="text-align: center;">{{rcount}}</h3>
+                      <h3 *ngIf="app.title == 'Actions'" style="text-align: center;">{{acount}}</h3>
+                      <h3 *ngIf="app.title == 'Wireframes'" style="text-align: center;">{{wcount}}</h3>
+                      <h3 *ngIf="app.title == 'ListBuilder'" style="text-align: center;">{{lcount}}</h3><!--Need count of list-->
+                      <b style="margin-left: 80px;"> <img src={{app.icon}}  style="height: 80px;"/></b>
+                        <!-- <b style="margin-left: 80px;"><clr-icon shape="image" size="64"></clr-icon></b> -->
+                      <h5 class="center" ><b>{{ app.title | uppercase }}</b></h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

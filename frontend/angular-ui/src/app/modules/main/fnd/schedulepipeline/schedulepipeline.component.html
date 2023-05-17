@@ -1,0 +1,441 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="clock"></clr-icon>  Job</a></li>
+  <li><a href="javascript://">  Job Queue</a></li>
+</ol>
+<br>
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>Job Queue </h3>
+    </div>
+  </div>
+  <br>
+    <div class="clr-row clr-justify-content-between" >
+      <div class="clr-col-2">
+        <label for="example" class="clr-control-label">Choose Data Grid</label>
+        <select colspan="2" class="clr-dropdown" [(ngModel)]="selectedOption" (change)="choose($event.target.value)">
+        <option value="" disabled>Choose datagrid</option>
+        <option *ngFor="let data of datagridOptions" [value]="data">{{data}}</option>
+        </select>
+      </div>
+      <div class="clr-col-1" style="margin-left: 10px;">
+      <button id="add" class="btn btn-primary" (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+      </div>
+  </div>
+
+  <clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Registering A Task</h3>
+    <div class="modal-body">
+          <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Account Id</label>
+           <input type="text" class="clr-input" formControlName="accountId">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Body<span class="required-field">*</span></label>
+           <input type="text" class="clr-input" formControlName="parameters">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="tags">Job Url<span class="required-field">*</span></label>
+            <input type="text" class="clr-input" formControlName="url">
+            </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Connection Name</label>
+            <select name="" id="" style="width: 100%;padding: 5px 5px;border: 1px solid #ccc;border-radius: 4px;" formControlName="connection_name">
+            <option value="null">Choose Connection Name</option>>
+              <option *ngFor="let sub of data" [value]="sub.name">{{sub.name}}</option>
+            </select>
+           <!-- <input type="text" class="clr-input" formControlName="connection_name"> -->
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Method<span class="required-field">*</span></label>
+            <select selected="null" name="" id="" style="width: 100%;padding: 5px 5px;border: 1px solid #ccc;border-radius: 4px;" formControlName="method">
+              <option value="null">Choose Method</option>
+              <option value="POST">POST</option>
+              <option value="GET">GET</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
+              <option value="PATCH">PATCH</option>
+            </select>
+           <!-- <input type="text" class="clr-input" formControlName="method"> -->
+          </div>
+
+
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" >ADD</button>
+          </div>
+  </form>
+    </div>
+
+  </clr-modal>
+
+  <div *ngIf="selectedOption === 'JobPro'">
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column  [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+    Id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'"><ng-container *clrDgHideableColumn="{hidden: false}">
+      created At
+      </ng-container></clr-dg-column >
+    <clr-dg-column [clrDgField]="'connection_name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Connection Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'method'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Method
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'url'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      URL
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'parameters'" > <ng-container *clrDgHideableColumn="{hidden: false}">
+      Body
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let item of alldata;let i = index" [clrDgItem]="item">
+      <clr-dg-cell>{{item.id}}</clr-dg-cell>
+      <clr-dg-cell >{{item.createdAt}}</clr-dg-cell>
+      <clr-dg-cell >{{item.connection_name}}</clr-dg-cell>
+      <clr-dg-cell>{{item.method}}</clr-dg-cell>
+      <clr-dg-cell>{{item.url}}</clr-dg-cell>
+      <clr-dg-cell>{{item.parameters}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="modalEdit(item)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+
+    </clr-dg-action-overflow>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} Records
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+  </div>
+
+  <div *ngIf="selectedOption === 'Registrations'">
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column  [clrDgField]="'userId'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+    Id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'fullname'"><ng-container *clrDgHideableColumn="{hidden: false}">
+     Full Name 
+      </ng-container></clr-dg-column >
+    <clr-dg-column [clrDgField]="'email'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Email
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'username'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      username
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'roles'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Role
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'address1'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      address
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'department'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      department
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'menu_group_id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Menu group id
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let item of registrationData;let i = index" [clrDgItem]="registrationData">
+      <clr-dg-cell>{{item.userId}}</clr-dg-cell>
+      <clr-dg-cell >{{item.fullname}}</clr-dg-cell>
+      <clr-dg-cell>{{item.email}}</clr-dg-cell>
+      <clr-dg-cell>{{item.username}}</clr-dg-cell>
+      <clr-dg-cell>{{item.roles}}</clr-dg-cell>
+      <clr-dg-cell>{{item.address1}}{{item.address2}}</clr-dg-cell>
+      <clr-dg-cell>{{item.department}}</clr-dg-cell>
+      <clr-dg-cell>{{item.menu_group_id}}</clr-dg-cell>
+      <!-- <clr-dg-action-overflow>
+        <button class="action-item" (click)="modalEdit(item)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+
+    </clr-dg-action-overflow> -->
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} Records
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+  </div>
+  
+
+    <div *ngIf="selectedOption === 'SureOps'">
+      <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+        <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+          <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+    
+        <clr-dg-column  [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        Id
+        </ng-container></clr-dg-column>
+        <!-- <clr-dg-column  [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          wf_id
+          </ng-container></clr-dg-column> -->
+        <clr-dg-column [clrDgField]="'job_type'"><ng-container *clrDgHideableColumn="{hidden: false}">
+         Job Type
+          </ng-container></clr-dg-column >
+          <clr-dg-column [clrDgField]="'current_json'"><ng-container *clrDgHideableColumn="{hidden: false}">
+          Current json
+             </ng-container></clr-dg-column >
+        <clr-dg-column [clrDgField]="'ref'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Referal
+        </ng-container></clr-dg-column>
+        <!-- <clr-dg-column [clrDgField]="'Status'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Status
+        </ng-container></clr-dg-column> -->
+        <clr-dg-column [clrDgField]="'count'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          count
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'joburl'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          joburl
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'statuscode'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          statuscode
+        </ng-container></clr-dg-column>
+        <clr-dg-column [clrDgField]="'response_body'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          response_body
+        </ng-container></clr-dg-column>
+        <!-- <clr-dg-column [clrDgField]="'createdAt'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          createdAt
+        </ng-container></clr-dg-column> -->
+    
+        <clr-dg-row *clrDgItems="let item of sureopsData;let i = index" [clrDgItem]="sureopsData">
+          <clr-dg-cell>{{item.id}}</clr-dg-cell>
+          <!-- <clr-dg-cell>{{item.wf_id}}</clr-dg-cell> -->
+          <clr-dg-cell>{{item.job_type}}</clr-dg-cell>
+          <clr-dg-cell (click)="goToCurJson(item)" style="cursor: pointer; align-items: center;"><clr-icon shape="details"></clr-icon></clr-dg-cell>
+          <clr-dg-cell>{{item.ref}}</clr-dg-cell>
+          <!-- <clr-dg-cell>{{item.Status}}</clr-dg-cell> -->
+          <clr-dg-cell>{{item.count}}</clr-dg-cell>
+          <clr-dg-cell>{{item.joburl}}</clr-dg-cell>
+          <clr-dg-cell>{{item.statuscode}}</clr-dg-cell>
+          <clr-dg-cell (click)="goToResponse(item)" style="cursor: pointer; align-items: center;"><clr-icon shape="details"></clr-icon></clr-dg-cell>
+          <!-- <clr-dg-cell>{{item.createdAt}}</clr-dg-cell> -->
+          <!-- <clr-dg-action-overflow>
+            <button class="action-item" (click)="modalEdit(item)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+    
+        </clr-dg-action-overflow> -->
+        </clr-dg-row>
+    
+        <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} Records
+          </clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+      </div>
+
+      <clr-modal [(clrModalOpen)]="JsonModal" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+
+        <div class="modal-body" *ngIf="rowSelected.id">
+          <h2 class="heading">{{rowSelected.job_type}}</h2>
+          <textarea class="form-control" style="width:100%; height: 400px;" readonly>{{rowSelected.current_json}}</textarea>
+        </div>
+      </clr-modal>
+      <clr-modal [(clrModalOpen)]="ResponseModal" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+
+        <div class="modal-body" *ngIf="rowSelected.id">
+          <h2 class="heading">{{rowSelected.job_type}}</h2>
+          <textarea class="form-control" style="width:100%; height: 400px;" readonly>{{rowSelected.response_body}}</textarea>
+        </div>
+      </clr-modal>
+      
+      <!-- Sureops end -->
+
+<!-- Communication start -->
+
+      <div *ngIf="selectedOption === 'Communication'">
+        <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+          <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+            <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+      
+          <clr-dg-column  [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          Id
+          </ng-container></clr-dg-column>
+          <clr-dg-column [clrDgField]="'job_type'"><ng-container *clrDgHideableColumn="{hidden: false}">
+           Job Type
+            </ng-container></clr-dg-column >
+          <clr-dg-column [clrDgField]="'send_to'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            Send To
+          </ng-container></clr-dg-column>
+          <clr-dg-column [clrDgField]="'cc'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            cc
+          </ng-container></clr-dg-column>
+          <clr-dg-column [clrDgField]="'attachment'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            attachment
+          </ng-container></clr-dg-column>
+          <clr-dg-column [clrDgField]="'gatewaydone'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            Gateway Done
+          </ng-container></clr-dg-column>
+          <clr-dg-column [clrDgField]="'template_name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            Template Name
+          </ng-container></clr-dg-column>
+          <clr-dg-column [clrDgField]="'replacement_string'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            Replacement String
+          </ng-container></clr-dg-column>
+      
+          <clr-dg-row *clrDgItems="let item of communicationData;let i = index" [clrDgItem]="communicationData">
+            <clr-dg-cell>{{item.id}}</clr-dg-cell>
+            <clr-dg-cell >{{item.job_type}}</clr-dg-cell>
+            <clr-dg-cell>{{item.send_to}}</clr-dg-cell>
+            <clr-dg-cell>{{item.cc}}</clr-dg-cell>
+            <clr-dg-cell>{{item.attachment}}</clr-dg-cell>
+            <clr-dg-cell>{{item.gatewaydone}}</clr-dg-cell>
+            <clr-dg-cell>{{item.template_name}}</clr-dg-cell>
+            <clr-dg-cell>{{item.replacement_string}}</clr-dg-cell>
+            <!-- <clr-dg-action-overflow>
+              <button class="action-item" (click)="modalEdit(item)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+      
+          </clr-dg-action-overflow> -->
+          </clr-dg-row>
+      
+          <clr-dg-footer>
+            <clr-dg-pagination #pagination [clrDgPageSize]="10">
+              <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+              of {{pagination.totalItems}} Records
+            </clr-dg-pagination>
+          </clr-dg-footer>
+        </clr-datagrid>
+        </div>
+
+        <div *ngIf="selectedOption === 'Webhook'">
+          <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+            <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+              <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+        
+            <clr-dg-column  [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+            Id
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'event'"><ng-container *clrDgHideableColumn="{hidden: false}">
+              Event
+              </ng-container></clr-dg-column >
+            <clr-dg-column [clrDgField]="'on_entity'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+               On entity
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'response_body'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Response body
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'processing_flag'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Processing flag
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'gatewaydone'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Gateway Done
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'status_code'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Status code
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'webhook_workflow_id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Webhook workflow id
+            </ng-container></clr-dg-column>
+            <clr-dg-column [clrDgField]="'json'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+              Json
+            </ng-container></clr-dg-column>
+        
+            <clr-dg-row *clrDgItems="let item of webhookData;let i = index" [clrDgItem]="webhookData">
+              <clr-dg-cell>{{item.id}}</clr-dg-cell>
+              <clr-dg-cell >{{item.event}}</clr-dg-cell>
+              <clr-dg-cell>{{item.on_entity}}</clr-dg-cell>
+              <clr-dg-cell>{{item.response_body}}</clr-dg-cell>
+              <clr-dg-cell>{{item.processing_flag}}</clr-dg-cell>
+              <clr-dg-cell>{{item.gatewaydone}}</clr-dg-cell>
+              <clr-dg-cell>{{item.status_code}}</clr-dg-cell>
+              <clr-dg-cell>{{item.webhook_workflow_id}}</clr-dg-cell>
+              <clr-dg-cell>{{item.json}}</clr-dg-cell>
+              <!-- <clr-dg-action-overflow>
+                <button class="action-item" (click)="modalEdit(item)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        
+            </clr-dg-action-overflow> -->
+            </clr-dg-row>
+        
+            <clr-dg-footer>
+              <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                of {{pagination.totalItems}} Records
+              </clr-dg-pagination>
+            </clr-dg-footer>
+          </clr-datagrid>
+          </div>
+
+
+  <clr-modal [(clrModalOpen)]="modaledit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Edit Mode</h3>
+    <div class="modal-body" *ngIf="rowSelected.id">
+      <h2 class="heading">{{rowSelected.id}}</h2>
+          <form (ngSubmit)="onUpdate(rowSelected.id)">
+            <div class="clr-row">
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="name">Account Id</label>
+               <input type="text" class="clr-input" name="accountId" [(ngModel)]="rowSelected.accountId">
+              </div>
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="name">Body<span class="required-field">*</span></label>
+               <input type="text" class="clr-input" name="parameters" [(ngModel)]="rowSelected.parameters">
+              </div>
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="tags">Job Url<span class="required-field">*</span></label>
+                <input type="text" class="clr-input" name="url" [(ngModel)]="rowSelected.url">
+                </div>
+            </div>
+            <div class="clr-row">
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="name">Connection Name</label>
+                <select name="" id="" style="width: 100%;padding: 5px 5px;border: 1px solid #ccc;border-radius: 4px;"
+                name="connection_name" [(ngModel)]="rowSelected.connection_name">
+                  <option value="null">Choose Connection Name</option>>
+                    <option *ngFor="let sub of data" [value]="sub.name">{{sub.name}}</option>
+                  </select>
+               <!-- <input type="text" class="clr-input" name="connection_name" [(ngModel)]="rowSelected.connection_name"> -->
+              </div>
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="name">Method<span class="required-field">*</span></label>
+                <select name="" id="" style="width: 100%;padding: 5px 5px;border: 1px solid #ccc;border-radius: 4px;" name="method"
+                [(ngModel)]="rowSelected.method">
+                  <option value="POST">POST</option>
+                  <option value="GET">GET</option>
+                  <option value="PUT">PUT</option>
+                  <option value="DELETE">DELETE</option>
+                  <option value="PATCH">PATCH</option>
+                </select>
+               <!-- <input type="text" class="clr-input" formControlName="method"> -->
+              </div>
+
+
+            </div>
+            <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="modaledit = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" >UPDATE</button>
+          </div>
+  </form>
+    </div>
+  </clr-modal>
+
+
+

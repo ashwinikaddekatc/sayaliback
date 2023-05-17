@@ -1,0 +1,186 @@
+<div class="s-order-dash-pg">
+  <div class="chart-box" id="word">
+    <h4 class="center"> <b>My Projects</b>  </h4>
+    <h4 class="center" style=" color: red;"> <b>{{myproject}}</b>  </h4>
+    <h4 class="center"> <b>Shared with me</b>  </h4>
+    <h4 class="center" style=" color: red;"> <b>{{sharedcount}}</b>  </h4>
+    <!-- <ngx-charts-advanced-pie-chart
+      style="position:relative"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="ordersByStatusData"
+    >
+    </ngx-charts-advanced-pie-chart> -->
+  </div>
+
+
+  <div class="chart-box" id="word">
+    <h4 class="center"> <b>Status</b>  </h4>
+    <!-- <ngx-charts-advanced-pie-chart
+      style="position:relative"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="ordersByPaymentData"
+    >
+    </ngx-charts-advanced-pie-chart> -->
+    <li class="nav-item px-3 d-narrow-none">
+      <div class="text-uppercase mb-1">
+        <small>Project A</small>
+      </div>
+      <div class="progress-static labeled progress-bar">
+        <div class="progress-meter " data-value="80" data-displayval="80%" style="height: 15px;"></div>
+      </div>
+    </li>
+    <li class="nav-item px-3 d-narrow-none">
+      <div class="text-uppercase mb-1">
+        <small>Project B</small>
+      </div>
+      <div class="progress-static labeled progress-bar" >
+        <div class="progress-meter " data-value="30" data-displayval="30%" style="height: 15px;"></div>
+      </div>
+    </li>
+    <li class="nav-item px-3 d-narrow-none">
+      <div class="text-uppercase mb-1">
+        <small>Project C</small>
+      </div>
+      <div class="progress-static labeled progress-bar">
+        <div class="progress-meter " data-value="60" data-displayval="60%" style="height: 15px;"></div>
+      </div>
+    </li>
+    <li class="nav-item px-3 d-narrow-none">
+      <div class="text-uppercase mb-1">
+        <small>Project D</small>
+      </div>
+      <div class="progress-static labeled progress-bar" >
+        <div class="progress-meter" data-value="40" data-displayval="40%" style="height: 15px;"></div>
+      </div>
+    </li>
+  </div>
+
+  <div class="chart-box" id="word">
+    <h4 class="center"> <b>Tasks</b>  </h4>
+        <!-- <ngx-charts-advanced-pie-chart
+          style="position:relative"
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="ordersByStatusData"
+        >
+        </ngx-charts-advanced-pie-chart> -->
+        <!-- <ngx-charts-pie-chart
+            [labels]="false"
+            [results]="surveyData"
+            [view]="[460, 180]"
+            >
+        </ngx-charts-pie-chart> -->
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          style="display: block; width: 259px; height: 144px;">
+        </canvas>
+  </div>
+
+  <div class="chart-box" id="word">
+      <h4 class="center"> <b>Issues</b>  </h4>
+      <!-- <ngx-charts-advanced-pie-chart
+        style="position:relative"
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="ordersByStatusData"
+      >
+      </ngx-charts-advanced-pie-chart> -->
+      <canvas baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+        [plugins]="lineChartPlugins"
+        style="display: block; width: 238px; height: 200px;">
+    </canvas>
+  </div>
+
+
+
+<div class="chart-box" style="width:1180px ;">
+  <clr-tabs>
+    <clr-tab>
+      <button clrTabLink>Activities</button>
+      <clr-tab-content *clrIfActive>
+        <br>
+        <ng-template #showInfo>
+        <div class="alert alert-info" role="alert">
+          <div class="alert-items">
+              <div class="alert-item static">
+                  <span class="alert-text">
+                       Notification  could be found.
+                       <ng-template #loadingSpinner><clr-spinner [clrMedium]="true">Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div>
+      <div *ngIf="er;">{{er}}</div>       </span></div>
+          </div>
+      </div></ng-template>
+      <div *ngIf="notification; else showInfo">
+        <div *ngFor="let not of notification;">
+          <img src="../../../../assets/images/images.png" alt="" style="height: 50px;">
+          {{not.notification}}
+          <span class="label label-purple p7" style="margin-top: .4em;"> <b>{{not.time| timePipe}}</b> </span><br>
+          <hr>
+          <!-- <img src="../../../../assets/images/images.png" alt="" style="height: 50px;">
+          Farhan Pushed Go Generesis/CNS-Portal
+          <span class="label label-purple p7" style="margin-top: .4em;"> <b>Yesterday</b> </span><br>
+          2 commits 2 <b class="s">  main</b>  <br>
+         <b class="s">314d354</b>  updated on app.config.ts<br>
+          <b class="s">a2349b9</b>  updated helper.ts <hr>
+          <img src="../../../../assets/images/images.png" alt="" style="height: 50px;">
+          Farhan Pushed Go Generesis/CNS-Portal
+          <span class="label label-purple p7" style="margin-top: .4em;"> <b>3 days ago</b> </span><br>
+          2 commits 2 <b class="s">  main</b>  <br>
+         <b class="s">314d354</b>  updated on app.config.ts<br>
+          <b class="s">a2349b9</b>  updated helper.ts <hr> -->
+        </div></div>
+      </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+      <button  clrTabLink>Suggestion For You</button>
+      <clr-tab-content *clrIfActive>
+        Suggestion For You
+      </clr-tab-content>
+    </clr-tab>
+
+
+
+  </clr-tabs>
+
+
+  <!-- <h4 > <b style="margin-right: 20px;"> <u>Activities</u> </b>  Suggestion For You </h4> -->
+
+
+      <!-- <ngx-charts-bar-vertical
+          [view]="[990, 270]"
+          [barPadding]="1"
+          [scheme]="barColorScheme"
+          [results]="ordersByCountryData"
+          [roundDomains]="true"
+          [showGridLines]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="false"
+          [roundEdges]="false"
+      >
+      </ngx-charts-bar-vertical> -->
+</div>
+
+<!--ngx-datatable
+style='height:248px; width:585px;margin:16px;border-radius:2px;'
+[rows]="rows"
+[columns]="columns"
+[headerHeight]="45"
+[rowHeight]="32"
+[columnMode]="'standard'"
+[scrollbarV]="false"
+>
+</ngx-datatable-->
+
+
+</div>

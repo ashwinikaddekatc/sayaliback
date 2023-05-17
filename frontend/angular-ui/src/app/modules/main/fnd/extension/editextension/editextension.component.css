@@ -1,0 +1,39 @@
+.button1::after {
+  content: none;
+}
+
+.button1:hover::after {
+  content: "ADD ROWS";
+}
+
+.section {
+  background-color: #dddddd;
+  height: 40px;
+}
+
+.section p {
+  padding: 10px;
+  font-size: 18px;
+}
+
+.clr-input {
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.75rem;
+  background-color: rgb(255, 255, 255);
+  margin-top: 3px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.center {
+  text-align: center;
+}/*# sourceMappingURL=editextension.component.css.map */

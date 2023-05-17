@@ -1,0 +1,42 @@
+h4 {
+  margin-top: 16px;
+}
+
+.s-order-dash-pg {
+  margin: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.s-order-dash-pg .chart-box {
+  margin: 16px;
+  padding: 0 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+#word {
+  width: 260px;
+}
+
+.center {
+  text-align: center;
+  font-weight: 500;
+}
+
+.s {
+  color: blue;
+}
+
+li {
+  list-style-type: none;
+}
+
+.progress-bar {
+  margin-bottom: 5px;
+  height: 15px;
+}/*# sourceMappingURL=orderstat.component.css.map */

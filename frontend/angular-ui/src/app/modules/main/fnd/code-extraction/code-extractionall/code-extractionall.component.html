@@ -1,0 +1,101 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="code"></clr-icon> Code Extractor</a></li>
+  <li><a href="javascript://"> <clr-icon shape="code"></clr-icon> Code Extractor Grid</a></li>
+</ol>
+<br>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>Code Extractor </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected" >
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'tech_stack'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Technology Stack
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'service'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Service
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'object_type'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Object Type
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'sub_object_type'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Sub Object Type
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'form_type_name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Form Type
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'std_wf_name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      WireFrame Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'sample_file_name'" style="width:200px;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      File Name
+    </ng-container></clr-dg-column>
+    
+    <clr-dg-row *clrDgItems="let user of codedata" [clrDgItem]="user">
+      <clr-dg-cell id="word">{{user.tech_stack}}</clr-dg-cell>
+      <clr-dg-cell>{{user.service}}</clr-dg-cell>
+      <clr-dg-cell>{{user.object_type}}</clr-dg-cell>
+      <clr-dg-cell id="word">{{user.sub_object_type}}</clr-dg-cell>
+      <clr-dg-cell>{{user.form_type_name}}</clr-dg-cell>
+      <clr-dg-cell>{{user.std_wf_name}}</clr-dg-cell>
+      <clr-dg-cell>{{user.sample_file_name}}</clr-dg-cell>
+      
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="goToParams(user.id)">Go To Params <clr-icon shape="tree" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="goToEditor(user.id)">Go To Code Editor <clr-icon shape="cloud" class="is-error"></clr-icon></button>
+        <!-- <button class="action-item" (click)="staticExtraction(user.id)">Static Extraction <clr-icon shape="radar" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="dynamicExtraction(user.id)">Dynamic Extraction<clr-icon shape="squid" class="is-error"></clr-icon></button> -->
+        <button class="action-item" (click)="buildMasterBuilder(user.id)">Build Master Builder<clr-icon shape="scroll" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="gotoworkflow(user.id)">Go To Workflow<clr-icon shape="scroll" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="gotoBuilder(user.id)">Go To Builder<clr-icon shape="tree" class="is-error"></clr-icon></button>
+
+
+        </clr-dg-action-overflow>
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Technology Stack: </td>
+            <td class="td-content">{{user.tech_stack}}</td>
+          </tr>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+

@@ -1,0 +1,137 @@
+.edit-pg {
+  width: 750px;
+}
+
+input, input :focus {
+  outline: none;
+  border-width: 0px;
+  border: none;
+}
+
+.sectiondetails {
+  background-color: #DDDDDD;
+  height: 40px;
+}
+
+.sectiondetails p {
+  padding: 10px;
+  font-size: 18px;
+}
+
+.clr-input {
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.75rem;
+  margin-top: 3px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form, form {
+  padding-top: 0;
+}
+
+.add {
+  font-size: 1em;
+}
+
+.textarea {
+  color: #212529;
+  border: 1px solid #ced4da;
+  background: #FAFAFA;
+  border-radius: 0.19rem;
+  height: 34px;
+  width: 100%;
+  margin-top: 3px;
+  width: 100%;
+  padding: 0.1rem 0.75rem;
+  margin-top: 2px;
+}
+
+#exportbox {
+  margin-left: 500px;
+}
+
+.button {
+  display: inline;
+}
+
+.fbheader {
+  width: 75%;
+}
+
+.clr-dropdown, input[type=checkbox] {
+  width: 100%;
+  padding-bottom: 2px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+a {
+  opacity: 0;
+}
+
+a:hover {
+  opacity: 1;
+}
+
+.sectiondetails a {
+  opacity: 1;
+}
+
+.main i {
+  opacity: 0;
+}
+
+.main i:hover {
+  opacity: 1;
+}
+
+.actionbtn a {
+  opacity: 0;
+}
+
+.actionbtn a:hover {
+  opacity: 1;
+}
+
+.wrap-input100 {
+  width: 70%;
+  position: relative;
+  border-bottom: 1px solid #b2b2b2;
+  margin-bottom: 26px;
+  margin-left: 80px;
+}
+
+.label-input100 {
+  font-size: 13px;
+  color: #808080;
+  line-height: 1.2;
+  text-align: right;
+  position: absolute;
+  top: 14px;
+  left: -90px;
+  width: 80px;
+}
+
+.wrap-input200 {
+  width: 100px;
+  position: relative;
+  border-bottom: 1px solid #b2b2b2;
+  margin-bottom: 26px;
+  margin-left: 13px;
+}
+
+.label-input200 {
+  font-size: 13px;
+  color: #808080;
+  line-height: 1.2;
+  text-align: right;
+  position: absolute;
+  left: 5px;
+  margin-top: 5px;
+  width: 80px;
+}/*# sourceMappingURL=editwireframe.component.css.map */

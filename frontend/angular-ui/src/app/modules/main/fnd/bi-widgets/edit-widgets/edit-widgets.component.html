@@ -1,0 +1,55 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>UPDATE WIDGET </b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+  <hr />
+
+  <!-- entry form-->
+  <form  (ngSubmit)="onSubmit()">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+            <label >Widget Name</label>
+            <input  type="text" name="widget_name"
+            placeholder="Enter tags" class="clr-input">
+         </div>
+
+         <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="chart_type">Chart Type</label>
+            <select id="chart_type" name="chart_type" name="chart_type"  selected="null" class="clr-dropdown">
+              <option value="null">--select----</option>
+              <option *ngFor="let ts of chart_types" [value]="ts">{{ ts }}
+              </option>
+            </select>
+          </div>
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="color_scheme">Color Scheme</label>
+            <select id="color_scheme" name="color_scheme"  selected="null" class="clr-dropdown">
+              <option value="null">--select----</option>
+              <option *ngFor="let ts of color_scheme" [value]="ts">{{ ts }}
+              </option>
+            </select>
+          </div>
+      </div> <!-- end row -->
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+           <div> <label for="tags">Label</label></div>
+            <input id="label" type="text" name="label" class="clr-input"  cols="40" rows="3" placeholder="Enter tags" >
+         </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+      <div> <label for="tags">Description</label></div>
+          <input id="widget_description" type="text" class="clr-input"  name="widget_description" cols="40" rows="3" placeholder="Enter Description" >
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+      <div><label for="file">Sql Query</label></div>
+          <input id="sql_query" type="text" name="sql_query" class="clr-input" placeholder="Enter tags" cols="40" rows="3" >
+        </div>
+      </div>
+      <br>
+      <div class="center">
+        <button type="submit" class="btn btn-primary" >UPDATE</button>
+      </div>
+    </form>
+
+</div>

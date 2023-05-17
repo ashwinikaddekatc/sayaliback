@@ -1,0 +1,66 @@
+input[type=text],[type=date],[type=datetime-local],select {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .required-field,.error_mess{
+    color: red;
+  
+  }
+  .horizontal{
+    width: 50%;
+    padding: 10px;
+  }
+  
+  .td-title {
+    text-align: left;
+  // color: white;
+    font-weight: bold;
+    // background-color: rgba(63, 122, 231, 0.863);
+    //color: rgb(24, 13, 13);
+  }
+  th{
+    // background-color:rgb(170, 169, 169);
+    font-weight: bold;
+  }
+  .td-content{
+    text-align: left;
+    // font-weight: bold;
+  }
+  .delete,.heading{
+    text-align: center;
+    color: red;
+  }
+  .section p {
+  background-color: rgb(206, 201, 201);
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  clr-icon.red {
+    fill: red;
+    cursor: pointer;
+  
+  }
+  clr-icon.gray {
+    fill: gray;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  clr-icon.green{
+    fill:green;
+    cursor: pointer;
+  }
+  clr-icon.orange{
+    fill:orange;
+    cursor: pointer;
+  }
+  .green{
+    background-color: rgb(156, 231, 156);
+    color: black;
+  }
+  

@@ -1,0 +1,257 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://"> Gaurav_testing_t</a></li>
+</ol>
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>list </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+      <button id="add" class="btn btn-primary" (click)="goToAdd(product)" >
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div></div>
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'text'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+text
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'password'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+password
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'number'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+number
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'datetime-local'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+datetime
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'date'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+date
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'paragraph'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+paragraph
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'textarea'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+textarea
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'dropdowm'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+dropdowm
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'autocomplete'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+autocomplete
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'text'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+radio
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'text'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+checkbox
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'text'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+email
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'phonenumber'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+phonenumber
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'calculated_field'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+calculated_field
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'section'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+section
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'division'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+division
+    </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of product" [clrDgItem]="user">
+      <clr-dg-cell>{{user.text}}</clr-dg-cell>
+      <clr-dg-cell>{{user.password}}</clr-dg-cell>
+      <clr-dg-cell>{{user.number}}</clr-dg-cell>
+      <clr-dg-cell>{{user.datetime}}</clr-dg-cell>
+      <clr-dg-cell>{{user.date}}</clr-dg-cell>
+      <clr-dg-cell>{{user.paragraph}}</clr-dg-cell>
+      <clr-dg-cell>{{user.textarea}}</clr-dg-cell>
+      <clr-dg-cell>{{user.dropdowm}}</clr-dg-cell>
+      <clr-dg-cell>{{user.autocomplete}}</clr-dg-cell>
+      <clr-dg-cell>{{user.radio}}</clr-dg-cell>
+      <clr-dg-cell>{{user.checkbox}}</clr-dg-cell>
+      <clr-dg-cell>{{user.email}}</clr-dg-cell>
+      <clr-dg-cell>{{user.phonenumber}}</clr-dg-cell>
+      <clr-dg-cell>{{user.calculated_field}}</clr-dg-cell>
+      <clr-dg-cell>{{user.section}}</clr-dg-cell>
+      <clr-dg-cell>{{user.division}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="onEdit(user)">Edit</button>
+        <button class="action-item" (click)="onDelete(user)">Delete</button>
+      </clr-dg-action-overflow>
+         </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">User Edit</h3>
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <form clrForm (ngSubmit)="onUpdate(rowSelected.id)">
+      <clr-input-container>
+        <label>text<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.text" name="text" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>password<span class="required-field">*</span></label>
+        <input id="name" clrInput type="password" [(ngModel)]="rowSelected.password" name="password" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>number<span class="required-field">*</span></label>
+        <input id="name" clrInput type="number" [(ngModel)]="rowSelected.number" name="number" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>datetime<span class="required-field">*</span></label>
+        <input id="name" clrInput type="datetime-local" [(ngModel)]="rowSelected.datetime" name="datetime" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>date<span class="required-field">*</span></label>
+        <input id="name" clrInput type="date" [(ngModel)]="rowSelected.date" name="date" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>paragraph<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.paragraph" name="paragraph" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>textarea<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.textarea" name="textarea" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>dropdowm<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.dropdowm" name="dropdowm" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>autocomplete<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.autocomplete" name="autocomplete" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>radio<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.radio" name="radio" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>checkbox<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.checkbox" name="checkbox" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>email<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.email" name="email" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>phonenumber<span class="required-field">*</span></label>
+        <input id="name" clrInput type="number" [(ngModel)]="rowSelected.phonenumber" name="phonenumber" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>calculated_field<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.calculated_field" name="calculated_field" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>section<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.section" name="section" />
+      </clr-input-container>
+      <clr-input-container>
+        <label>division<span class="required-field">*</span></label>
+        <input id="name" clrInput type="text" [(ngModel)]="rowSelected.division" name="division" />
+      </clr-input-container>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+      <button type="submit" class="btn btn-primary" >Update</button>
+      </div>
+    </form>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">ENTRY FORM</h3>
+  <div class="modal-body">
+     <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+   <div class="clr-row" style="height: fit-content;">
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> text:</label>
+          <input type="text" clrCheckbox formControlName="text" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> password:</label>
+          <input type="password" clrCheckbox formControlName="password" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> number:</label>
+          <input type="number" clrCheckbox formControlName="number" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> datetime:</label>
+          <input type="datetime-local" clrCheckbox formControlName="datetime" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> date:</label>
+          <input type="date" clrCheckbox formControlName="date" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> paragraph:</label>
+          <input type="text" clrCheckbox formControlName="paragraph" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> textarea:</label>
+          <input type="text" clrCheckbox formControlName="textarea" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> dropdowm:</label>
+          <input type="text" clrCheckbox formControlName="dropdowm" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> autocomplete:</label>
+          <input type="text" clrCheckbox formControlName="autocomplete" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> radio:</label>
+          <input type="text" clrCheckbox formControlName="radio" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> checkbox:</label>
+          <input type="text" clrCheckbox formControlName="checkbox" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> email:</label>
+          <input type="text" clrCheckbox formControlName="email" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> phonenumber:</label>
+          <input type="number" clrCheckbox formControlName="phonenumber" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> calculated_field:</label>
+          <input type="text" clrCheckbox formControlName="calculated_field" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> section:</label>
+          <input type="text" clrCheckbox formControlName="section" />
+        </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> division:</label>
+          <input type="text" clrCheckbox formControlName="division" />
+        </div>
+      </div>
+ <div class="modal-footer">
+<button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >ADD</button>
+        </div>
+</form>
+  </div>
+</clr-modal>

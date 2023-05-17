@@ -1,0 +1,1596 @@
+<div class="root">
+  <div class="board" *ngIf="!flag && !flag2 && !flag3">
+    <div >
+        <div style="width:100% ;display: flex;">
+            <div style="float:left; width: 60%;">
+                <!-- <button id="add" class="btn topbutton"  (click)="open = true"> -->
+               <button id="add" class="btn topbutton"  (click)="tmodel()">
+                <!-- <button id="add" class="btn topbutton" (click)="isCreateModelVisible = true"> (click)="tmodel()"  (click)="open = true" to wizardview-->
+                  <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon> Task
+                </button>
+                <button id="add" class="btn topbutton"  (click)="isModalVisible = true">
+                  <clr-icon shape="plus" style="fill:white !important;"></clr-icon> Stage
+                </button>
+                <button id="add" class="btn topbutton" (click)="addboard()">
+                  <clr-icon shape="plus" style="fill:white !important;"></clr-icon> Board
+                </button>
+                <b  *ngIf="projectname; else def">{{projectname}} </b>&nbsp;
+                <ng-template #def>
+                  <b #def>ProjectName</b>
+                </ng-template>
+
+                <span class="label label-light-green p7" style="margin-top: .4em; display: inline; cursor: pointer;" (click)="getboard()">switch</span>
+                <!-- <button id="add" class="">
+                  Actions
+                </button> -->
+                <div class="dropdown1">
+                  <button class="btn  btn-group dropbtn">Action</button>
+                  <div class="dropdown-content1">
+                  <a href="#">Move Cards</a>
+                  <a href="#">Define Roles</a>
+                  <a href="#">Hide Columns</a>
+                  <a href="#">Archive Board</a>
+                  </div>
+                </div>
+
+                <div class="btn-group btn-icon" id="setting" style="vertical-align: middle;">
+                  <span class="tooltip">
+                    <button  class="btn btn-icon topbutton" (click)="gotomenu( $event)" >Category
+                    </button>
+                    <!-- <span class="tooltiptext">Add Rules</span> -->
+                    <!-- <span  class="action"> -->
+                      <div id="dropdownmenu" *ngIf="isMenuOpen">
+                        <!-- <a href="javascript://" ><div color: black;padding: 0.3rem 1.2rem;>Feature </div></a> -->
+                        <!-- <a href="javascript://"><div>User Story</div></a> -->
+                        <a> <div (click)="goalMethod()" style="cursor: pointer;">Epic/Goal </div></a>
+                        <a> <div (click)="milestone()" style="cursor: pointer;">Milestone </div></a>
+                          <a> <div (click)="iteration()" style="cursor: pointer;">Iteration </div></a>
+                          <a> <div  style="cursor: pointer;">No-Category </div></a>
+                      </div>
+                    <!-- </span> -->
+                  </span>
+                </div>
+
+                <!-- <span (click)="switchCategory()">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  <input type="checkbox" clrToggle />
+                </span> -->
+                  <!-- <div class="btn-group btn-icon tooltip" id="setting" style="vertical-align: middle;">
+                    <button  class="btn topbutton"  (click)=switchCategory() >
+                      <clr-icon shape="eye" style="fill:white !important;" *ngIf="!flag1"></clr-icon>
+                      <clr-icon shape="eye-hide"  style="fill:white !important;" *ngIf="flag1"></clr-icon>
+                    </button>
+                    <span class="tooltiptext" *ngIf="!flag1">Summary View</span>
+                    <span class="tooltiptext" *ngIf="flag1">Normal View</span>
+                  </div> -->
+              </div>
+
+          <!-- <form class="searchForm" style="margin:auto;max-width:300px;float: right!important;">
+            <input type="text" placeholder="Search.." name="search2">
+            <button type="submit">search</button>
+          </form>  -->
+                <div style="width: 40%;float: right;">
+                  <input name="q" value="" placeholder="Search..." class="searchInput">
+                  <button class=" btn searchbtn" type="submit">Search</button>
+
+                   <button id="add" class="btn topbutton"  (click)="gototype()">
+                    Issue Type
+                  </button>
+                  <div class="btn-group btn-icon" id="setting" style="vertical-align: middle;">
+                    <span class="setting tooltip">
+                      <button type="button" class="btn btn-icon topbutton" (click)="goToAddRules()">
+                        <clr-icon shape="cog" style="fill:white !important;" ></clr-icon>
+                      </button>
+                      <span class="tooltiptext">Add Rules</span>
+                    </span>
+                  </div>
+                </div>
+          <!-- <div class="btn-group btn-icon" id="setting">
+            <span class="setting">
+              <button class="btn topbutton">
+                <clr-icon shape="cog" style="fill:white !important;" ></clr-icon>
+              </button>
+            </span>
+          </div> -->
+      </div>
+
+
+
+
+
+<clr-modal [(clrModalOpen)]="isCreateModelVisible" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create New Card</h3>
+  <div class="modal-body">
+
+    <form clrForm>
+      <clr-input-container>
+        <label> Card Name<span class="required-field">*</span></label>
+        <input style="width: 100%;" id="name" clrInput type="text" name="title" [(ngModel)]="onecard.title" />
+      </clr-input-container>
+
+      <!-- <clr-textarea-container>
+        <label >Description</label><span class="required-field">*</span>
+        <textarea clrTextarea [(ngModel)]="onecard.description" name="description" id="" cols="6" rows="3"  placeholder="Enter description"></textarea>
+      </clr-textarea-container>
+        <label>Select Column</label>
+        <select  name="column" [(ngModel)]="onecard.column.cId">
+          <option *ngFor="let c of cols" [value]="c.cId"> {{ c.cName }} </option>
+        </select> -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="isCreateModelVisible = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="addCardDb1()">Add</button>
+      </div>
+
+    </form>
+  </div>
+</clr-modal>
+
+      <clr-modal [(clrModalOpen)]="isModalVisible"  [clrModalStaticBackdrop]="true">
+
+        <h3 class="modal-title">Create New Column</h3>
+        <div class="modal-body">
+          <form clrForm>
+
+            <clr-input-container>
+              <label> Column Name<span class="required-field">*</span></label>
+              <input  style="width: 100%;" id="name" clrInput type="text" name="cName" [(ngModel)]="onecol.cName" />
+            </clr-input-container>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" (click)="isModalVisible = false">Cancel</button>
+              <button type="submit" class="btn btn-primary" (click)="addColumn()">Add</button>
+            </div>
+          </form>
+        </div>
+      </clr-modal>
+    </div>
+
+    <div style="width:100% ;">
+    <!-- Filter COlumns -->
+      <div class="sectionFliter">
+          <div class="serchedBy" style="margin-bottom: 5px;">
+            <div>
+              <span style="font-weight:bold;">Search By</span>
+            </div>
+            <ul style="list-style-type: none; margin-left: 10px;">
+              <li style="cursor:pointer;">  <clr-icon shape="star"></clr-icon>&nbsp;Everything</li>
+              <li style="cursor:pointer;" (click)="getowned()" id="menu_btn" ><clr-icon shape="star"></clr-icon>&nbsp;Owned by me</li>
+              <li style="cursor:pointer;" (click)="getrequest()"  id="menu_btn1"><clr-icon shape="star"></clr-icon>&nbsp;Requested by me</li>
+              <li style="cursor:pointer;" id="menu_btn2" (click)="getlastweek()"><clr-icon shape="star" ></clr-icon>&nbsp;Updated in last week</li>
+              <li  style="cursor:pointer;" id="menu_btn3" (clcik)="getlastmonth()"><clr-icon shape="star"  ></clr-icon>&nbsp;Updated in last Month</li>
+              <li style="cursor:pointer;" (click)="getworkinpro()" id="work"><clr-icon shape="circle" ></clr-icon>&nbsp;Work in progress</li>
+            </ul>
+          </div>
+          <div class="filters" style="font-weight:bold;margin-bottom: 5px;">
+              <span>Filters</span>
+              <clr-tree>
+                <clr-tree-node *ngFor="let directory of filterDirectory" [(clrExpanded)]="directory.expanded">
+                  {{directory.name}}
+                  <clr-tree-node *ngFor="let file of directory.files">
+                      <div> {{file.name}} </div>
+                  </clr-tree-node>
+                </clr-tree-node>
+              </clr-tree>
+          </div>
+
+          <div class="teamCol" style="font-weight:bold; margin-bottom: 5px;">
+            <!-- <span>Teams</span> -->
+            <clr-tree>
+              <clr-tree-node *ngFor="let directory of teamDirectory" [(clrExpanded)]="directory.expanded" style="margin-left: -13px;">
+                {{directory.name}}
+                <clr-tree-node *ngFor="let file of directory.files">
+                    <div> {{file.name}} </div>
+                </clr-tree-node>
+              </clr-tree-node>
+            </clr-tree>
+          </div>
+
+          <div class="repositoriesCol" style="font-weight:bold; margin-bottom: 5px;">
+            <!-- <span>Repositories</span> -->
+            <clr-tree>
+              <clr-tree-node *ngFor="let directory of repositoriesDirectory" [(clrExpanded)]="directory.expanded" style="margin-left: -13px;">
+                {{directory.name}}
+                <clr-tree-node *ngFor="let file of directory.files">
+                    <div> {{file.name}} </div>
+                </clr-tree-node>
+              </clr-tree-node>
+            </clr-tree>
+        </div>
+      </div>
+
+      <div class="board-wrapper" cdkScrollable>
+          <div class="board-columns" cdkDropListGroup  >
+          <div class="board-column" *ngFor="let col of cols" >
+            <div class="clr-row" style="margin-right: 0px!important;">
+              <div class="clr-col-12">
+                <div class="column-title tooltip" dir="ltr">
+                  <!-- <input type="checkbox"  id="oneColdatas" name="oneColdatas" value="oneColdatas" (change)="checkUncheckAll(col.cId)" /> -->
+                  <!-- <input type="checkbox" value="Select All" [(ngModel)]="selectAllItems" (change)="selectAllLineItem(col.cId,$event)"> -->
+                  <b class="word">{{ col.cName }}</b>
+                  <span class="tooltiptext">{{ col.cName }}</span>
+                  <span (click)="oncEdit(col.cId)" class="title">
+                    <clr-icon shape="pencil"></clr-icon>
+                  </span>
+                  <span (click)="addCard(col.cId)"><clr-icon style="fill:#03AC13!important;"  size="16" shape="plus-circle"></clr-icon></span>&nbsp;
+                  <span class="label label-light-blue p7" style="float: right;margin-top: 0px; margin-right: 5px;">{{col.cdata?.length}}</span>
+
+                </div>
+              </div>
+            </div>
+
+            <div style="border: 4px solid #70f3cf !important;margin-bottom: 15px; padding-left: 0px !important; padding-right: 0px !important;">
+            </div>
+            <div class="categoryList" *ngIf="!switchbtn">
+                <!-- <div class="category-head" (click)="categoryABC()">
+                    <div class="arrow " [ngClass]="isShowDiv1 ? 'down' : 'right'"></div><b>User Management</b>
+                </div>
+                <div id="category-body" *ngIf="isShowDiv1">
+                    <p>Lorem Ipsum is sfnti nting and typesetting industry dummy text o g and typesetting industry.</p>
+                </div>
+
+                <div class="category-head" (click)="categoryLMN()">
+                    <div class="arrow " [ngClass]="isArrowDown2 ? 'right' : 'down'" ></div><b>Menu Management</b>
+                </div>
+                <div id="category-body2" *ngIf="isShowDiv2">
+                    <p>Lorem Ipsum is sfnti nting and typesetting industry dummy text o g and typesetting industry.</p>
+                </div>
+
+                <div class="category-head" (click)="categoryXYZ()">
+                    <div class="arrow" [ngClass]="isArrowDown3 ? 'right' : 'down'"></div><b>Project Management</b>
+                </div>
+                <div id="category-body3" *ngIf="isShowDiv3">
+                  <p>Lorem Ipsum is sfnti nting and typesetting industry dummy text o g and typesetting industry.</p>
+                </div>
+
+                <div class="category-head" (click)="categoryOthers()">
+                    <div class="arrow " [ngClass]="isArrowDown4 ? 'right' : 'down'"></div><b>OTHERS</b>
+                </div>
+                <div id="category-body4" *ngIf="isShowDiv4">
+                  <p>Lorem Ipsum is sfnti nting and typesetting industry dummy text o g and typesetting industry.</p>
+                </div> -->
+            </div>
+
+            <div class="categoryList" *ngFor="let items of col.category">
+                  <div class="category-head" (click)="categoryABC()">
+                      <div class="arrow " [ngClass]="isShowDiv1 ? 'right' : 'down'"></div><b>{{items.name}}</b>
+                  </div>
+                  <div id="category-body" *ngIf="isArrowDown1 ">
+                    <div class="task" cdkDrag *ngFor="let item of items.cards" style="border-left: red;border-style: solid;border-top: none;border-right: none;">
+                        <div >
+                            <div style="float: right;">
+                              <input class="form-check-input" type="checkbox" >
+                            </div>
+                            <div>
+                              <div (click)="onEdit(item.id)"><span style="margin: 10px; font-size: 12px; cursor: pointer;">Epic name</span></div>
+                              <div><span class="msg" style="margin: 10px; font-size: 18px;font-weight: bold;"> {{ item.title }} </span></div>
+                              <div><span class="label label-light-gray p7" style="margin-top: .4em; margin-left: 10px; display: inline;">week 3 2020</span></div>
+                            </div>
+                            <div class="card-footer" style="padding:4px !important; ">
+                                <span class="label label-light-blue p7" style="margin-top: .4em; display: inline;">{{ item.id
+                                  }}</span>
+                                <span class="label label-purple p7" style="margin-top: .4em; display: inline;">{{ item.date }}</span>
+                                <img class="avatar" src="assets/download.png" alt="" style="float: right;margin-left: 65px;">
+                            </div>
+                        </div>
+                    </div> <!--Task Div-->
+                </div> <!--Category body div-->
+            </div> <!--category Lost div-->
+
+
+            <div class="tasks-container"  cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="col.cdata" (cdkDropListDropped)="drop($event,col.cId,col.cdata)">
+                <!-- {{col.cdata | json}} -->
+              <div class="task" cdkDrag *ngFor="let item of col.cdata"
+                style="border-left: red;border-style: solid;border-top: none;border-right: none;">
+                      <div >
+                        <div style="float: right;">
+                          <input class="form-check-input" type="checkbox" >
+                        </div>
+                          <!-- <div class="chat-area"> -->
+                        <div><!-- removed class="income-msg"-->
+
+                          <div (click)="onEdit(item.id)"><span style="margin: 10px; font-size: 12px; cursor: pointer;">Epic name</span></div>
+                          <div><span class="msg" style="margin: 10px; font-size: 18px;font-weight: bold;"> {{ item.title }} </span></div>
+                          <div><span class="label label-light-gray p7" style="margin-top: .4em; margin-left: 10px; display: inline;">week 3 2020</span></div>
+                            <!-- <div class="dropdown-container" tabindex="-1" style="padding-left: 164px;">
+                              <div class="three-dots"></div>
+                              <div class="dropdown">
+                                <a href="">
+                                  <div>Add</div>
+                                </a>
+                                <a href="">
+                                  <div>download</div>
+                                </a>
+                                <a href="#">
+                                  <div>delete</div>
+                                </a>
+                              </div>
+                            </div> -->
+                        </div>
+                        <!-- </div> -->
+                        <div class="card-footer" style="padding:4px !important; ">
+                          <span class="label label-light-blue p7" style="margin-top: .4em; display: inline;">{{ item.id
+                            }}</span>
+                          <span class="label label-purple p7" style="margin-top: .4em; display: inline;">{{ item.date }}</span>
+                          <img class="avatar" src="assets/download.png" alt="" style="float: right;margin-left: 65px;">
+                        </div>
+                    </div>
+                </div> <!-- task div -->
+            </div><!-- task -container div -->
+          <!-- </div> category list div -->
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+<!-- update Card -->
+<!-- <clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Card Edit</h3>
+  <div class="modal-body">
+    <form clrForm *ngIf="onecardu">
+      <clr-input-container>
+        <label>id<span class="required-field">*</span></label>
+        <input name="id" [(ngModel)]="onecardu.id" style="width: 100%;" id="id" clrInput type="text" name="id"
+          readonly />
+      </clr-input-container>
+      <clr-input-container>
+        <label> Card Name<span class="required-field">*</span></label>
+        <input name="title" [(ngModel)]="onecardu.title" style="width: 100%;" id="name" clrInput type="text"
+          name="name" />
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">Date<span class="required-field">*</span></label>
+        <input name="date" [(ngModel)]="onecardu.date" style="width: 100%;" id="date" clrInput type="text" name="date">
+      </clr-input-container>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="updateCard()">Update</button>
+      </div>
+    </form>
+  </div>
+</clr-modal> -->
+
+<!-- Create Card -->
+
+<clr-modal [(clrModalOpen)]="taskmodel" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create New Card</h3>
+  <div class="modal-body">
+
+    <!-- <form clrForm> -->
+      <form [formGroup]="cardentryForm">
+
+      <table class="table" formArrayName="cards" >
+        <thead>
+            <tr>
+              <th >No</th>
+              <th> Card Name<span class="required-field">*</span></th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+            <td style="width: 70px;"><input type="text" class="clr-input" value={{i+1}}  [readonly]="true">  </td>
+                    <td> <input type="text" id="myFile" class="clr-input" name="title" formControlName="title"></td>
+                    <!-- <td> <input type="text" value="955" class="clr-input" name="columnid" formControlName="columnid"></td> -->
+                    <td> <a (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+          </tr>
+      </tbody>
+      <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+        <clr-icon shape="plus"></clr-icon>
+    </button>
+      </table>
+      <!-- <clr-select-container>
+        <label>Select Column</label>
+        <select style="width: 100%;" clrSelect name="column" id="column" [(ngModel)]="cardData.column.cId" placeholder="Select column ">
+          <option *ngFor="let c of cols" [value]="c.cId"> {{ c.cName }} </option>
+        </select>
+      </clr-select-container> -->
+
+      <!-- {{ cols | json}} -->
+      <!-- <div class="clr-row">
+        <div class="clr-col-12"><br>
+           <span> List Of Tasks</span>
+            <table class="table" style="width:500px ;">
+                <thead>
+                <tr>
+                    <th >No</th>
+                    <th> Card Name<span class="required-field">*</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let attach of one; let i=index" >
+                    <td style="width: 70px;"><input type="text" class="clr-input" value={{i+1}}  [readonly]="true">  </td>
+                    <td> <input type="text" id="myFile" class="clr-input" name="title" [(ngModel)]="onecard.title"></td>
+                    <td> <a (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                </tr>
+
+                            <button class="btn btn-primary" (click)="onAddLines()">
+                                <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+                            </button>
+
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="taskmodel = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="addCardDb()">Add</button>
+      </div>
+
+    </form>
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="modalCreate" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create new task</h3>
+  <div class="modal-body">
+    <!-- <clr-input-container>
+      <label> Card Name<span class="required-field">*</span></label>
+      <input style="width: 100%;" id="name" clrInput type="text" name="title" [(ngModel)]="onecard.title" />
+    </clr-input-container> -->
+      <form [formGroup]="cardentryForm" >
+      <table class="table" formArrayName="cards" >
+        <thead>
+            <tr>
+              <th >No</th>
+              <th> Card Name<span class="required-field">*</span></th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+            <td style="width: 70px;"><input type="text" class="clr-input" value={{i+1}}  [readonly]="true">  </td>
+                    <td> <input type="text" id="myFile" class="clr-input" name="title" formControlName="title"></td>
+                    <!-- <td> <input type="text" value="955" class="clr-input" name="columnid" formControlName="columnid"></td> -->
+                    <td> <a (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+          </tr>
+      </tbody>
+      <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+        <clr-icon shape="plus"></clr-icon>
+    </button>
+      </table>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalCreate = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="addCardDb()">Add</button>
+      </div>
+    </form>
+
+
+    <!-- <form clrForm> -->
+      <!-- <clr-input-container>
+        <label> Card Name<span class="required-field">*</span></label>
+        <input style="width: 100%;" id="name" clrInput type="text" name="title" [(ngModel)]="onecard.title" />
+      </clr-input-container> -->
+
+
+      <!-- <div class="clr-row">
+        <div class="clr-col-12"><br>
+           <span> List Of Tasks</span>
+            <table class="table" style="width:500px ;">
+                <thead>
+                <tr>
+                    <th >No</th>
+                    <th> Card Name<span class="required-field">*</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let attach of one; let i=index" >
+                    <td style="width: 70px;"><input type="text" class="clr-input" value={{i+1}}  [readonly]="true">  </td>
+                    <td> <input type="text" id="myFile" class="clr-input" name="title"></td>
+                    <td> <a (click)="one.splice(i,1)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+                </tr>
+
+                            <button class="btn btn-primary" (click)="onAddLines()">
+                                <clr-icon shape="plus" style="fill:whitesmoke !important;"></clr-icon>
+                            </button>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalCreate = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="addCardDb()">Add</button>
+      </div>
+
+    </form> -->
+  </div>
+</clr-modal>
+
+
+
+<!-- Update Column -->
+<clr-modal [(clrModalOpen)]="isColVisible"  [clrModalStaticBackdrop]="true">
+
+  <h3 class="modal-title">Modify Column<span (click)="delColumn(onecolu.cId)" class="action-item"><clr-icon shape="trash" class="is-error" style="margin-left: 280px;margin-top: 0px;cursor: pointer;"></clr-icon></span></h3>
+
+  <div class="modal-body">
+    <form clrForm *ngIf="onecolu">
+      <clr-input-container>
+        <label>ID<span class="required-field">*</span></label>
+        <input name="id" [(ngModel)]="onecolu.cId" style="width: 100%;" id="id" clrInput type="text" name="cId"
+          readonly />
+      </clr-input-container>
+      <clr-input-container>
+        <label> Card Name<span class="required-field">*</span></label>
+        <input name="title" [(ngModel)]="onecolu.cName" style="width: 100%;" id="name" clrInput type="text" name="cName"
+          required />
+      </clr-input-container>
+
+      <div class="modal-footer" style="margin-top: 20px;">
+        <button type="button" class="btn btn-outline" (click)="isColVisible = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="updateCol()">Update</button>
+      </div>
+    </form>
+  </div>
+</clr-modal>
+
+
+<!-- <clr-modal [(clrModalOpen)]="open" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Create New Card</h3>
+  <div class="modal-body">
+      <form [formGroup]="cardentryForm" >
+        <div class="clr-row">
+          <div class="clr-col-md-12 clr-col-sm-12">
+            <div id="select" class="demo-section k-content">
+              <h4 style="margin-top: 2em;">Select Column</h4>
+              <select id="size1" placeholder="Select column "
+                style="width: 100%;" name="column" [(ngModel)]="cardData.column.cId">
+                  <option *ngFor="let c of cols" [value]="c.cId"> {{ c.cName }} </option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      <table class="table" formArrayName="cards" >
+        <thead>
+            <tr>
+              <th >No</th>
+              <th> Card Name<span class="required-field">*</span></th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+            <td style="width: 70px;"><input type="text" class="clr-input" value={{i+1}}  [readonly]="true">  </td>
+                    <td> <input type="text" id="myFile" class="clr-input" name="title" [(ngModel)]="cardData.title"></td>
+                    <td> <a (click)="onRemoveLines(i)"><clr-icon shape="trash"  class="is-error"></clr-icon></a></td>
+          </tr>
+      </tbody>
+      <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+        <clr-icon shape="plus"></clr-icon>
+    </button>
+      </table>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalCreate = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="onFinish()">Finish</button>
+      </div>
+    </form>
+
+  </div>
+</clr-modal> -->
+
+
+<!-- issue raise -->
+<clr-wizard #wizard [(clrWizardOpen)]="open">
+
+  <clr-wizard-title> Issue </clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'" (click)="onFinish()">Finish</clr-wizard-button>
+
+  <form enctype="multipart/form-data" method="post">
+
+    <clr-wizard-page>
+
+      <ng-template clrPageTitle>Description</ng-template>
+
+      <label for="id">Title</label><span class="required-field">*</span>
+      <input
+        [(ngModel)]="cardData.title"
+        type="text"
+        placeholder="Enter title"
+        name="title"
+        required >
+
+      <label for="des">Description</label><span class="required-field">*</span>
+      <textarea
+        [(ngModel)]="cardData.description"
+        name="description"
+        id=""
+        cols="10"
+        rows="3"
+        placeholder="Enter description"></textarea>
+
+      <label for="id">Tags</label><span class="required-field">*</span>
+      <input
+        [(ngModel)]="cardData.tags"
+        type="text"
+        placeholder="Enter tags"
+        name="tags"
+        required>
+
+      <hr>
+      <label for="id">Select Card Image</label><span class="required-field">*</span><br>
+      <input type="file" (change)="onFileChanged($event)">
+      <input type="button" class="btn" (click)="onUpload()" value="upload">
+      <hr>
+      <div *ngIf=message>{{message}}</div>
+
+      <!-- <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName" name="name" />
+      <input class="btn" type="button" (click)="getImage()" value="Get Image"> -->
+
+      <div *ngIf=retrievedImage>
+        <img [src]="retrievedImage">
+      </div>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Time and Assignments</ng-template>
+      <div>
+
+        <div id="example" role="application" style="float:left;width:49%; margin-right:2%">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Story Points</h4>
+            <select name="storyPoints" [(ngModel)]="cardData.storyPoints" id="size" placeholder="Select size..." style="width: 300px;">
+              <option value="Easy">Easy</option>
+              <option value="Way">Way</option>
+              <option value="Always">Always</option>
+              <option value="Easily">Easily</option>
+            </select>
+
+
+          </div>
+        </div>
+
+        <div id="example1" role="application" style="float:left;width:49%;margin-right:0">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Value Points</h4>
+            <select name="valuePoints" [(ngModel)]="cardData.valuePoints" id="size1" placeholder="Select size..." style="width: 300px;">
+              <option value="C++">C++</option>
+              <option value="Java">Java</option>
+              <option value="JQuery">JQuery</option>
+              <option value="HTML">HTML</option>
+              <option value="CSS">CSS</option>
+              <option value="Unix">Unix</option>
+            </select>
+
+
+          </div>
+        </div>
+        <div>
+          <label for="index">Priority Index</label>
+          <span class="label label"
+            style="margin-top: .4em; display: inline; margin-left: 10px;background-color: rgb(231, 224, 224);">5.3</span>
+        </div>
+
+        <div id="example" role="application" style="float:left;width:49%; margin-right:2%">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Issue Type</h4>
+            <select name="issueType" [(ngModel)]="cardData.issueType" id="size" placeholder="Select size..." style="width: 300px;">
+              <option value="Easy">Easy</option>
+              <option value="Way">Way</option>
+              <option value="Always">Always</option>
+              <option value="Easily">Easily</option>
+            </select>
+
+
+          </div>
+        </div>
+
+        <div id="example1" role="application" style="float:left;width:49%;margin-right:0">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Assigned To</h4>
+            <select name="assignedTo" [(ngModel)]="cardData.assigned_to" id="size1" placeholder="Select size..." style="width: 300px;">
+              <option value="C++">C++</option>
+              <option value="Java">Java</option>
+              <option value="JQuery">JQuery</option>
+              <option value="HTML">HTML</option>
+              <option value="CSS">CSS</option>
+              <option value="Unix">Unix</option>
+            </select>
+
+
+          </div>
+        </div>
+        <div>Related Issue: <span class="text">Test Issue for wireframe create users #1110</span> </div>
+        <div><label for="date">Scheduled Date</label>
+          <input name="scheduledDate" [(ngModel)]="cardData.scheduledDate" type="date">
+        </div>
+
+        <div>
+          <h4>Time Stats</h4>
+          <div>Estimated Time: <span class="line">8Hrs</span> </div>
+          <div>Elapsed Time: <span class="line">16 hrs 35 sec</span> </div>
+          <div>Start Date And Time: <span class="line">07/07/2020 12:35:00</span> </div>
+          <div>Completion Date And Time: <span class="line">07/07/2020 12:35:00</span> </div>
+
+        </div><br>
+
+        <div>
+          <label for="myfile">Attachments:</label>
+          <input name="attachmentTaA"  type="file" id="myfile" name="myfile" value="Browse"><br><br>
+        </div>
+
+        <div>
+          <h4>Other Details</h4>
+          <div>Project: <span class="text">Test Project</span> </div>
+          <div>Repository: <span class="text">Test Repository</span> </div>
+          <div>Sprint Test: <span class="text">sprint</span> </div>
+          <div>Current Status: <span class="text">Spring Backlog</span> </div>
+          <div>Clock Status: <span class="text">Not Started</span> </div>
+          <div>Project Priority: <span class="text">yes</span> </div>
+          <div>Pinned Status: <span class="text">yes</span> </div>
+        </div>
+
+        <div class="clr" style="padding-top: 10px;">
+          <button id="add" class="btn btn-primary">CREATE SUBTASK </button>
+          <button id="add" class="btn btn-primary">SHOW ACTIVITY</button>
+        </div>
+
+      </div>
+      <div>
+        <label for="task">Related Task</label>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">1123</span>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">994</span>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">12233</span>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">445</span>
+      </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Definition of Ready</ng-template>
+      <label for="story">Story Details</label>
+      <textarea name="story_details" [(ngModel)]="cardData.story_details" id="" cols="10" rows="1"></textarea>
+
+      <label for="story">Acceptance Criteria</label><br>
+      scenario,given,when,then,and
+      <textarea name="scenario_given_when" [(ngModel)]="cardData.scenario_given_when" id="" cols="10" rows="1"></textarea>
+
+      Data,Expected Result, Expected Message
+      <textarea name="data_expected_result" [(ngModel)]="cardData.data_expected_result" id="" cols="10" rows="1"></textarea>
+
+      Functional Area,Business Rule,Pass/Fail details
+      <textarea name="functional_area_passfail_details" [(ngModel)]="cardData.functional_area_passfail_details" id="" cols="10" rows="1"></textarea>
+
+      scalibility
+      <textarea name="scalibility" [(ngModel)]="cardData.scalibility" id="" cols="10" rows="1"></textarea>
+
+      Test Case Demo Case
+      <textarea name="test_case_demo_case" [(ngModel)]="cardData.test_case_demo_case" id="" cols="10" rows="1"></textarea>
+
+      <div id="example" role="application" style="float:left;width:49%; margin-right:2%">
+        <div id="select" class="demo-section k-content">
+
+          <h4 style="margin-top: 2em;">Estimates</h4>
+          <select name="estimates" [(ngModel)]="cardData.estimates" id="size" placeholder="Select size..." style="width: 300px;">
+            <option value="Easy">Easy</option>
+              <option value="Way">Way</option>
+              <option value="Always">Always</option>
+              <option value="Easily">Easily</option>
+          </select>
+
+
+        </div>
+      </div>
+
+      <div id="example1" role="application" style="float:left;width:49%;margin-right:0">
+        <div id="select" class="demo-section k-content">
+
+          <h4 style="margin-top: 2em;">DoR Approval Status</h4>
+          <select name="dor_approval_status" [(ngModel)]="cardData.dor_approval_status" id="size1" placeholder="Select size..." style="width: 300px;">
+            <option value="C++">C++</option>
+            <option value="Java">Java</option>
+            <option value="JQuery">JQuery</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="Unix">Unix</option>
+          </select>
+
+
+        </div>
+      </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Definition of Done</ng-template>
+      <div class="container">
+        <div class="checkbox-con off">
+          <input name="gitCommited" [(ngModel)]="cardData.gitCommited" type="checkbox" />
+          <label>Git Commited</label>
+
+        </div>
+        <div class="checkbox-con two">
+          <input name="code_quality_review_done" [(ngModel)]="cardData.code_quality_review_done" type="checkbox" checked />
+          <label>Code Quality Review Done</label>
+
+        </div>
+        <div class="checkbox-con off">
+          <input name="peer_revired" [(ngModel)]="cardData.peer_revired" type="checkbox" />
+          <label>Peer Reviewed</label>
+
+        </div>
+        <div class="checkbox-con two">
+          <input name="builds_without_error" [(ngModel)]="cardData.builds_without_error" type="checkbox" checked />
+          <label>Builds Without Error</label>
+
+        </div>
+      </div>
+      Unit Test Details
+      <textarea name="unit_test_details" [(ngModel)]="cardData.unit_test_details" id="" cols="10" rows="1"></textarea>
+      <div class="container">
+        <div class="checkbox-con off">
+          <input name="promoted_test_instance" [(ngModel)]="cardData.promoted_test_instance" type="checkbox" />
+          <label>Promoted To Test Instance</label>
+
+        </div>
+        <div class="checkbox-con two">
+          <input name="configuration_changes" [(ngModel)]="cardData.configuration_changes" type="checkbox" checked />
+          <label>Configuration Changes Implemented And Documented</label>
+
+        </div>
+      </div>
+      Unit Test Details
+      <textarea name="unit_test_details2" [(ngModel)]="cardData.unit_test_details2" id="" cols="10" rows="1"></textarea>
+      <div class="container">
+        <div class="checkbox-con off">
+          <input name="closed_for_clocking" [(ngModel)]="cardData.closed_for_clocking" type="checkbox" />
+          <label>Closed For Clocking</label>
+
+        </div>
+
+      </div>
+      <div>
+        <label for="myfile">Attachments:</label>
+        <input type="file" id="myfile" name="myfile" value="Browse"><br><br>
+
+      </div>
+
+      <div id="example1" style="float:left;width:100%;margin-right:0">
+        <div id="select" class="demo-section k-content">
+
+          <h4 style="margin-top: 2em;">Select Column</h4>
+          <select id="size1" placeholder="Select column "
+            style="width: 100%;" name="column" [(ngModel)]="cardData.column.cId">
+              <option *ngFor="let c of cols" [value]="c.cId"> {{ c.cName }} </option>
+          </select>
+
+
+        </div>
+      </div>
+
+    </clr-wizard-page>
+  </form>
+</clr-wizard>
+
+<!-- update new Card -->
+<clr-modal [(clrModalOpen)]="newCardEdit" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Edit Task</h3>
+    <div class="modal-body">
+
+        <form *ngIf="onecardu">
+          <span (click)="delCard(onecardu.id)" class="action-item"><clr-icon shape="trash" class="is-error" style="margin-right: 15px;margin-top: 0px;cursor: pointer; float: right;"></clr-icon></span>
+              <div class="clr-row" style="height: fit-content;">
+                  <button id="add" class="btn btn-primary">CREATE SUBTASK </button>
+                  <button id="add" class="btn btn-primary">SHOW ACTIVITY</button>
+              </div>
+
+              <div style="margin-top: 25px;">
+                <h4 style="font-weight: 300;display: inline;">Description</h4>
+              </div>
+                  These configurations default to repositories setups.
+              <hr>
+              <div class="clr-row">
+                  <div class="clr-col-md-4 clr-col-sm-12">
+                      <label for="title">Title</label><span class="required-field">*</span>
+                      <input [(ngModel)]="onecardu.title" type="text" placeholder="Enter title" name="title" required class="clr-input">
+                  </div>
+                  <div class="clr-col-md-3 clr-col-sm-12">
+                      <label for="tags">Tags</label><span class="required-field">*</span>
+                      <input [(ngModel)]="onecardu.tags" type="text" placeholder="Enter tags" class="clr-input" name="tags" required>
+                  </div>
+                  <div class="clr-col-md-4 clr-col-sm-12">
+                      <label for="description">Description</label><span class="required-field">*</span>
+                      <textarea [(ngModel)]="onecardu.description" name="description" id="" cols="10" rows="2" placeholder="Enter description"></textarea>
+                  </div>
+              </div>
+
+              <div style="margin-top: 10px;">
+                <h4 style="font-weight: 300;display: inline;">Time and Assignments</h4>
+              </div>
+                  These configurations default to repositories setups.
+              <hr>
+
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="storyPoints">Story Points</label>
+                    <select name="storyPoints" [(ngModel)]="onecardu.storyPoints" colspan="2" class="clr-dropdown" id="size" placeholder="Select size..." style="width: 300px;">
+                        <option value="Easy">Easy</option>
+                        <option value="Way">Way</option>
+                        <option value="Always">Always</option>
+                        <option value="Easily">Easily</option>
+                    </select>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="valuePoints">Value Points</label>
+                    <select name="valuePoints" [(ngModel)]="onecardu.valuePoints" colspan="2" class="clr-dropdown" id="size1" placeholder="Select size..." style="width: 300px;">
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="JQuery">JQuery</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="Unix">Unix</option>
+                    </select>
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  Related Issue: <span class="text">{{ onecardu.related_issue }}</span><br>
+                    <label for="index">Priority Index</label>
+                      <span class="label label"
+                        style="margin-top: .4em; display: inline; margin-left: 10px;background-color: rgb(231, 224, 224);"> {{ onecardu.priority_index }} </span>
+                </div>
+            </div>
+
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="size">Issue Type</label>
+                    <select name="issueType" colspan="2" [(ngModel)]="onecardu.issueType" class="clr-dropdown" id="size" placeholder="Select size..." style="width: 300px;">
+                      <option value="Easy">Easy</option>
+                      <option value="Way">Way</option>
+                      <option value="Always">Always</option>
+                      <option value="Easily">Easily</option>
+                    </select>
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="index">Assigned To</label>
+                    <select name="assignedTo" colspan="2" [(ngModel)]="onecardu.assignedTo" class="clr-dropdown" id="size1" placeholder="Select size..." style="width: 300px;">
+                      <option value="C++">C++</option>
+                      <option value="Java">Java</option>
+                      <option value="JQuery">JQuery</option>
+                      <option value="HTML">HTML</option>
+                      <option value="CSS">CSS</option>
+                      <option value="Unix">Unix</option>
+                    </select>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                  <label for="myfile">Attachments:</label>
+                  <input name="attachmentTaA"  type="file" id="myfile" name="myfile" value="Browse">
+                </div>
+
+            </div>
+            <div class="clr-row">
+              <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="date">Scheduled Date</label>
+                <input name="scheduledDate" [(ngModel)]="onecardu.scheduledDate" type="date">
+            </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                  <label for="task">Related Task</label>
+                  <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">1123</span>
+                  <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">994</span>
+                  <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">12233</span>
+                  <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">445</span>
+              </div>
+            </div>
+
+
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                          Time Status
+                        </div>
+                        <div class="card-block">
+                            <div class="card-media-block">
+                                <div class="card-media-description" >
+                                      <span class="card-media-title">
+                                          Estimated Time:
+                                            <span >{{ onecardu.estimated_time }}</span>
+                                      </span>
+                                      <span class="card-media-text">
+                                            Elapsed Time:
+                                            <span >{{ onecardu.elapsed_time }}</span>
+                                      </span>
+                                      <span>
+                                          Start Date And Time:
+                                            <span > {{ onecardu.start_date_time }}</span>
+                                      </span>
+                                      <span>
+                                          Completion Date And Time:
+                                          <span > {{ onecardu.completion_date_time }}</span>
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <div class="card">
+                      <div class="card-header">
+                        Other Details
+                      </div>
+                      <div class="card-block">
+                          <div class="card-media-block">
+                              <div class="card-media-description" >
+                                    <span class="card-media-title">
+                                          Project:
+                                          <span >{{ onecardu.project }}</span>
+                                    </span>
+                                    <span class="card-media-text">
+                                        Repository :
+                                          <span >{{ onecardu.repository }}</span>
+                                    </span>
+                                    <span>
+                                          Sprint Test:
+                                          <span > {{ onecardu.sprint_test }}</span>
+                                    </span>
+                                    <span>
+                                          Milestone:
+                                          <select colspan="2" name="milestone" [(ngModel)]="onecardu.milestone" class="clr-dropdown" style="position: absolute;width: 40%; right: 94px;">
+                                              <option *ngFor="let sub of allMilestoneData" [value]="sub.name">{{sub.name}}
+                                              </option>
+                                          </select>
+                                    </span>
+                                    <br>
+                                    <span>
+                                          Iteration:
+                                          <select colspan="2" name="iteration" [(ngModel)]="onecardu.iteration" class="clr-dropdown" style="position: absolute;width: 40%; right: 94px;">
+                                             <option *ngFor="let sub of allIterationdata" [value]="sub.name">{{sub.name}}
+                                             </option>
+                                          </select>
+                                    </span>
+                                    <br>
+                                    <span>
+                                          Goal:
+                                          <select colspan="2" name="goal" [(ngModel)]="onecardu.goal" class="clr-dropdown" style="position: absolute;width: 40%; right: 94px;">
+                                              <option *ngFor="let sub of allGoalData" [value]="sub.name">{{sub.name}}
+                                              </option>
+                                          </select>
+                                    </span>
+                                    <br>
+                                    <span>
+                                          User Story:
+                                      <span> {{ onecardu.pinned_status }}</span>
+                                    </span>
+                                    <span>
+                                          Feature:
+                                      <span> {{ onecardu.pinned_status }}</span>
+                                    </span>
+                                    <span>
+                                          Current Status:
+                                        <span> {{ onecardu.current_status }}</span>
+                                    </span>
+                                    <span>
+                                            Clock Status:
+                                        <span> {{ onecardu.clock_status }}</span>
+                                    </span>
+                                    <span>
+                                            Project Priority:
+                                        <span> {{ onecardu.project_priority }}</span>
+                                    </span>
+                                    <span>
+                                            Pinned Status:
+                                      <span > {{ onecardu.pinned_status }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;">
+              <h4 style="font-weight: 300;display: inline;">Definition of Ready</h4>
+            </div>
+                These configurations default to repositories setups.
+            <hr>
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="dor_approval_status">DoR Approval Status</label>
+                    <select name="dor_approval_status" colspan="2" [(ngModel)]="onecardu.dor_approval_status" class="clr-dropdown" id="size1" placeholder="Select size..." style="width: 300px;">
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="JQuery">JQuery</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="Unix">Unix</option>
+                    </select>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                  <label for="estimates">Estimates</label>
+                  <select name="estimates" colspan="2" [(ngModel)]="onecardu.estimates" id="size" class="clr-dropdown" placeholder="Select size..." style="width: 300px;">
+                    <option value="Easy">Easy</option>
+                      <option value="Way">Way</option>
+                      <option value="Always">Always</option>
+                      <option value="Easily">Easily</option>
+                  </select>
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="story">Story Details</label>
+                  <textarea name="story_details" [(ngModel)]="onecardu.story_details" id="" cols="10" rows="1"></textarea>
+              </div>
+            </div>
+
+            <!-- <div style="margin-top: 40px;">
+                <h4 style="font-weight: 300;display: inline;"> Acceptance Criteria</h4>
+            </div> -->
+            <span>Acceptance Criteria</span>
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                  <label for="scenario_given_when">scenario,given,when,then,and</label>
+                  <textarea name="scenario_given_when" [(ngModel)]="onecardu.scenario_given_when" id="" cols="10" rows="1"></textarea>
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                    <label for="data_expected_result">Data,Expected Result and Message</label>
+                    <textarea name="data_expected_result" [(ngModel)]="onecardu.data_expected_result" id="" cols="10" rows="1"></textarea>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="functional_area_passfail_details">Functional Area,Business Rule,Pass/Fail details</label>
+                    <textarea name="functional_area_passfail_details" [(ngModel)]="onecardu.functional_area_passfail_details" id="" cols="10" rows="1"></textarea>
+                </div>
+            </div>
+
+            <div class="clr-row">
+              <div class="clr-col-md-4 clr-col-sm-12">
+                  <label for="scenario_given_when">scalibility</label>
+                  <textarea name="scalibility" [(ngModel)]="onecardu.scalibility" id="" cols="10" rows="1"></textarea>
+              </div>
+              <div class="clr-col-md-3 clr-col-sm-12">
+                  <label for="data_expected_result">Test Case Demo Case</label>
+                  <textarea name="test_case_demo_case" [(ngModel)]="onecardu.test_case_demo_case" id="" cols="10" rows="1"></textarea>
+              </div>
+          </div>
+
+          <div style="margin-top: 25px;">
+            <h4 style="font-weight: 300;display: inline;">Definition of Done</h4>
+          </div>
+              These configurations default to repositories setups.
+          <hr>
+
+          <div class="clr-row">
+              <div class="clr-col-md-3 clr-col-sm-12">
+                  <div class="container">
+                      <div class="checkbox-con off">
+                        <input name="gitCommited" [(ngModel)]="onecardu.gitCommited" type="checkbox" />
+                        <label>Git Commited</label>
+                      </div>
+                      <div class="checkbox-con two">
+                        <input name="code_quality_review_done" [(ngModel)]="onecardu.code_quality_review_done" type="checkbox" checked />
+                        <label>Code Quality Review Done</label>
+                      </div>
+                  </div>
+               </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                   <div class="container">
+                      <div class="checkbox-con off">
+                        <input name="peer_revired" [(ngModel)]="onecardu.peer_revired" type="checkbox" />
+                        <label>Peer Reviewed</label>
+                      </div>
+                      <div class="checkbox-con two">
+                        <input name="builds_without_error" [(ngModel)]="onecardu.builds_without_error" type="checkbox" checked />
+                        <label>Builds Without Error</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="unit_test_details">Unit Test Details</label>
+                    <textarea name="unit_test_details" [(ngModel)]="onecardu.unit_test_details" id="" cols="10" rows="1"></textarea>
+                </div>
+           </div>
+
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                  <div class="container">
+                      <div class="checkbox-con off">
+                          <input name="promoted_test_instance" [(ngModel)]="onecardu.promoted_test_instance" type="checkbox" />
+                          <label>Promoted To Test Instance</label>
+                      </div>
+                      <div class="checkbox-con two">
+                          <input name="configuration_changes" [(ngModel)]="onecardu.configuration_changes" type="checkbox" checked />
+                          <label>Configuration Changes Implemented And Documented</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+                    <label for="unit_test_details2">Unit Test Details</label>
+                    <textarea name="unit_test_details2" [(ngModel)]="onecardu.unit_test_details2" id="" cols="10" rows="1"></textarea>
+                </div>
+                <div class="clr-col-md-3 clr-col-sm-12">
+                  <div class="container">
+                      <div class="checkbox-con off">
+                        <input name="closed_for_clocking" [(ngModel)]="onecardu.closed_for_clocking" type="checkbox" />
+                        <label>Closed For Clocking</label>
+                      </div>
+                  </div>
+                </div>
+
+            </div>
+            <div class="clr-row">
+                <div class="clr-col-md-4 clr-col-sm-12">
+                  <label for="myfile">Attachments:</label>
+                  <input type="file" id="myfile" name="myfile" value="Browse">
+                </div>
+                <div class="clr-col-md-4 clr-col-sm-12">
+
+                    <label for="column">Select Column</label>
+                    <select id="size1" placeholder="Select column " colspan="2" class="clr-dropdown"
+                      style="width: 100%;" name="column" [(ngModel)]="onecardu.column.cId">
+                        <option *ngFor="let c of cols" [value]="c.cId"> {{ c.cName }} </option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" (click)="newCardEdit = false">Cancel</button>
+              <button type="submit" class="btn btn-primary" (click)="updateCard()">Update</button>
+            </div>
+
+        </form>
+    </div>
+</clr-modal>
+
+<!-- <clr-wizard  [(clrWizardOpen)]="newCardEdit">
+  <clr-wizard-title> Issue </clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'" (click)="updateCard()">Update</clr-wizard-button>
+  <form *ngIf="onecardu">
+
+    <clr-wizard-page>
+
+      <ng-template clrPageTitle>Description
+        <span (click)="delCard(onecardu.id)" class="action-item"><clr-icon shape="trash" class="is-error" style="margin-left: 600px;margin-top: 0px;cursor: pointer;"></clr-icon></span>
+      </ng-template>
+
+      <label for="id">Title</label><span class="required-field">*</span>
+      <input
+        [(ngModel)]="onecardu.title"
+        type="text"
+        placeholder="Enter title"
+        name="title"
+        required >
+
+      <label for="des">Description</label><span class="required-field">*</span>
+      <textarea
+        [(ngModel)]="onecardu.description"
+        name="description"
+        id=""
+        cols="10"
+        rows="3"
+        placeholder="Enter description"></textarea>
+
+      <label for="id">Tags</label><span class="required-field">*</span>
+      <input
+        [(ngModel)]="onecardu.tags"
+        type="text"
+        placeholder="Enter tags"
+        name="tags"
+        required>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Time and Assignments</ng-template>
+      <div>
+
+        <div id="example" role="application" style="float:left;width:49%; margin-right:2%">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Story Points</h4>
+            <select name="storyPoints" [(ngModel)]="onecardu.storyPoints" id="size" placeholder="Select size..." style="width: 300px;">
+              <option value="Easy">Easy</option>
+              <option value="Way">Way</option>
+              <option value="Always">Always</option>
+              <option value="Easily">Easily</option>
+            </select>
+
+
+          </div>
+        </div>
+
+        <div id="example1" role="application" style="float:left;width:49%;margin-right:0">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Value Points</h4>
+            <select name="valuePoints" [(ngModel)]="onecardu.valuePoints" id="size1" placeholder="Select size..." style="width: 300px;">
+              <option value="C++">C++</option>
+              <option value="Java">Java</option>
+              <option value="JQuery">JQuery</option>
+              <option value="HTML">HTML</option>
+              <option value="CSS">CSS</option>
+              <option value="Unix">Unix</option>
+            </select>
+
+
+          </div>
+        </div>
+        <div>
+          <label for="index">Priority Index</label>
+          <span class="label label"
+            style="margin-top: .4em; display: inline; margin-left: 10px;background-color: rgb(231, 224, 224);"> {{ onecardu.priority_index }} </span>
+        </div>
+
+        <div id="example" role="application" style="float:left;width:49%; margin-right:2%">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Issue Type</h4>
+            <select name="issueType" [(ngModel)]="onecardu.issueType" id="size" placeholder="Select size..." style="width: 300px;">
+              <option value="Easy">Easy</option>
+              <option value="Way">Way</option>
+              <option value="Always">Always</option>
+              <option value="Easily">Easily</option>
+            </select>
+
+
+          </div>
+        </div>
+
+        <div id="example1" role="application" style="float:left;width:49%;margin-right:0">
+          <div id="select" class="demo-section k-content">
+
+            <h4 style="margin-top: 2em;">Assigned To</h4>
+            <select name="assignedTo" [(ngModel)]="onecardu.assignedTo" id="size1" placeholder="Select size..." style="width: 300px;">
+              <option value="C++">C++</option>
+              <option value="Java">Java</option>
+              <option value="JQuery">JQuery</option>
+              <option value="HTML">HTML</option>
+              <option value="CSS">CSS</option>
+              <option value="Unix">Unix</option>
+            </select>
+
+
+          </div>
+        </div>
+        <div>Related Issue: <span class="text">{{ onecardu.related_issue }}</span> </div>
+        <div><label for="date">Scheduled Date</label>
+          <input name="scheduledDate" [(ngModel)]="onecardu.scheduledDate" type="date">
+        </div>
+
+        <div>
+          <h4>Time Stats</h4>
+          <div>Estimated Time: <span class="line">{{ onecardu.estimated_time }}</span> </div>
+          <div>Elapsed Time: <span class="line">{{ onecardu.elapsed_time }}</span> </div>
+          <div>Start Date And Time: <span class="line">{{ onecardu.start_date_time }}</span> </div>
+          <div>Completion Date And Time: <span class="line">{{ onecardu.completion_date_time }}</span> </div>
+
+        </div><br>
+
+        <div>
+          <label for="myfile">Attachments:</label>
+          <input name="attachmentTaA"  type="file" id="myfile" name="myfile" value="Browse"><br><br>
+        </div>
+
+        <div>
+          <h4>Other Details</h4>
+          <div>Project: <span class="text">{{ onecardu.project }}</span> </div>
+          <div>Repository: <span class="text">{{ onecardu.repository }}</span> </div>
+          <div>Sprint Test: <span class="text">{{ onecardu.sprint_test }}</span> </div>
+          <div>Current Status: <span class="text">{{ onecardu.current_status }}</span> </div>
+          <div>Clock Status: <span class="text">{{ onecardu.clock_status }}</span> </div>
+          <div>Project Priority: <span class="text">{{ onecardu.project_priority }}</span> </div>
+          <div>Pinned Status: <span class="text">{{ onecardu.pinned_status }}</span> </div>
+        </div>
+
+        <div class="clr" style="padding-top: 10px;">
+          <button id="add" class="btn btn-primary">CREATE SUBTASK </button>
+          <button id="add" class="btn btn-primary">SHOW ACTIVITY</button>
+        </div>
+
+      </div>
+      <div>
+        <label for="task">Related Task</label>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">1123</span>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">994</span>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">12233</span>
+        <span class="label label" style="margin-top: .4em; display: inline; margin-left: 10px;">445</span>
+      </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Definition of Ready</ng-template>
+      <label for="story">Story Details</label>
+      <textarea name="story_details" [(ngModel)]="onecardu.story_details" id="" cols="10" rows="1"></textarea>
+
+      <label for="story">Acceptance Criteria</label><br>
+      scenario,given,when,then,and
+      <textarea name="scenario_given_when" [(ngModel)]="onecardu.scenario_given_when" id="" cols="10" rows="1"></textarea>
+
+      Data,Expected Result, Expected Message
+      <textarea name="data_expected_result" [(ngModel)]="onecardu.data_expected_result" id="" cols="10" rows="1"></textarea>
+
+      Functional Area,Business Rule,Pass/Fail details
+      <textarea name="functional_area_passfail_details" [(ngModel)]="onecardu.functional_area_passfail_details" id="" cols="10" rows="1"></textarea>
+
+      scalibility
+      <textarea name="scalibility" [(ngModel)]="onecardu.scalibility" id="" cols="10" rows="1"></textarea>
+
+      Test Case Demo Case
+      <textarea name="test_case_demo_case" [(ngModel)]="onecardu.test_case_demo_case" id="" cols="10" rows="1"></textarea>
+
+      <div id="example" role="application" style="float:left;width:49%; margin-right:2%">
+        <div id="select" class="demo-section k-content">
+
+          <h4 style="margin-top: 2em;">Estimates</h4>
+          <select name="estimates" [(ngModel)]="onecardu.estimates" id="size" placeholder="Select size..." style="width: 300px;">
+            <option value="Easy">Easy</option>
+              <option value="Way">Way</option>
+              <option value="Always">Always</option>
+              <option value="Easily">Easily</option>
+          </select>
+
+
+        </div>
+      </div>
+
+      <div id="example1" role="application" style="float:left;width:49%;margin-right:0">
+        <div id="select" class="demo-section k-content">
+
+          <h4 style="margin-top: 2em;">DoR Approval Status</h4>
+          <select name="dor_approval_status" [(ngModel)]="onecardu.dor_approval_status" id="size1" placeholder="Select size..." style="width: 300px;">
+            <option value="C++">C++</option>
+            <option value="Java">Java</option>
+            <option value="JQuery">JQuery</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="Unix">Unix</option>
+          </select>
+
+
+        </div>
+      </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Definition of Done</ng-template>
+
+      <div class="container">
+        <div class="checkbox-con off">
+          <input name="gitCommited" [(ngModel)]="onecardu.gitCommited" type="checkbox" />
+          <label>Git Commited</label>
+
+        </div>
+        <div class="checkbox-con two">
+          <input name="code_quality_review_done" [(ngModel)]="onecardu.code_quality_review_done" type="checkbox" checked />
+          <label>Code Quality Review Done</label>
+
+        </div>
+        <div class="checkbox-con off">
+          <input name="peer_revired" [(ngModel)]="onecardu.peer_revired" type="checkbox" />
+          <label>Peer Reviewed</label>
+
+        </div>
+        <div class="checkbox-con two">
+          <input name="builds_without_error" [(ngModel)]="onecardu.builds_without_error" type="checkbox" checked />
+          <label>Builds Without Error</label>
+
+        </div>
+      </div>
+      Unit Test Details
+      <textarea name="unit_test_details" [(ngModel)]="onecardu.unit_test_details" id="" cols="10" rows="1"></textarea>
+      <div class="container">
+        <div class="checkbox-con off">
+          <input name="promoted_test_instance" [(ngModel)]="onecardu.promoted_test_instance" type="checkbox" />
+          <label>Promoted To Test Instance</label>
+
+        </div>
+        <div class="checkbox-con two">
+          <input name="configuration_changes" [(ngModel)]="onecardu.configuration_changes" type="checkbox" checked />
+          <label>Configuration Changes Implemented And Documented</label>
+
+        </div>
+      </div>
+      Unit Test Details
+      <textarea name="unit_test_details2" [(ngModel)]="onecardu.unit_test_details2" id="" cols="10" rows="1"></textarea>
+      <div class="container">
+        <div class="checkbox-con off">
+          <input name="closed_for_clocking" [(ngModel)]="onecardu.closed_for_clocking" type="checkbox" />
+          <label>Closed For Clocking</label>
+
+        </div>
+
+      </div>
+      <div>
+        <label for="myfile">Attachments:</label>
+        <input type="file" id="myfile" name="myfile" value="Browse"><br><br>
+
+      </div>
+
+      <div id="example1" style="float:left;width:100%;margin-right:0">
+        <div id="select" class="demo-section k-content">
+
+          <h4 style="margin-top: 2em;">Select Column</h4>
+          <select id="size1" placeholder="Select column "
+            style="width: 100%;" name="column" [(ngModel)]="onecardu.column.cId">
+              <option *ngFor="let c of cols" [value]="c.cId"> {{ c.cName }} </option>
+          </select>
+
+
+        </div>
+      </div>
+
+    </clr-wizard-page>
+  </form>
+</clr-wizard> -->
+
+<clr-modal [(clrModalOpen)]="addboardmodal" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title"> Create New Board</h3>
+  <div class="modal-body">
+    <form [formGroup]="entryForm" (ngSubmit)="onCreate()">
+      <div class="clr-row">
+        <div class="clr-col-md-5 clr-col-sm-12">
+          <label> Board Name</label>
+         <input type="text" formControlName="bName" class="clr-input">
+        </div>
+        <div class="clr-col-md-5 clr-col-sm-12">
+          <label>Type</label>
+          <input type="text" formControlName="type" class="clr-input" value="other" placeholder="Other" readonly>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="addboardmodal = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >ADD</button>
+        </div>
+</form>
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="getallboardmodal" [clrModalSize]="'lg'">
+  <h3 class="modal-title"><b>Select From List:</b></h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-md-12 clr-col-sm-12" style="margin-top: 8px;">
+          <input  type="text" placeholder="Enter search Criteria" class="clr-input" name="searchtext"[(ngModel)]="searchtext">
+       </div>
+      </div>
+     <clr-datagrid [clrDgLoading]="loading">
+      <clr-dg-placeholder><clr-spinner [clrMedium]="true">Loading ...</clr-spinner></clr-dg-placeholder>
+      <clr-dg-column [clrDgField]="'bId'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        Board Id
+      </ng-container></clr-dg-column>
+      <clr-dg-column [clrDgField]="'bName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        Board Name
+      </ng-container></clr-dg-column>
+      <clr-dg-column [clrDgField]="'project_id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+        Project Id
+      </ng-container></clr-dg-column>
+      <clr-dg-column [clrDgField]="'type'"><ng-container *clrDgHideableColumn="{hidden: false}">
+          Type
+        </ng-container></clr-dg-column >
+      <clr-dg-row *clrDgItems="let user of boarddata | filter:searchtext;let i = index" [clrDgItem]="user">
+        <clr-dg-cell (click)="getboardid(user.bId)" style="color: rgb(108, 108, 194);">{{user.bId}}</clr-dg-cell>
+        <clr-dg-cell>{{user.bName}}</clr-dg-cell>
+        <clr-dg-cell>{{user.project_id}}</clr-dg-cell>
+        <clr-dg-cell>{{user.type}}</clr-dg-cell>
+
+      </clr-dg-row>
+      <clr-dg-footer>
+       <clr-dg-pagination #pagination [clrDgPageSize]="5">
+      <clr-dg-page-size [clrPageSizeOptions]="[5,10,20,50,100]">Records per page</clr-dg-page-size>
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+      of {{pagination.totalItems}} Records
+    </clr-dg-pagination>
+   </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</clr-modal>

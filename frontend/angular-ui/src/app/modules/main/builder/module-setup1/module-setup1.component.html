@@ -1,0 +1,61 @@
+
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"  [routerLink]="['../project/all']"> <clr-icon shape="flag"></clr-icon>  {{projectname}}</a></li>
+</ol>
+<br>
+
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink>SureBuilder</button>
+    <clr-tab-content *clrIfActive>
+      <br>
+      <app-surebuilder></app-surebuilder>
+      <!-- <div class="btn-group btn-link" >
+        <button class="btn btn-icon" (click)="gridViewIsActive=!gridViewIsActive">
+            <clr-icon *ngIf="!gridViewIsActive" class="is-solid" shape="grid-view" size="24"></clr-icon>
+            <clr-icon *ngIf="gridViewIsActive" class="is-solid" shape="view-list" size="24"></clr-icon>
+        </button>
+
+      </div> -->
+     <!-- <div style="float: right;">
+        <button class="btn btn-primary"  (click)="goToAdd()"> <clr-icon shape="plus"></clr-icon>ADD</button>
+
+      </div>
+      <app-module-card *ngIf="!gridViewIsActive" [apps]="apps"></app-module-card>
+      <app-allmodule-setup *ngIf="gridViewIsActive"></app-allmodule-setup>-->
+
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button  clrTabLink>SureGit</button>
+    <clr-tab-content *clrIfActive>
+      <app-suregit></app-suregit>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>SureDokR</button>
+    <clr-tab-content *clrIfActive>
+      <app-suredocr></app-suredocr>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>SureFarm</button>
+    <clr-tab-content *clrIfActive>
+      <app-surefarm></app-surefarm>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>SurePipe</button>
+    <clr-tab-content *clrIfActive>
+      <app-surepipe></app-surepipe>
+    </clr-tab-content>
+  </clr-tab>
+
+</clr-tabs>
+
+<br>
+
+
+

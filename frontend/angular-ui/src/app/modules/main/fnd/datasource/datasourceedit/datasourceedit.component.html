@@ -1,0 +1,128 @@
+<h4 style="font-weight: 300;display: inline;"><b> Update Data Source</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+Define New data Source that you can use in your data pipelins.
+<hr>
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+
+  <!-- entry form-->
+  <form>
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Data Source Name</label>
+        <input id="projectName" type="text" name="datasourcename" [(ngModel)]="tdata.data_source_name" placeholder="Enter Data Store Name"
+          class="clr-input" required>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Type</label>
+        <select name="type"  class="clr-dropdown" [(ngModel)]="tdata.data_source_type">
+          <option [ngValue]="null">Choose Technology</option>
+          <option *ngFor="let item of type" [ngValue]="item">{{item}}</option>
+        </select>
+      </div>
+      </div>
+
+      <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description (optional)</label>
+          <textarea  id="" cols="10" rows="2"   [(ngModel)]="tdata.description" name="description" placeholder="Enter Description">
+          </textarea>
+             </div>
+             <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Active</label>
+              <input type="checkbox" name="active" clrToggle value="billable" name="billable" [(ngModel)]="tdata.active"/>
+
+            </div>
+        </div>
+
+      <div style="margin-top: 40px;">
+      <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div>
+These configurations default to repositories setups.
+<hr>
+
+      <div class="clr-row">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Database Name</label>
+        <input type="text" name="dbName" placeholder="Enter Database Name" class="clr-input" [(ngModel)]="tdata.database_name">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">DB Host Name</label>
+        <input type="text" name="dbhostname" placeholder="Enter DatabaseHost Name" class="clr-input" [(ngModel)]="tdata.db_host_name">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Port Number</label>
+        <input colspan="2" type="text" name="portNumber" readonly class="clr-input" [(ngModel)]="tdata.portnumber">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Username</label>
+        <input type="text" name="username" placeholder="Enter Username" class="clr-input" [(ngModel)]="tdata.user_name">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">Password</label>
+        <input type="text" name="dbPassword" placeholder="Enter  Password" class="clr-input" [(ngModel)]="tdata.password">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow_name">Connect Through SSH</label>
+        <input type="checkbox" name="connectssh" clrToggle value="billable" name="billable" [(ngModel)]="tdata.connectssh"/>
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">SSH Host Name</label>
+        <input type="text" name="sshusername" placeholder="Enter Host Name" class="clr-input" [(ngModel)]="tdata.ssh_host_name">
+
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">SSH User Name</label>
+        <input type="text" name="sshusername" placeholder="Enter SSH Username" class="clr-input"[(ngModel)]="tdata.ssh_user_name">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">SSH Password</label>
+        <input type="text" name="sshpassword" placeholder="Enter SSH Password" class="clr-input"[(ngModel)]="tdata.ssh_password">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">SSH Key File</label><br>
+        <input type="file" name="sshkeyfile" placeholder="Enter Database Password"(change)="onFileChanged($event)">
+        {{tdata.ssh_file_key}}
+      </div>
+    </div>
+
+
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+          <label for="btn-demo-check-2">Update</label>
+        </div>
+        </div>
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+    </div>
+  </form>
+</div>

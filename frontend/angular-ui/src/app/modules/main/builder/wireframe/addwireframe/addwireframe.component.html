@@ -1,0 +1,73 @@
+<h4 style="font-weight: 300;display: inline;"><b> Wireframe</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Add Mode</span>
+
+
+
+<hr>
+
+
+
+<div class="container">
+
+
+
+
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="techStack">Technology Stack</label>
+        <select id="techStack" formControlName="techStack" selected="null" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="objectType">Object Type</label>
+        <select id="objectType" formControlName="objectType" selected="null" class="clr-dropdown">
+          <option value="null">Choose Object Type</option>
+          <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="subObjectType">Sub Object Type</label>
+        <select id="subObjectType" formControlName="subObjectType" selected="null" class="clr-dropdown">
+          <option value="null">Choose Sub Object Type</option>
+          <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="uiName">UI Name</label>
+        <input id="uiName" type="text" formControlName="uiName" placeholder="Enter UI Name" class="clr-input">
+        <!-- <div *ngIf="submitted && entryForm.controls.uiName.errors.required" class="error_mess">*This name is already taken.</div> -->
+        <div *ngIf=" entryForm.get('uiName').invalid && entryForm.get('uiName').dirty" class="error_mess">
+          <div *ngIf="entryForm.get('uiName').hasError('required')">*UI Name is required.</div>
+          <div *ngIf="entryForm.get('uiName').hasError('exists')" class="error_mess">*This name is already taken.</div>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 15px;">
+        <div><label for="testing">Testing</label>
+          <div><input type="checkbox" formControlName="testing"></div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+      <!--<button type="submit" class="btn btn-primary" (click)="submit2()">SUBMIT2</button>
+      <button type="submit" class="btn btn-primary" (click)="submit2()">SUBMIT3</button>-->
+    </div>
+
+  </form>
+</div>

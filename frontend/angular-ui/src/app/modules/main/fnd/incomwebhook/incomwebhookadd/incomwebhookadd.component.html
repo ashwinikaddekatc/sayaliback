@@ -1,0 +1,98 @@
+<h4 style="font-weight: 300;display: inline;"><b>New Webhook</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+
+<hr>
+
+
+
+
+
+
+
+
+<div class="container">
+  <!-- entry form-->
+  <form [formGroup]="entryForm">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Webhook Name</label><span class="required-field">*</span>
+        <input id="projectName" type="text" formControlName="webhook_name" placeholder="Enter Project Name"
+          class="clr-input" required>
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description (optional)</label>
+          <textarea  id="" cols="10" rows="2"  name="desc" formControlName="description" placeholder="Enter Description">
+          </textarea>
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow_name">Active</label>
+        <input type="checkbox" formControlName="is_active" clrToggle value="billable" name="billable" />
+
+      </div>
+      </div>
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="projectName">User_Key<span class="required-field">*</span>
+            <span class="label label-light-green p7" (click)="userkeygenerate()" style="margin-top: .4em;margin-left:270px; display: inline; cursor: pointer;">Generate</span>
+          </label>
+          <input id="projectName" type="text" formControlName="user_key" placeholder="Enter User Key"
+            class="clr-input" [(ngModel)]="genaratednode.userkey" required readonly>
+
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="description">Token<span class="required-field">*</span>
+           <span class="label label-light-green p7" (click)="copyInputMessage(userinput)" style="margin-top: .4em;margin-left:230px; display: inline; cursor: pointer;">Copy</span>
+            <span class="label label-light-green p7" (click)="tokengenerate()" style="margin-top: .4em;margin-left:5px; display: inline; cursor: pointer;">Generate</span>
+
+            <!-- <span class="label label-light-green p7" style="margin-top: .4em;margin-left:200px; cursor: pointer;">Copy</span>
+            <span class="label label-light-green p7" style="margin-left:320px;cursor: pointer;">Generate</span> -->
+          </label>
+            <textarea  id="" cols="10" rows="2"  name="token" formControlName="token" placeholder="Enter Token"
+            [(ngModel)]="genaratednode.token"  #userinput readonly>
+            </textarea>
+
+        </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="projectName">Api_Key<span class="required-field">*</span>
+              <span class="label label-light-green p7" (click)="apikeygenerate()" style="margin-top: .4em;margin-left:275px; display: inline; cursor: pointer;">Generate</span>
+            </label>
+            <input id="projectName" type="text" formControlName="api_key" placeholder="Enter Api Key"
+              class="clr-input" [(ngModel)]="genaratednode.apikey" required readonly>
+
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="description">Url<span class="required-field">*</span>
+              <span class="label label-light-green p7" (click)="copyInputMessage(userinput1)" style="margin-top: .4em;margin-left:240px; display: inline; cursor: pointer;">Copy</span>
+              <span class="label label-light-green p7" (click)="urlgenerate()" style="margin-top: .4em;margin-left:5px; display: inline; cursor: pointer;">Generate</span>
+
+            </label>
+              <textarea  id="" cols="10" rows="2"  name="url" formControlName="url" placeholder="Enter Url"
+              [(ngModel)]="urlvalue" #userinput1 readonly>
+              </textarea>
+
+          </div>
+          </div>
+
+
+
+
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <!-- <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" [disabled]="!entryForm.invalid" checked  (click)="onSubmit()"/>
+          <label for="btn-demo-check-2">Submit</label>
+        </div> -->
+        </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid" (click)="onSubmit()">SUBMIT</button>
+    </div>
+  </form>
+</div>

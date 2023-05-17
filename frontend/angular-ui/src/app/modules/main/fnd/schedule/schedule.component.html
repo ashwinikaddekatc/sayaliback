@@ -1,0 +1,106 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="jvascript://"> <clr-icon shape="clock"></clr-icon>Job</a></li>
+  <li><a href="javascript://"> <clr-icon shape="flag"></clr-icon> Job Log</a></li>
+
+</ol>
+<br>
+
+<!--<div class="dg-wrapper">
+  <div class="clr-row">
+
+    <div class="clr-col-12" style="text-align: right;">
+
+      <button id="add" class="btn btn-primary" (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+
+  <clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Registering A Task</h3>
+    <div class="modal-body">
+          <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Account Id</label>
+           <input type="text" class="clr-input" formControlName="accountId">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Parameters<span class="required-field">*</span></label>
+           <input type="text" class="clr-input" formControlName="parameters">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="tags">Job Url<span class="required-field">*</span></label>
+            <input type="text" class="clr-input" formControlName="job">
+            </div>
+
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" >ADD</button>
+          </div>
+  </form>
+    </div>
+
+  </clr-modal>
+-->
+
+  <clr-datagrid [clrDgLoading]="loading">
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column style="width:10px;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+    Id
+    </ng-container></clr-dg-column>
+
+    <clr-dg-column ><ng-container *clrDgHideableColumn="{hidden: false}">
+      created At
+      </ng-container></clr-dg-column >
+      <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+        Connection
+      </ng-container></clr-dg-column>
+      <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+        Method
+      </ng-container></clr-dg-column>
+      <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+        URL
+      </ng-container></clr-dg-column>
+      <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+       Response Body
+      </ng-container></clr-dg-column>
+      <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+        Job Status
+      </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let item of alldata;let i = index" [clrDgItem]="user">
+      <clr-dg-cell>{{item.id}}</clr-dg-cell>
+      <clr-dg-cell >{{item.createdAt}}</clr-dg-cell>
+      <clr-dg-cell>{{item.connection_name}}</clr-dg-cell>
+      <clr-dg-cell>{{item.method}}</clr-dg-cell>
+      <clr-dg-cell>{{item.url}}</clr-dg-cell>
+      <clr-dg-cell>{{item.response_body}}</clr-dg-cell>
+      <clr-dg-cell *ngIf="item.job_status==200 && 201" style="color: green;">{{item.job_status}}</clr-dg-cell>
+      <clr-dg-cell *ngIf="item.job_status!==200" style="color: red;">{{item.job_status}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+        <button class="action-item"   (click)="requeue(item.id)">Requeue <clr-icon shape="edit" class="is-error"></clr-icon></button>
+
+
+                </clr-dg-action-overflow>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} Records
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+
+
+
+
+
+

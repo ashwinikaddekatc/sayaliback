@@ -1,0 +1,103 @@
+<div class="container">
+  <h3 style="font-weight: 300;display: inline;"><b>Action Builder Line </b></h3>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span>
+  <hr />
+
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="actionType1">Action Type 1:</label>
+        <select id="actionType1" formControlName="actionType1" selected="null" class="clr-dropdown">
+          <option value="null">Choose Action Type 1</option>
+          <option *ngFor="let ac1 of actionTypes1" [value]="ac1.value">{{ ac1.key }}
+          </option>
+        </select>
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'actionType1'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="actionType2">Action Type 2:</label>
+        <select id="actionType2" formControlName="actionType2" selected="null" class="clr-dropdown">
+          <option value="null">Choose Acton Type 2</option>
+          <option *ngFor="let ac2 of actionTypes2" [value]="ac2.value">{{ ac2.key }}
+          </option>
+        </select>
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'actionType2'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="seq">Sequence</label>
+        <input id="seq" type="number" formControlName="seq" placeholder="Enter Sequence" class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'seq'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dataType">Data Type</label>
+        <input id="dataType" type="text" formControlName="dataType" placeholder="Enter Data type" class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'dataType'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="varName">Variable Name</label>
+        <input id="varName" type="text" formControlName="variableName" placeholder="Enter Variable Name"
+          class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'variableName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="assignment">Assignment</label>
+        <input id="assignment" type="text" formControlName="assignment" placeholder="Assign some value"
+          class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'assignment'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="msg">Console Message</label>
+        <input id="msg" type="text" formControlName="message" placeholder="Enter some message" class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'message'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="conditions">Conditions</label>
+        <input id="conditions"  type="text" formControlName="conditions" placeholder="Logical Conditions"
+          class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'conditions'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="forward">Forward</label>
+        <input type="text" formControlName="forward" placeholder="Forward Condition" class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'forward'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="equation">Equation</label>
+        <input id="equation"  type="text" formControlName="equation" placeholder="Logical equation" class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'equation'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div> <!-- end row-->
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </div>
+  </form>
+</div> <!-- end container -->

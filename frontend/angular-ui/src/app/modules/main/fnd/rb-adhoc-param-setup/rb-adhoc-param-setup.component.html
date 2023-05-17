@@ -1,0 +1,75 @@
+<div class="container">
+  <h4 style="font-weight: 300;display: inline;"><b>CREATE NEW REPORT</b></h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Adhoc Parameter</span><br>
+<hr>
+  <!-- Header form start -->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+
+
+      <!-----H-L LINE part(FormArray For Multiple Lines)---->
+      <div class="clr-row">
+          <div class="clr-col-lg-12">
+              <table class="table" style="width:100%;" formArrayName="components">
+                  <thead>
+                      <tr>
+
+
+                          <th class="left" style="width:125px;">Table Alias Name</th>
+                          <th class="left" style="width:125px;">Column Name</th>
+                          <th class="left" style="width:125px;">Column Alias Name</th>
+
+
+                          <!-- <th *ngIf="controls.length > 1" class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}Actions</th> -->
+                           <th class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+
+                          <td class="left">
+                              <select [attr.id]="'table_allias_name' + i" colspan="2" formControlName="table_allias_name" (change)="changeColumn($event.target.value)" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select alias Name</option>
+                                  <option *ngFor="let fs of columnList" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+
+
+                          <td class="left">
+                              <select [attr.id]="'column_name' + i" colspan="2" (change)="changeColumnAlias($event.target.value)" formControlName="column_name" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select alias Name</option>
+                                  <option *ngFor="let fs of columnList1" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+                          <!-- field 2 -->
+                          <td class="left">
+                              <input type="text" [attr.id]="'column_allias_name' + i" formControlName="column_allias_name"
+                                  placeholder="Enter Values" style="width:180px" class="clr-input">
+                          </td>
+
+                          <!-- delete line -->
+                           <td style="width:40px;">
+                              <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                                  <clr-icon shape="trash" class="is-error"></clr-icon>
+                              </a>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <!-- add line -->
+                  <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                      <clr-icon shape="plus"></clr-icon>
+                  </button>
+              </table>
+          </div>
+      </div>
+      <br>
+      <div class="center">
+          <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">Save & Next</button>
+      </div>
+  </form>
+</div>

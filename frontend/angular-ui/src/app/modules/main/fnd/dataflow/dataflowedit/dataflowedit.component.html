@@ -1,0 +1,142 @@
+<h4 style="font-weight: 300;display: inline;"><b> Create New Data Flow</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Edit Mode</span><br>
+Define New data Pipelines.
+<hr>
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+
+  <!-- entry form-->
+  <form>
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Data Flow  Name</label>
+        <input id="projectName" type="text" name="piplinename" [(ngModel)]="tdata.pipeline_name" placeholder="Enter Data Store Name"
+          class="clr-input" required>
+      </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Snapshot Type</label>
+      <select name="snapshottype" [(ngModel)]="tdata.snapshot_type" class="clr-dropdown">
+          <option [ngValue]="null">Choose Technology</option>
+          <option *ngFor="let item of type" [ngValue]="item">{{item}}</option>
+        </select>
+      </div> -->
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Refresh Type</label>
+        <select [(ngModel)]="tdata.refreshtype" class="clr-dropdown" name="refreshtype">
+          <option>Choose One</option>
+          <option>initial Upload And incremental</option>
+          <option>initial Upload Only</option>
+          <option>incremental Only</option>
+        </select>
+    </div>
+      </div>
+
+      <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description (optional)</label>
+          <textarea  id="" cols="10" rows="2"  name=" remarks" name="description" [(ngModel)]="tdata.description" placeholder="Enter Description">
+          </textarea>
+             </div>
+             <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Active</label>
+              <input type="checkbox" name="active" clrToggle value="billable" name="billable" [(ngModel)]="tdata.active"/>
+
+            </div>
+        </div>
+
+      <div style="margin-top: 40px;">
+      <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div>
+These configurations default to repositories setups.
+<hr>
+
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="technologyStack">Select Data Source</label>
+          <select name="selectedatasource" class="clr-dropdown" [(ngModel)]="tdata.select_data_source">
+            <option *ngFor="let data of sourcedata" [value]="data.data_source_name">{{data.data_source_name}}</option>
+          </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="technologyStack">Select Data Store</label>
+          <select name="selectdatastore" class="clr-dropdown" [(ngModel)]="tdata.select_data_store">
+            <option *ngFor="let sub of storedata" [value]="sub.data_store_name">{{sub.data_store_name}}</option>
+          </select>
+        </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Port Number</label>
+        <input colspan="2" type="text" name="portNumber" [(ngModel)]="tdata.port_number" readonly class="clr-input">
+
+      </div> -->
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow_name">Auto Table Mapping</label>
+        <input type="checkbox" name="autotablemapping" clrToggle value="billable" name="billable" [(ngModel)]="tdata.auto_table_mapping"/>
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Table Prefix</label>
+        <input type="text" name="tableprefix" placeholder="Enter Host Name" class="clr-input" [(ngModel)]="tdata.table_prefix">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow_name">Nested Fields as Json</label>
+        <input type="checkbox" name="nestedfields" clrToggle value="billable" name="billable" [(ngModel)]="tdata.nested_field_as_json"/>
+
+      </div>
+
+
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h4 style="font-weight: 300;display: inline;">Schedule</h4>
+</div>
+<hr>
+
+      <div class="clr-row">
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="technologyStack">Cron</label>
+         <input type="text" class="clr-input" name="cron" [(ngModel)]="tdata.cron">
+        </div>
+
+      <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+        <button  class="btn btn-icon btn-primary" >
+          <clr-icon shape="view-list"></clr-icon>
+        </button>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Every</label><br>
+        <!-- <span class="label label-light-blue p7" style="margin-top: .4em;" (click)="val($event.target.value)">5 Min</span>
+        <span class="label label-success" style="margin-top: .4em;"(click)="val($event.target.value)">30 Min</span>
+        <span class="label label-purple p7" style="margin-top: .4em;"(click)="val($event.target.value)">1 hR</span> -->
+        <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" (click)="setCron('0 0/5 * 1/1 * ? *')">5 Min</span>
+        <span class="label label-success" style="margin-top: .4em;cursor: pointer;" (click)="setCron('0 0/30 * 1/1 * ? *')">30 Min</span>
+        <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" (click)="setCron('0 0 0/1 1/1 * ? *')">1 Hr</span>
+        </div>
+    </div>
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+          <label for="btn-demo-check-2">Update</label>
+        </div>
+        </div>
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+    </div>
+  </form>
+</div>

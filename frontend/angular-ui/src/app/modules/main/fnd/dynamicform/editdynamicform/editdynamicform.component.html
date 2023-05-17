@@ -1,0 +1,116 @@
+<h4 style="font-weight: 300;display: inline;"><b>DYNAMIC FORM SETUP</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span><br>
+<hr>
+<div class="container">
+
+    <form (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="form_name">Form Name</label>
+                <input id="form_name" type="text" name="form_name" [(ngModel)]="rn_froms_setup.form_name"
+                    placeholder="Enter Form Name" class="clr-input">
+                <div *ngFor="let error of fieldErrors">
+                    <span *ngIf="error.field === 'form_name'" class="text text-danger">{{ error.message }}</span>
+                </div>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="form_desc">Form Description</label>
+                <input id="form_desc" type="text" name="form_desc"  [(ngModel)]="rn_froms_setup.form_desc"
+                placeholder="Enter Form Description"
+                    class="clr-input">
+                <div *ngFor="let error of fieldErrors">
+                    <span *ngIf="error.field === 'form_desc'" class="text text-danger">{{ error.message }}</span>
+                </div>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="related_to">Related To</label>
+                <select id="related_to" name="related_to" [(ngModel)]="rn_froms_setup.related_to" class="clr-dropdown">
+                    <option value="null">Choose Type</option>
+                    <option *ngFor="let type of related_to" [ngValue]="type">{{ type }}</option>
+                </select>
+                <div *ngFor="let error of fieldErrors">
+                    <span *ngIf="error.field === 'related_to'" class="text text-danger">{{ error.message }}</span>
+                </div>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="page_event">Page Event</label>
+                <select id="page_event" name="page_event" [(ngModel)]="rn_froms_setup.page_event"
+                    class="clr-dropdown">
+                    <option value="null">Choose Type</option>
+                    <option *ngFor="let type of page_event" [ngValue]="type">{{ type }}</option>
+                </select>
+                <div *ngFor="let error of fieldErrors">
+                    <span *ngIf="error.field === 'page_event'" class="text text-danger">{{ error.message }}</span>
+                </div>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="button_caption">Button Name</label>
+                <input id="button_caption" type="text" name="button_caption" [(ngModel)]="rn_froms_setup.button_caption"
+                    placeholder="Enter Button Name" class="clr-input">
+                <div *ngFor="let error of fieldErrors">
+                    <span *ngIf="error.field === 'button_caption'" class="text text-danger">{{ error.message }}</span>
+                </div>
+            </div>
+        </div> <!-- row end -->
+        <!-----H-L LINE part(FormArray For Multiple Lines)---->
+
+            <p> Component Details </p>
+        <hr>
+        <div class="clr-row">
+            <div class="clr-col-lg-12">
+                <table class="table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="left" style="width:200px;">Label</th>
+                            <th class="left" style="width:200px;">Type</th>
+                            <th class="left" style="width:200px;">Mapping</th>
+                            <th class="left" style="width:200px;">ReadOnly</th>
+                            <th class="left" style="width:200px;">Drop Values</th>
+                            <!-- <th *ngIf="components" class="right" style="width:200px;">{{ components.length >= 1 ? 'Actions' : '' }}</th> -->
+                            <th class="right" style="width:200px;">{{ components?.length >= 1 ? 'Actions' : '' }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let component of components; let i = index">
+                            <td class="left">
+                                <input type="text" [attr.name]="component.label"
+                                    [(ngModel)]="component.label" [ngModelOptions]="{standalone: true}" placeholder="Enter Name" class="clr-input">
+                            </td>
+                            <td class="left">
+                                <select [attr.name]="component.type" [(ngModel)]="component.type" [ngModelOptions]="{standalone: true}"
+                                    class="clr-dropdown">
+                                    <option value="null">Choose Field Type</option>
+                                    <option *ngFor="let type of field_type" [ngValue]="type">{{ type }}</option>
+                                </select>
+                            </td>
+                            <td class="left">
+                                <select [attr.name]="component.mapping"
+                                    [(ngModel)]="component.mapping" [ngModelOptions]="{standalone: true}" class="clr-dropdown">
+                                    <option value="null">Choose Mapping</option>
+                                    <option *ngFor="let mapping of mappings" [ngValue]="mapping.value">{{ mapping.label
+                                        }}</option>
+                                </select>
+                            </td>
+                            <td class="left">
+                                <div class="toggle-switch">
+                                    <input type="checkbox" [attr.id]="'readonly' + i" [attr.name]="component.readonly"
+                                        [(ngModel)]="component.readonly" [ngModelOptions]="{standalone: true}" />
+                                    <label [for]="'readonly' + i"></label>
+                                </div>
+                            </td>
+                            <td class="left">
+                                <input type="text" [attr.name]="component.drop_values" [(ngModel)]="component.drop_values" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Enter Value" class="clr-input">
+                            </td>
+                            <td class="right">
+
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </form>
+</div>

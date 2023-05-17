@@ -1,0 +1,51 @@
+<h4 style="font-weight: 300;display: inline;"><b>Connector Mapping</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span><br>
+<hr>
+<div class="container">
+
+    <form (ngSubmit)="onUpdate()">
+        <div class="clr-row fieldWrapper">
+            <div class="clr-col-md-12 clr-col-sm-12">
+                <table class="table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Post Fields</th>
+                            <th>Null</th>
+                            <th>Sample Format</th>
+                            <th>Mapped Fields</th>
+                            <th>Dest Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of postdata; let i = index">
+                            <td class="left">
+                                <input type="text" [(ngModel)]="data.fieldname" [ngModelOptions]="{standalone: true}" name="fieldname"  placeholder="Enter Name" class="clr-input">
+                            </td>
+                            <td>
+                                <input type="checkbox"  [(ngModel)]="data.checkboxval" [ngModelOptions]="{standalone: true}" name="checkboxval"/>
+                            </td>
+                            <td class="left">
+                                <input type="text" [(ngModel)]="data.sample_format" [ngModelOptions]="{standalone: true}" name="sample_format"  class="clr-input">
+                            </td>
+                            <td> <input type="text" [(ngModel)]="data.mapped_fields" [ngModelOptions]="{standalone: true}" name="mapped_fields" class="clr-input">
+                               <!-- <select colspan="2" [(ngModel)]="data.mapped_fields" [ngModelOptions]="{standalone: true}" name="mapped_fields" class="clr-dropdown" style="width: 194px;margin: 0px;padding: 2px 5px;">
+                               <option selected>Select Values</option>
+                              <option *ngFor="let sub of listgetapi" [value]="sub">{{sub}}</option>
+                         </select> -->
+                        </td>
+                            <td class="left">
+                                <input type="text" [(ngModel)]="data.dest_format" [ngModelOptions]="{standalone: true}" name="dest_format"   class="clr-input">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+        <br>
+        <div class="center">
+            <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,519 @@
+<h4 style="font-weight: 300;display: inline;"><b> Create New Data Flow</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+Define New data Pipelines.
+<hr>
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+
+  <!-- entry form-->
+  
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Type</label>
+        <!-- <input id="projectName" type="text" formControlName="pipeline_name" placeholder="Enter Name"
+          class="clr-input" required> -->
+          <select [(ngModel)]="selectedOption" (change)="choose($event.target.value)" class="clr-dropdown">
+            <!-- <option [ngValue]="null">Choose One</option> -->
+            <option *ngFor="let item of DataflowType" [value]="item">{{item}}</option>
+          </select>
+      </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Snapshot Type</label>
+      <select formControlName="snapshot_type"  class="clr-dropdown">
+          <option [ngValue]="null">Choose Technology</option>
+          <option *ngFor="let item of type" [ngValue]="item">{{item}}</option>
+        </select>
+      </div> -->
+      </div>
+      <br>
+    <div *ngIf="selectedOption === 'DB to Store'">
+      <form [formGroup]="DbtostoreForm" >
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="projectName">Data Flow  Name</label>
+          <input id="projectName" type="text" formControlName="pipeline_name" placeholder="Enter Name"
+            class="clr-input" required>
+        </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description (optional)</label>
+          <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+          </textarea>
+             </div>
+             <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Active</label>
+              <input type="checkbox" formControlName="active" clrToggle value="billable" name="billable" />
+
+            </div>
+        </div>
+
+      <div style="margin-top: 40px;">
+      <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div>
+These configurations default to repositories setups.
+<hr>
+
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="technologyStack">Select Data Source</label>
+          <select formControlName="select_data_source" class="clr-dropdown">
+            <option *ngFor="let data of sourcedata" [value]="data.data_source_name">{{data.data_source_name}}</option>
+          </select>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="technologyStack">Select Data Store</label>
+          <select formControlName="select_data_store"  class="clr-dropdown">
+            <option *ngFor="let sub of storedata" [value]="sub.data_store_name">{{sub.data_store_name}}</option>
+          </select>
+        </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Port Number</label>
+        <input colspan="2" type="text" formControlName="port_number" readonly class="clr-input">
+
+      </div> -->
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow_name">Auto Table Mapping</label>
+        <input type="checkbox" formControlName="auto_table_mapping" clrToggle value="billable" name="billable" />
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Table Prefix</label>
+        <input type="text" formControlName="table_prefix" placeholder="Enter Host Name" class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Refresh Type</label>
+        <select formControlName="refreshtype"  class="clr-dropdown" name="refreshtype">
+          <option>Choose One</option>
+          <option>initial Upload And incremental</option>
+          <option>initial Upload Only</option>
+          <option>incremental Only</option>
+        </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Batch Size (row count)</label>
+        <input type="text"  placeholder="Enter Host Name" class="clr-input">
+      </div>
+
+
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h4 style="font-weight: 300;display: inline;">Schedule</h4>
+</div>
+<hr>
+
+      <div class="clr-row">
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="technologyStack">Cron</label>
+         <input type="text" class="clr-input" formControlName="cron">
+        </div>
+
+      <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+        <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+          <clr-icon shape="view-list"></clr-icon>
+        </button>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Every</label><br>
+        <!-- <span class="label label-light-blue p7" style="margin-top: .4em;"(click)="val($event)">5 Min</span>
+        <span class="label label-success" style="margin-top: .4em;"(click)="val($event)">30 Min</span>
+        <span class="label label-purple p7" style="margin-top: .4em;"(click)="val($event)">1 hr</span> -->
+        <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" (click)="setCron1('0 0/5 * 1/1 * ? *')">5 Min</span>
+        <span class="label label-success" style="margin-top: .4em;cursor: pointer;" (click)="setCron1('0 0/30 * 1/1 * ? *')">30 Min</span>
+        <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" (click)="setCron1('0 0 0/1 1/1 * ? *')">1 Hr</span>
+        </div>
+    </div>
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit1()"/>
+          <label for="btn-demo-check-2">Submit</label>
+        </div>
+        </div>
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+    </div>
+  </form>
+</div>
+
+<div *ngIf="selectedOption === 'Email to Webhook'">
+  <form [formGroup]="emailtowebhookForm" >
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Data Flow  Name</label>
+        <input id="projectName" type="text" formControlName="pipeline_name" placeholder="Enter Name"
+          class="clr-input" required>
+      </div>
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="description">Description (optional)</label>
+        <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+        </textarea>
+           </div>
+           <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="workflow_name">Active</label>
+            <input type="checkbox" formControlName="active" clrToggle value="billable" name="billable" />
+
+          </div>
+      </div>
+
+    <div style="margin-top: 40px;">
+    <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div>
+These configurations default to repositories setups.
+<hr>
+
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Select Data Source</label>
+        <select formControlName="select_data_source" class="clr-dropdown">
+          <option *ngFor="let data of EmailWebhookData" [value]="data.username">{{data.username}}</option>
+        </select>
+      </div>
+      
+    <!-- <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="portNumber">Port Number</label>
+      <input colspan="2" type="text" formControlName="port_number" readonly class="clr-input">
+
+    </div> -->
+
+  </div>
+
+  <div style="margin-top: 40px;">
+    <h4 style="font-weight: 300;display: inline;">Schedule</h4>
+</div>
+<hr>
+
+    <div class="clr-row">
+      <div class="clr-col-md-3 clr-col-sm-12">
+        <label for="technologyStack">Cron</label>
+       <input type="text" class="clr-input" formControlName="cron">
+      </div>
+
+    <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+      <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+        <clr-icon shape="view-list"></clr-icon>
+      </button>
+    </div>
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="technologyStack">Every</label><br>
+      <!-- <span class="label label-light-blue p7" style="margin-top: .4em;"(click)="val($event)">5 Min</span>
+      <span class="label label-success" style="margin-top: .4em;"(click)="val($event)">30 Min</span>
+      <span class="label label-purple p7" style="margin-top: .4em;"(click)="val($event)">1 hr</span> -->
+      <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" (click)="setCron2('0 0/5 * 1/1 * ? *')">5 Min</span>
+      <span class="label label-success" style="margin-top: .4em;cursor: pointer;" (click)="setCron2('0 0/30 * 1/1 * ? *')">30 Min</span>
+      <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" (click)="setCron2('0 0 0/1 1/1 * ? *')">1 Hr</span>
+      </div>
+  </div>
+
+  <div class="center">
+    <div class="btn-group">
+      <div class="checkbox btn">
+        <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+        <label for="btn-demo-check-1">Cancle</label>
+      </div>
+      <div class="checkbox btn">
+        <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit2()"/>
+        <label for="btn-demo-check-2">Submit</label>
+      </div>
+      </div>
+    <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+  </div>
+</form>
+</div>
+
+<div *ngIf="selectedOption === 'SFTP to Store'">
+<form [formGroup]="sftpForm" >
+  <div class="clr-row">
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="projectName">Data Flow  Name</label>
+      <input id="projectName" type="text" formControlName="pipeline_name" placeholder="Enter Name"
+        class="clr-input" required>
+    </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="description">Description (optional)</label>
+      <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+      </textarea>
+         </div>
+         <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="workflow_name">Active</label>
+          <input type="checkbox" formControlName="active" clrToggle value="billable" name="billable" />
+
+        </div>
+    </div>
+
+  <div style="margin-top: 40px;">
+  <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div>
+These configurations default to repositories setups.
+<hr>
+
+  <div class="clr-row">
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="technologyStack">Select Data Source</label>
+      <select formControlName="select_data_source" class="clr-dropdown">
+        <option *ngFor="let data of SFTPData" [value]="data.user">{{data.user}}</option>
+      </select>
+    </div>
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="technologyStack">Select Data Store</label>
+      <select formControlName="select_data_store" (change)="chooseStore($event.target.value)" class="clr-dropdown">
+        <option *ngFor="let sub of storedata" [value]="sub.data_store_name">{{sub.data_store_name}}</option>
+      </select>
+    </div>
+  </div>
+  <!-- <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="portNumber">Port Number</label>
+    <input colspan="2" type="text" formControlName="port_number" readonly class="clr-input">
+
+  </div> -->
+
+  <div class="clr-row">
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="projectPrefix">Table Name</label>
+      <select  class="clr-dropdown">
+          <option value="null">Choose Table<option>
+            <option>Table 1</option>
+            <option>Table 2</option>
+            <option>Table 3</option>
+            <option>Table 4</option>
+      </select>
+  
+    </div>
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="workflow_name">Auto Table Mapping</label>
+      <input type="checkbox" formControlName="auto_table_mapping" clrToggle value="billable" name="billable" />
+    </div>
+    </div>
+
+
+<div style="margin-top: 40px;">
+  <h4 style="font-weight: 300;display: inline;">Schedule</h4>
+</div>
+<hr>
+
+  <div class="clr-row">
+    <div class="clr-col-md-3 clr-col-sm-12">
+      <label for="technologyStack">Cron</label>
+     <input type="text" class="clr-input" formControlName="cron">
+    </div>
+
+  <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+    <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+      <clr-icon shape="view-list"></clr-icon>
+    </button>
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="technologyStack">Every</label><br>
+    <!-- <span class="label label-light-blue p7" style="margin-top: .4em;"(click)="val($event)">5 Min</span>
+    <span class="label label-success" style="margin-top: .4em;"(click)="val($event)">30 Min</span>
+    <span class="label label-purple p7" style="margin-top: .4em;"(click)="val($event)">1 hr</span> -->
+    <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" (click)="setCron3('0 0/5 * 1/1 * ? *')">5 Min</span>
+    <span class="label label-success" style="margin-top: .4em;cursor: pointer;" (click)="setCron3('0 0/30 * 1/1 * ? *')">30 Min</span>
+    <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" (click)="setCron3('0 0 0/1 1/1 * ? *')">1 Hr</span>
+    </div>
+</div>
+
+<div class="center">
+  <div class="btn-group">
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+      <label for="btn-demo-check-1">Cancle</label>
+    </div>
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit3()"/>
+      <label for="btn-demo-check-2">Submit</label>
+    </div>
+    </div>
+  <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+</div>
+</form>
+</div>
+
+<div *ngIf="selectedOption === 'Email to Store'">
+<form [formGroup]="emailtostoreForm" >
+  <div class="clr-row">
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="projectName">Data Flow  Name</label>
+      <input id="projectName" type="text" formControlName="pipeline_name" placeholder="Enter Name"
+        class="clr-input" required>
+    </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="description">Description (optional)</label>
+      <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+      </textarea>
+         </div>
+         <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="workflow_name">Active</label>
+          <input type="checkbox" formControlName="active" clrToggle value="billable" name="billable" />
+
+        </div>
+    </div>
+
+  <div style="margin-top: 40px;">
+  <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div>
+These configurations default to repositories setups.
+<hr>
+
+  <div class="clr-row">
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="technologyStack">Select Data Source</label>
+      <select formControlName="select_data_source" class="clr-dropdown">
+        <option *ngFor="let data of emailDBData" [value]="data.username">{{data.username}}</option>
+      </select>
+    </div>
+    <div class="clr-col-md-4 clr-col-sm-12">
+      <label for="technologyStack">Select Data Store</label>
+      <select formControlName="select_data_store"  class="clr-dropdown">
+        <option *ngFor="let sub of storedata" [value]="sub.data_store_name">{{sub.data_store_name}}</option>
+      </select>
+    </div>
+    </div>
+  <!-- <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="portNumber">Port Number</label>
+    <input colspan="2" type="text" formControlName="port_number" readonly class="clr-input">
+
+  </div> -->
+  <div class="clr-row">
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="projectPrefix">Table Name</label>
+    <!-- <input type="text" formControlName="table_prefix" placeholder="Enter Host Name" class="clr-input"> -->
+    <select  class="clr-dropdown">
+        <option>Choose Table<option>
+    </select>
+
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="workflow_name">Auto Table Mapping</label>
+    <input type="checkbox" formControlName="auto_table_mapping" clrToggle value="billable" name="billable" />
+  </div>
+  </div>
+
+<div style="margin-top: 40px;">
+  <h4 style="font-weight: 300;display: inline;">Schedule</h4>
+</div>
+<hr>
+
+  <div class="clr-row">
+    <div class="clr-col-md-3 clr-col-sm-12">
+      <label for="technologyStack">Cron</label>
+     <input type="text" class="clr-input" formControlName="cron">
+    </div>
+
+  <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
+    <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+      <clr-icon shape="view-list"></clr-icon>
+    </button>
+  </div>
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <label for="technologyStack">Every</label><br>
+    <!-- <span class="label label-light-blue p7" style="margin-top: .4em;"(click)="val($event)">5 Min</span>
+    <span class="label label-success" style="margin-top: .4em;"(click)="val($event)">30 Min</span>
+    <span class="label label-purple p7" style="margin-top: .4em;"(click)="val($event)">1 hr</span> -->
+    <span class="label label-light-blue p7" style="margin-top: .4em; cursor: pointer;" (click)="setCron4('0 0/5 * 1/1 * ? *')">5 Min</span>
+    <span class="label label-success" style="margin-top: .4em;cursor: pointer;" (click)="setCron4('0 0/30 * 1/1 * ? *')">30 Min</span>
+    <span class="label label-purple p7" style="margin-top: .4em;cursor: pointer;" (click)="setCron4('0 0 0/1 1/1 * ? *')">1 Hr</span>
+    </div>
+</div>
+
+<div class="center">
+  <div class="btn-group">
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+      <label for="btn-demo-check-1">Cancle</label>
+    </div>
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit4()"/>
+      <label for="btn-demo-check-2">Submit</label>
+    </div>
+    </div>
+  <!-- <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button> -->
+</div>
+</form>
+</div>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modalcron" [clrModalSize]="'lg'"  [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body">
+    <h4 class="delete">Cron Selection</h4><br>
+    <clr-tabs>
+      <clr-tab>
+          <button clrTabLink id="link1">Minutes</button>
+          <clr-tab-content id="content1" *clrIfActive>
+          <div>Every <select   class="clr-dropdown" style="width:15%">
+            <option *ngFor="let min of minute" [value]="min">{{min}}</option>
+          </select> minute(s) on second <select   class="clr-dropdown" style="width:15%">
+            <option *ngFor="let sec of second" [value]="sec">{{sec}}</option>
+          </select></div>
+          </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+          <button clrTabLink>hourly</button>
+          <clr-tab-content *clrIfActive="true">
+          <div>Every <select   class="clr-dropdown" style="width:15%">
+            <option *ngFor="let hr of hours" [value]="hr">{{hr}}</option>
+          </select> hour(s) on minute <select   class="clr-dropdown" style="width:15%">
+            <option *ngFor="let min of minute" [value]="min">{{min}}</option>
+          </select> and second <select   class="clr-dropdown" style="width:15%">
+            <option *ngFor="let sec of second" [value]="sec">{{sec}}</option>
+          </select> </div>
+          </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>Daily</button>
+        <clr-tab-content *clrIfActive="true">
+        ...
+        </clr-tab-content>
+       </clr-tab>
+          <clr-tab>
+            <button clrTabLink>Weekly</button>
+            <clr-tab-content *clrIfActive="true">
+            ...
+            </clr-tab-content>
+        </clr-tab>
+        <clr-tab>
+          <button clrTabLink>Monthly</button>
+          <clr-tab-content *clrIfActive="true">
+          ...
+          </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>Yearly</button>
+        <clr-tab-content *clrIfActive="true">
+        ...
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>Advanced</button>
+        <clr-tab-content *clrIfActive="true">
+        ...
+        </clr-tab-content>
+      </clr-tab>
+      </clr-tabs>
+      <hr>
+      <div>Generated Cron Expression: 0 0 0/1 1/1 * ? *</div>
+      <div>Is Valid:True</div> 
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modalcron = false">Cancel</button>
+
+    </div>
+  </div>
+</clr-modal>

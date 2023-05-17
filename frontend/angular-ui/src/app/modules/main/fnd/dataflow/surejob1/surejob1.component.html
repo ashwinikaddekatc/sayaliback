@@ -1,0 +1,193 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']">Home</a></li>
+  <li><a href="javascript://"> Sure Job</a></li>
+
+</ol>
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+
+    <div class="clr-col-12" style="text-align: right;">
+
+      <button id="add" class="btn btn-primary" (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+
+  <clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Registering A  Job Form</h3>
+    <div class="modal-body">
+          <form [formGroup]="entryForm">
+        <div class="clr-row">
+          <!-- <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Counter<span class="required-field">*</span></label>
+           <input type="text" class="clr-input" formControlName="counter">
+          </div> -->
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Gap Duration<span class="required-field">*</span></label>
+           <input type="text" class="clr-input" formControlName="gapDuration">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">StartTime<span class="required-field">*</span></label>
+           <input type="datetime-local" class="clr-input" formControlName="startTime" placeholder="dd-mm-yy hh-mm-ss" >
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Job Name<span class="required-field">*</span></label>
+           <input type="text" class="clr-input" formControlName="jobName">
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">Job Group<span class="required-field">*</span></label>
+            <select colspan="2" formControlName="jobGroup"   class="clr-dropdown">
+              <option >sureops</option>
+              <option >job_pro</option>
+              <option >webhook</option>
+              <option >communication</option>
+          </select>
+
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="name">cronExpression</label>
+            <input type="text" class="clr-input" formControlName="cronExpression"/>
+            
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 10px;">
+            <button  class="btn btn-icon"(click)="cronOpen()"><clr-icon shape="cog"></clr-icon></button>
+          </div>
+        </div>
+        <div *ngIf="cron">
+        <div class="clr-row">
+          <div class="clr-col-sm-12">Cron Editor</div>
+        </div>
+      </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()" >ADD</button>
+          </div>
+  </form>
+    </div>
+
+  </clr-modal>
+
+
+<clr-datagrid [clrDgLoading]="loading">
+  <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+    <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+  <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+    Job Name
+  </ng-container></clr-dg-column>
+
+  <clr-dg-column ><ng-container *clrDgHideableColumn="{hidden: false}">
+    Job Status
+    </ng-container></clr-dg-column >
+  <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+    Job Group
+  </ng-container></clr-dg-column>
+  <clr-dg-column > <ng-container *clrDgHideableColumn="{hidden: false}">
+    <clr-icon shape="bars"></clr-icon> Action
+  </ng-container></clr-dg-column>
+
+  <clr-dg-row *clrDgItems="let item of alldata;let i = index" [clrDgItem]="user">
+    <clr-dg-cell>{{item.jobName}}</clr-dg-cell>
+    <clr-dg-cell >{{item.jobStatus}}</clr-dg-cell>
+    <clr-dg-cell>{{item.jobGroup}}</clr-dg-cell>
+    <clr-dg-cell>
+      <!-- <span *ngIf="item.jobStatus !== 'SCHEDULED & STARTED'" (click)="resume(item)" ><clr-icon shape="play" [disabled]="item.jobStatus == 'SCHEDULED & STARTED'" class="green is-solid" style="color: green;"></clr-icon></span>
+      <span *ngIf="item.jobStatus == 'SCHEDULED & STARTED'"  style="padding: 20px;"><clr-icon shape="play"  class="gray is-solid" style="color: gray;"></clr-icon></span>
+      <span *ngIf="item.jobStatus !== 'PAUSED'" (click)="pause(item)" style="padding: 20px;"><clr-icon shape="pause" class="red is-solid" style="color: red;"></clr-icon></span>
+      <span *ngIf="item.jobStatus == 'PAUSED'"  style="padding: 20px;"><clr-icon shape="pause" class="gray is-solid" style="color: gray;"></clr-icon></span>
+      <span *ngIf="item.jobStatus !== 'RESUMED'" (click)="runo(item)" style="padding: 10px;"><clr-icon shape="repeat" class="orange is-solid" style="color: orange;"></clr-icon></span>
+      <span *ngIf="item.jobStatus == 'RESUMED'" (click)="runo(item)"  style="padding: 20px;"><clr-icon shape="repeat" class="orange is-solid" style="color: orange;"></clr-icon></span> -->
+      <span style="cursor: pointer; padding-right:10px;"><clr-icon *ngIf="item.jobStatus !== 'SCHEDULED & STARTED'" shape="play"(click)="resume(item)"  [disabled]="item.jobStatus == 'SCHEDULED & STARTED'" class="green is-solid" style="color: green;"></clr-icon><clr-icon shape="play" *ngIf="item.jobStatus == 'SCHEDULED & STARTED'"  class="gray is-solid" style="color: gray;"></clr-icon></span>
+      <span *ngIf="item.jobStatus !== 'PAUSED'" style="cursor: pointer; padding-right:10px;"><clr-icon shape="pause" (click)="pause(item)" class="red is-solid" style="color: red;"></clr-icon></span>
+      <span *ngIf="item.jobStatus == 'PAUSED'" style="padding-right:10px;"><clr-icon shape="pause" class="gray is-solid" style="color: gray;"></clr-icon></span>
+      <span style="cursor: pointer; padding-right:10px;"><clr-icon shape="repeat" (click)="runo(item)" class="orange is-solid" style="color: orange;"></clr-icon></span>
+      <span style="cursor: pointer;"><clr-icon shape="trash" (click)="onDelete(item)" class="red is-error" style="color: red;"></clr-icon></span>
+
+    </clr-dg-cell>
+
+    <clr-dg-action-overflow>
+
+      <!-- <button class="action-item" (click)="runo(item)">RunOnce<clr-icon shape="replay-one"></clr-icon></button>
+      <button class="action-item" (click)="pause(item)">Pause<clr-icon shape="pause"></clr-icon></button>
+      <button class="action-item" (click)="resume(item)">Resume<clr-icon shape="play"></clr-icon></button> -->
+      <button class="action-item"  (click)="onEdit(item)">Edit<clr-icon shape="edit" class="is-error"></clr-icon></button>
+      <!-- <button class="action-item"  (click)="onDelete(item)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button> -->
+    </clr-dg-action-overflow>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Record per page</clr-dg-page-size>
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+      of {{pagination.totalItems}} Records
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid><hr>
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Job Management Edit</h3>
+  <div class="modal-body" *ngIf="rowSelected.jobid">
+    <h2 class="heading">{{rowSelected.jobid}}</h2>
+
+    <form (ngSubmit)="onUpdate()">
+      <div class="clr-row">
+        <div class="clr-col-md-4 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> Gap Duration<span class="required-field">*</span> </label>
+        <input class="clr-input"  type="text" name="gapDuration" [(ngModel)]="rowSelected.gapDuration" readonly>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">StartTime<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="StartTime" [(ngModel)]="rowSelected.startTime" readonly/>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Job Name</label>
+          <input type="text" class="clr-input" name="JobName" [(ngModel)]="rowSelected.jobName"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">Job Group<span class="required-field">*</span></label>
+          <input type="text" class="clr-input" name="JobGroup" [(ngModel)]="rowSelected.jobGroup"/>
+        </div>
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="name">cronExpression</label>
+          <input type="text" class="clr-input" name="cronExpression" [(ngModel)]="rowSelected.cronExpression"/>
+        </div>
+
+      </div>
+      <br>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >UPDATE</button>
+        </div>
+    </form>
+
+  </div>
+</clr-modal>
+
+
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.jobid">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.jobid}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.jobName)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+<hr>
+
+
+
+
+
+
+

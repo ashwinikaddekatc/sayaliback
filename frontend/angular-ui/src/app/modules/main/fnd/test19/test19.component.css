@@ -1,0 +1,18 @@
+h4 {
+  margin-top: 16px;
+}
+
+.s-order-dash-pg {
+  margin: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.s-order-dash-pg .chart-box {
+  margin: 16px;
+  padding: 0 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}/*# sourceMappingURL=test19.component.css.map */

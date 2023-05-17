@@ -1,0 +1,21 @@
+<h4 style="font-weight: 300;display: inline;"><b>Form Name:{{form_name}}</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 30px;">Edit Mode</span><br>
+{{formdesc}}
+<hr>
+
+<div class="container">
+  <!-- Header form start -->
+  <form (ngSubmit)="update()">
+      <div class="clr-row" >
+          <div class="clr-col-md-3 clr-col-sm-12" *ngFor="let data of componentsData">
+              <label for="form_name">{{data.label}}</label>
+              <input id="form_name" type="{{data.type}}"  name="{{data.mapping}}" [(ngModel)]="dynamicForm[data.mapping]" placeholder="{{data.drop_values}}"
+                  class="clr-input">
+
+          </div>
+      </div> <!-- row end -->
+      <div class="center">
+          <button type="submit" class="btn btn-primary">UPDATE</button>
+      </div>
+  </form>
+</div>

@@ -1,0 +1,130 @@
+<h4 style="font-weight: 300;display: inline;"><b> Create New Data Store</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+Define New data store that you can use in your data pipelins.
+<hr>
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm"> <!-- (ngSubmit)="onSubmit()"-->
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Data Store Name</label>
+        <input id="projectName" type="text" formControlName="data_store_name" placeholder="Enter Data Store Name"
+          class="clr-input" required>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Type</label>
+        <select formControlName="data_store_type" class="clr-dropdown">
+          <option [ngValue]="null">Choose Technology</option>
+          <option *ngFor="let item of type" [ngValue]="item">{{item}}</option>
+        </select>
+      </div>
+      </div>
+
+      <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description (optional)</label>
+          <textarea  id="" cols="10" rows="2"  name=" remarks" formControlName="description" placeholder="Enter Description">
+          </textarea>
+             </div>
+             <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Active</label>
+              <input type="checkbox" formControlName="active" clrToggle value="billable" name="billable" />
+
+            </div>
+        </div>
+
+      <div style="margin-top: 40px;">
+      <h4 style="font-weight: 300;display: inline;"> Configurations</h4>
+</div><div class="clr-row">
+<div class="clr-col-6">These configurations default to repositories setups.</div>
+<div class="clr-col-6" style="  display: flex; justify-content: flex-end;"><button (click)="testConnection()" class="btn btn-primary">Test Connection</button></div>
+</div>
+<hr>
+
+      <div class="clr-row">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Database Name</label>
+        <input type="text" formControlName="database_name" placeholder="Enter Database Name" class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">DB Host Name</label>
+        <input type="text" formControlName="db_host_name" placeholder="Enter DatabaseHost Name" class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Port Number</label>
+        <input colspan="2" type="text" formControlName="portnumber" readonly class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Username</label>
+        <input type="text" formControlName="user_name" placeholder="Enter Username" class="clr-input">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">Password</label>
+        <input type="text" formControlName="password" placeholder="Enter  Password" class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="workflow_name">Connect Through SSH</label>
+        <input type="checkbox" formControlName="connectssh" clrToggle value="billable" name="billable" />
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">SSH Host Name</label>
+        <input type="text" formControlName="ssh_host_name" placeholder="Enter Host Name" class="clr-input">
+
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">SSH User Name</label>
+        <input type="text" formControlName="ssh_user_name" placeholder="Enter SSH Username" class="clr-input">
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">SSH Password</label>
+        <input type="text" formControlName="ssh_password" placeholder="Enter SSH Password" class="clr-input">
+
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">SSH Key File</label><br>
+        <input type="file" formControlName="ssh_file_key" (change)="onFileChanged($event)" placeholder="Enter Database Password" required>
+
+      </div>
+    </div>
+
+
+
+    <div class="center">
+      <div class="btn-group">
+        <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-1" (click)="goback()"/>
+          <label for="btn-demo-check-1">Cancle</label>
+        </div>
+        <!-- <div class="checkbox btn">
+          <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+          <label for="btn-demo-check-2">Submit</label>
+        </div> -->
+        </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid" (click)="onSubmit()">SUBMIT</button>
+    </div>
+  </form>
+</div>

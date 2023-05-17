@@ -1,0 +1,277 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"  [routerLink]="['../project/all']"> <clr-icon shape="flag"></clr-icon>{{projectname}}</a></li>
+  <li><a href="javascript://"> <clr-icon  shape="objects"></clr-icon>  Repositories</a></li>
+</ol>
+<br>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+
+    <div class="clr-col-8">
+        <!-- <div class="btn-group">
+      <button class="btn" id="repo" (click)="goTorepo()" >REPO VIEW</button>
+      <button class="btn" id="project" (click)="goTproject()" >PROJECT VIEW</button>
+
+  </div> -->
+  <h3>Repositories </h3>
+    </div>
+
+    <div class="clr-col-4" style="text-align: right;">
+      <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="goTocard()">
+        <clr-icon shape="grid-view"></clr-icon>
+      </button>
+      <button class="btn btn-outline"  (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'moduleName'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Module Name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="' description'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Description
+      </ng-container>
+      </clr-dg-column >
+
+
+    <clr-dg-column [clrDgField]="'technologyStack'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Technology Stack
+    </ng-container></clr-dg-column>
+
+
+    <clr-dg-row *clrDgItems="let user of modules" [clrDgItem]="user">
+      <clr-dg-cell>{{user.moduleName}}</clr-dg-cell>
+      <clr-dg-cell>{{user.description}}</clr-dg-cell>
+
+      <clr-dg-cell>{{user. technologyStack}}</clr-dg-cell>
+
+
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="goToAction(user.id)">Actions<clr-icon shape="scroll" class="is-info"></clr-icon></button>
+
+
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Module Name: </td>
+            <td class="td-content">{{user.moduleName}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Project Description:</td>
+            <td class="td-content">{{user.description}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Module Prefix:</td>
+            <td class="td-content">{{user.modulePrefix}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">Technology Stack:</td>
+            <td class="td-content">{{user.technologyStack}}</td>
+          </tr>
+
+
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+
+
+  <!-- <div class="btn-group" id="center">
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-1" (click)="goTorepo()" checked />
+      <label for="btn-demo-check-1">REPO VIEW</label>
+    </div>
+    <div class="checkbox btn">
+      <input type="checkbox" id="btn-demo-check-2" (click)="goTproject()" />
+      <label for="btn-demo-check-2">PROJECT VIEW</label>
+    </div></div>
+
+  <div class="tablem"  id="Div1" >
+    <table class="table">
+        <thead>
+             <tr>
+               <th></th>
+     <th> <clr-icon shape="container"></clr-icon> Name</th>
+         <th> <clr-icon shape="plugin"></clr-icon> Build Templates</th>
+          <th><clr-icon shape="world"></clr-icon> Open Port</th>
+           <th><clr-icon shape="nodes"></clr-icon> Service Name</th>
+           <th><clr-icon shape="history"></clr-icon> Status</th>
+           <th><clr-icon shape="bars"></clr-icon> Action</th>
+            </tr>
+          </thead>
+             <tbody>
+                <tr>
+                  <td><clr-icon shape="stop"></clr-icon></td>
+                    <td>  Spring Boot Service for Students </td>
+                     <td></td>
+                     <td><clr-icon shape="stop"></clr-icon></td>
+                     <td></td>
+                     <td><clr-icon shape="code"></clr-icon>
+                      <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+                      <clr-icon shape="node"></clr-icon></td>
+                   <td><clr-icon shape="play"></clr-icon>
+                    <span style="padding: 20px;"><clr-icon shape="Settings"></clr-icon></span>
+                    <span style="padding: 10px;"><clr-icon shape="launchpad"></clr-icon></span>
+                    <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+                    <clr-icon shape="lock"></clr-icon></td>
+                    </tr>
+                    <tr>
+                      <td><clr-icon shape="stop"></clr-icon></td>
+                      <td> Spring Boot Service for Courses </td>
+                       <td></td>
+                       <td><clr-icon shape="stop"></clr-icon></td>
+                       <td></td>
+                       <td><clr-icon shape="code"></clr-icon>
+                        <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+                        <clr-icon shape="node"></clr-icon></td>
+                     <td><clr-icon shape="play"></clr-icon>
+                      <span style="padding: 20px;"><clr-icon shape="Settings"></clr-icon></span>
+                      <span style="padding: 10px;"><clr-icon shape="launchpad"></clr-icon></span>
+                      <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+                      <clr-icon shape="lock"></clr-icon></td>
+                      </tr>
+                      <tr>
+                        <td><clr-icon shape="stop"></clr-icon></td>
+                        <td>  Spring Boot Service for Payments </td>
+                         <td></td>
+                         <td><clr-icon shape="stop"></clr-icon></td>
+                         <td></td>
+                         <td><clr-icon shape="code"></clr-icon>
+                          <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+                          <clr-icon shape="node"></clr-icon></td>
+                       <td><clr-icon shape="play"></clr-icon>
+                        <span style="padding: 20px;"><clr-icon shape="Settings"></clr-icon></span>
+                        <span style="padding: 10px;"><clr-icon shape="launchpad"></clr-icon></span>
+                        <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+                        <clr-icon shape="lock"></clr-icon></td>
+                        </tr>
+
+  </tbody> </table> </div>
+
+  <div class="tablem" id="Div2">
+    <table class="table">
+        <thead>
+             <tr>
+               <th></th>
+     <th><clr-icon shape="container"></clr-icon> Name</th>
+         <th> <clr-icon shape="namespace"></clr-icon> Name Space</th>
+          <th><clr-icon shape="world"></clr-icon> URL</th>
+           <th><clr-icon shape="history"></clr-icon> Status</th>
+           <th><clr-icon shape="bars"></clr-icon> Action</th>
+            </tr>
+          </thead>
+             <tbody>
+                <tr>
+                  <td><clr-icon shape="stop"></clr-icon></td>
+                    <td>  Spring Boot Service </td>
+                     <td></td>
+                     <td>Service1,Service2</td>
+
+                     <td><clr-icon shape="code"></clr-icon>
+
+                      <span style="padding: 20px;"><clr-icon shape="container"></clr-icon></span>
+                      <clr-icon shape="node"></clr-icon></td>
+                   <td><clr-icon shape="play"></clr-icon>
+                    <span style="padding: 20px;"><clr-icon shape="Settings"></clr-icon></span>
+                    <span style="padding: 10px;"><clr-icon shape="launchpad"></clr-icon></span>
+                    <span style="padding: 20px;"><clr-icon shape="terminal"></clr-icon></span>
+                    <clr-icon shape="lock"></clr-icon></td>
+                    </tr>
+
+
+
+  </tbody> </table> </div> -->
+
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="modaladd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body">
+    <!-- <div *ngIf="tools1;" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of tools1; let index = i" class="clr-col-auto" >
+        <div class="clr-row">
+          <div class="clr-col-lg-9 clr-col-md-6 clr-col-12" style="width: 250px;height: 300px;">
+              <div class="card" [routerLink]="app.action">
+                  <div class="card-block">
+                      <div class="card-title">
+                          <b style="margin-left: 30px;"><clr-icon shape="container-volume" size="40"></clr-icon></b>
+                        <h5 class="center" >{{ app.title }}</h5>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      </div>
+    </div> -->
+    <div class="s-order-dash-pg">
+      <!-- <div class="chart-box" id="word1" *ngFor="let app of tools1; let index = i" [routerLink]="app.action"><br>
+        <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b>
+        <h5 class="center"> <b>{{ app.title }}</b>  </h5>
+      </div> -->
+      <div class="chart-box" id="word1" (click)="gotoadd()"><br>
+        <!-- <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b> -->
+        <img style="margin: auto; display: block;" src="/assets/images/fromscratch.png" height="90" width="90">
+        <h5 class="center"> <b>Start from scratch</b>  </h5>
+      </div>
+      <div class="chart-box" id="word1" (click)="gotoadd()"><br>
+        <!-- <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b> -->
+        <img style="margin: auto; display: block;" src="/assets/images/copytemplate.png" height="90" width="90">
+        <h5 class="center"> <b>Import from a template</b>  </h5>
+      </div>
+      <div class="chart-box" id="word1" (click)="gotoadd()"><br>
+        <!-- <b style="margin-left: 50px;"><clr-icon shape="container-volume" size="40"></clr-icon></b> -->
+        <img style="margin: auto; display: block;" src="/assets/images/database.png" height="90" width="90">
+        <h5 class="center"> <b>Import from  public project</b>  </h5>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaladd = false">Cancel</button>
+
+    </div>
+  </div>
+</clr-modal>
+
+

@@ -1,0 +1,55 @@
+<h4 style="font-weight: 300;display: inline;"><b>SureOps Script Master</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span><br>
+<hr>
+<!-- <hr> -->
+<div class="container">
+    <form [formGroup]="entryForm" >
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Script Name</label>
+              <input id="workflow_name" type="text" formControlName="script_name" placeholder="Enter Workflow Name" class="clr-input">
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="select_technology">Select Technology-Stack</label>
+                <select id=""  name="invoiceType"  formControlName="techstack" >
+                    <option  value="Angular" [selected]="true">Angular</option>
+                    <option>javascript</option>
+                </select>
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="workflow_name">Version</label>
+              <input id="workflow_name" type="text" formControlName="version" placeholder="Enter Workflow Name" class="clr-input">
+            </div>
+        </div>
+
+        <div class="clr-row">
+
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="description">Description</label>
+            <textarea  cols="10" rows="2"   formControlName="description" placeholder="Enter Description"></textarea>
+
+          </div>
+          <div class="clr-col-md-4 clr-col-sm-12">
+            <label for="workflow_name">Active</label>
+            <input type="checkbox" formControlName="isactive" clrToggle value="billable" name="billable" />
+
+          </div>
+        </div>
+
+        <div class="clr-row">
+            <div class="clr-col-md-12 clr-col-sm-12">
+                <label for="description">Script</label>
+                <textarea  cols="15" rows="10"   formControlName="script" placeholder="Enter script"></textarea>
+            </div>
+        </div>
+
+        <div class="center">
+            <div class="btn-group">
+              <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                <label for="btn-demo-check-2">Submit</label>
+              </div>
+            </div>
+        </div>
+    </form>
+</div>

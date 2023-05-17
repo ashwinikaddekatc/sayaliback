@@ -1,0 +1,34 @@
+<h4 style="font-weight: 300;display: inline;"><b>Define Dashboard</b></h4>
+<span class="label label-light-blue" style="display: inline;margin-left: 10px;">Add Mode</span>
+<hr><br>
+
+<div class="container">
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="dashboard_name">Dashboard Name</label>
+              <input id="dashboard_name" type="text" formControlName="dashboard_name" placeholder="Enter Dashboard Name" class="clr-input">
+            </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="secuirity_profile">Security Profile</label>
+                <input id="secuirity_profile" type="text" formControlName="secuirity_profile" placeholder="Enter Security Profile" class="clr-input">
+            </div>
+        </div>
+
+        <div class="clr-row">
+            <div class="clr-col-md-4 clr-col-sm-12">
+              <label for="description">Description</label>
+              <textarea  cols="10" rows="2"  name=" description" formControlName="description" placeholder="Enter Description"></textarea>
+            </div>
+        </div>
+
+        <div class="center">
+            <div class="btn-group">
+              <div class="checkbox btn">
+                <input type="checkbox" id="btn-demo-check-2" checked  (click)="onSubmit()"/>
+                <label for="btn-demo-check-2">Submit</label>
+              </div>
+            </div>
+        </div>
+    </form>
+</div>

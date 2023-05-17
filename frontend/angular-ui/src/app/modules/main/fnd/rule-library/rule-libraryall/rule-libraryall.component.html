@@ -1,0 +1,172 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="code"></clr-icon> Code Extractor</a></li>
+  <li><a href="javascript://"><clr-icon shape="library"></clr-icon>Builder Rule Library</a></li>
+</ol>
+<br>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-4">
+      <h3> Rule Library </h3>
+    </div>
+    <div class="clr-col-8" style="text-align: right;">
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()"><clr-icon shape="plus"></clr-icon>ADD</button>
+      <button id="copy" class="btn btn-primary" (click)="goToCopy()"><clr-icon shape="copy"></clr-icon>Copy</button>
+      <!-- <button id="exception" class="btn btn-primary" (click)="goToExceptionRule()">EXCEPTION RULE LIBRARY</button> -->
+    </div>
+  </div>
+
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected" >
+    <clr-dg-placeholder><ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
+      <div *ngIf="error;else loadingSpinner">{{error}}</div></clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'tech_stack'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Technology Stack
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'service'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Service
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'object_type'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Object Type
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'sub_object_type'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Sub Object Type
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'version'" style="width:100px;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Version
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'keyword'" style="width:200px;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Keyword
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'isactive'" style="width:100px;"> <ng-container *clrDgHideableColumn="{hidden: false}">
+    Is Active
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'replacement_string'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Replacement String
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'service'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Priority
+    </ng-container></clr-dg-column>
+    <clr-dg-row *clrDgItems="let user of  ruleLibrary" [clrDgItem]="user">
+      <clr-dg-cell id="word">{{user.tech_stack}}</clr-dg-cell>
+      <clr-dg-cell>{{user.service}}</clr-dg-cell>
+      <clr-dg-cell>{{user.object_type}}</clr-dg-cell>
+      <clr-dg-cell id="word">{{user.sub_object_type}}</clr-dg-cell>
+      <clr-dg-cell>{{user.version}}</clr-dg-cell>
+      <clr-dg-cell>{{user.keyword}}</clr-dg-cell>
+      <clr-dg-cell>{{user.isactive}}</clr-dg-cell>
+      <clr-dg-cell (click)="goToReplaceString(user)" style="cursor: pointer; align-items: center;"><clr-icon shape="details"></clr-icon></clr-dg-cell>
+      <clr-dg-cell>{{user.priority}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+
+        <!-- <button class="action-item" (click)="goToReplaceString(user)">Goto Replacement String<clr-icon shape="cloud" class="is-error"></clr-icon></button> -->
+        <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+        </clr-dg-action-overflow>
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">Technology Stack: </td>
+            <td class="td-content">{{user.tech_stack}}</td>
+          </tr>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="rsModal" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h2 class="heading">{{rowSelected.tech_stack}}</h2>
+    <textarea class="form-control" style="width:100%; height: 400px;" readonly>{{rowSelected.replacement_string}}</textarea>
+    <!-- <div class="clr-col-12" style="margin-top: 50; border: 1px solid black; height: 43vh;" >
+
+    <ngx-codemirror class="CodeMirror" [options]="codeMirrorOptions" [(ngModel)]="rowSelected.replacement_string" #codemirror >
+      </ngx-codemirror>
+      </div> -->
+  </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="copyModal" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-8">
+          <h3>Create New To Copy</h3>
+      </div>
+  </div>
+  <br>
+    <form class="clr-form" [formGroup]="copyForm" (ngSubmit)="onCopyRule()">
+      <div class="clr-row">
+        <div class="clr-col-md-6 clr-col-sm-12">
+          <label for="tech_stack">Technology Stack</label>
+          <select id="tech_stack" formControlName="technology_stack"  class="clr-dropdown">
+            <option value="null">Choose Technology</option>
+            <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+            </option>
+          </select>
+        </div>
+          <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="sub_object_type">Service Name</label>
+            <select id="sub_object_type" formControlName="service"  class="clr-dropdown">
+              <option>Angular</option>
+              <option>Spring boot</option>
+            </select>
+        </div>
+          <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="object_type">Object Type</label>
+        <select id="object_type" formControlName="object_type" class="clr-dropdown">
+          <option value="null">Choose Object Type</option>
+          <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+          </option>
+        </select>
+        </div>
+        <div class="clr-col-md-6 clr-col-sm-12">
+        <label for="sub_object_type">Sub Object Type</label>
+        <select id="sub_object_type" formControlName="sub_object_type"  class="clr-dropdown">
+          <option value="null">Choose Sub Object Type</option>
+          <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+          </option>
+        </select>
+        </div>
+        <div class="clr-col-md-6 clr-col-sm-12">
+            <label for="new_tech_stack_name">New Technology Stack</label>
+            <!-- <input type="text" class="clr-input" formControlName="new_tech_stack_name"> -->
+            <select id="tech_stack" formControlName="new_tech_stack_name"  class="clr-dropdown">
+              <option value="null">Choose Technology</option>
+              <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
+              </option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-outline" (click)="copyModal = false">Cancel</button> -->
+    <button type="submit" class="btn btn-primary" >Copy</button>
+    </div>
+  </form>
+  </div>
+</clr-modal>
+
+

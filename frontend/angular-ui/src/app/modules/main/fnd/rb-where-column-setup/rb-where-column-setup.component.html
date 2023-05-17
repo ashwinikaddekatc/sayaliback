@@ -1,0 +1,111 @@
+<div class="container">
+
+  <h4 style="font-weight: 300;display: inline;"><b>CREATE NEW REPORT</b></h4>
+  <span class="label label-light-blue" style="display: inline;margin-left: 10px;">Where Parameter</span><br>
+<hr>
+  <!-- Header form start -->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+
+
+
+      <!-----H-L LINE part(FormArray For Multiple Lines)---->
+      <div class="clr-row">
+          <div class="clr-col-lg-12">
+              <table class="table" style="width:100%;" formArrayName="components">
+                  <thead>
+                      <tr>
+
+
+                          <th class="left" style="width:125px;">Explecity</th>
+                          <th class="left" style="width:125px;">Table Column Name1</th>
+                          <th class="left" style="width:125px;">Column1</th>
+                          <th class="left" style="width:125px;">Condition</th>
+                          <th class="left" style="width:125px;">Switch Control</th>
+                          <th class="left" style="width:125px;">Table Column Name2</th>
+                          <th class="left" style="width:125px;">Column2</th>
+
+                          <!-- <th *ngIf="controls.length > 1" class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}Actions</th> -->
+                           <th class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+
+                          <!-- field 1 -->
+                          <td class="left">
+                              <select [attr.id]="'explecity' + i" colspan="2" formControlName="explecity" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select Value</option>
+                                  <option value="AND">AND</option>
+                                  <option value="OR">OR</option>
+
+                              </select>
+                          </td>
+                          <td class="left">
+                              <select [attr.id]="'where_coloumn1_tbl_alias_name' + i" colspan="2" formControlName="where_coloumn1_tbl_alias_name" (change)="changeColumn($event.target.value)" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select alias Name</option>
+                                  <option *ngFor="let fs of columnList" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+                          <td class="left">
+                              <select [attr.id]="'where_coloumn' + i" colspan="2" formControlName="where_coloumn" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select Column</option>
+                                  <option *ngFor="let fs of columnList1" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+
+                          <td class="left">
+                              <select [attr.id]="'where_condition' + i" colspan="2" formControlName="where_condition" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option *ngFor="let fs of conditions" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+                          <!-- field 2 -->
+                          <td class="left">
+                              <input type="checkbox" [attr.id]="'switch_control' + i" formControlName="switch_control"
+                                  placeholder="Enter Values" style="width:180px" clrCheckbox >
+                          </td>
+
+                          <td class="left">
+                              <select [attr.id]="'where_coloumn2_tbl_alias_name' + i" (change)="changeColumn2($event.target.value)" colspan="2" formControlName="where_coloumn2_tbl_alias_name" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option *ngFor="let fs of columnList" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+                          <td class="left">
+                              <select [attr.id]="'where_coloumn2' + i" colspan="2" formControlName="where_coloumn2" selected="null" style="width:180px"
+                                  class="clr-dropdown">
+                                  <option value="null">Please select column</option>
+                                  <option *ngFor="let fs of columnList2" [value]="fs">{{ fs }}
+                                  </option>
+                              </select>
+                          </td>
+                          <!-- delete line -->
+                           <td style="width:40px;">
+                              <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                                  <clr-icon shape="trash" class="is-error"></clr-icon>
+                              </a>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <!-- add line -->
+                  <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                      <clr-icon shape="plus"></clr-icon>
+                  </button>
+              </table>
+          </div>
+      </div>
+      <br>
+      <div class="center">
+          <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">Save & Next</button>
+      </div>
+  </form>
+</div>

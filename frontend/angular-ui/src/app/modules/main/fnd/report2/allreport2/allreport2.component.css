@@ -1,0 +1,41 @@
+.s-info-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.s-info-bar button {
+  outline: none;
+}
+
+.grid-pg {
+  width: 750px;
+}
+
+#add {
+  /*    transition: .5s ease;
+     top: 105px;
+     left: 79%;  */
+  position: relative;
+  top: 6px;
+  left: 600px;
+}
+
+#exception {
+  position: relative;
+  transition: 0.5s ease;
+  top: -43px;
+  left: 540px;
+}
+
+#who_column {
+  position: absolute;
+  transition: 0.5s ease;
+  top: 97px;
+  left: 145px;
+}
+
+#submit {
+  position: relative;
+  left: 35px;
+  top: 9px;
+}/*# sourceMappingURL=allreport2.component.css.map */
