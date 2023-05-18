@@ -148,7 +148,7 @@ getcolListn(val:any,val1:any): Observable<TableList[]> {
 
 //column list for multiple tables
 getColumnList(tableSchema: any, tables: any): Observable<any> {
-  return this.apiRequest.get( `AllTable_list/${tableSchema}`,tables);
+  return this._http.get( `http://localhost:9191/AllTable_list/${tableSchema}`,tables);
 }
 getcollist(table:any){
   const _http = this.colurl+ "/" + table;

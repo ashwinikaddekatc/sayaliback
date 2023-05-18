@@ -19,6 +19,7 @@ export class DataflowaddComponent implements OnInit {
   public emailtowebhookForm: FormGroup;
   public sftpForm: FormGroup;
   public emailtostoreForm: FormGroup;
+  public cronJobForm: FormGroup;
   public cronForm;
   sourcedata;
 storedata;
@@ -28,7 +29,10 @@ emailDBData;
 modalcron=false;
 minute = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'];
 second = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'];
-hours = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+hours = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+daysofmonth =  ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']
+month = ['0','1','2','3','4','5','6','7','8','9','10','11','12'];
+daysofweek = ['0','1','1-2','1-3','1-4','1-5','1-6','1-7']
 selectedOption = 'DB to Store'
 DataflowType = ['DB to Store','Email to Webhook', 'SFTP to Store','Email to Store'];
 type = ["MYSQL","postgresql","mysqllite","oracle","Snowflake","BigQuery","RedShift","microsoft sql server","redis","maria_db","MongoDB","firebase","dynamodb","ibm DB2","couchbase","ElasticSearch","Casandra","OrientDB","Neo4j","FireBird"];
@@ -103,6 +107,14 @@ type = ["MYSQL","postgresql","mysqllite","oracle","Snowflake","BigQuery","RedShi
      refreshtype:[null],
      dataflow_lines: this._fb.array([this.initLinesFormEmail()]),
     });
+
+    this.cronJobForm = this._fb.group({
+     minutes:[null],
+     hours :[null],
+     dayOfMonth :[null],
+     month:[null],
+     dayOfWeek:[null],
+    })
    this.getdatasource();
    this.getdatastore();
    this.getallemailtoWebhook();
@@ -252,7 +264,16 @@ this.data1service.getAll2().subscribe((data)=>{
   goback(){
     this.router.navigate(["../../dataflow/all"], { relativeTo: this.route });
   }
-  openmodal(){
+  openmodal1(){
+    this.modalcron=true;
+  }
+  openmodal2(){
+    this.modalcron=true;
+  }
+  openmodal3(){
+    this.modalcron=true;
+  }
+  openmodal4(){
     this.modalcron=true;
   }
   setCron1(value: string){
@@ -263,19 +284,19 @@ this.data1service.getAll2().subscribe((data)=>{
 }
   setCron2(value: string){
   this.emailtowebhookForm.setValue({
-    ...this.DbtostoreForm.value,
+    ...this.emailtowebhookForm.value,
     cron: value
 })
   }
 setCron3(value: string){
 this.sftpForm.setValue({
-  ...this.DbtostoreForm.value,
+  ...this.sftpForm.value,
   cron: value
 })
 }
 setCron4(value: string){
 this.emailtostoreForm.setValue({
-  ...this.DbtostoreForm.value,
+  ...this.emailtostoreForm.value,
   cron: value
 })
 }
@@ -338,7 +359,42 @@ this.emailtostoreForm.setValue({
   }
 
   chooseStore(val){
-
+    //this is for dependent select option
   }
+  generatedCron;
+  generateCronJob() {
+    const minutes = this.cronJobForm.value.minutes; 
+    const hours = '*/' + this.cronJobForm.value.hours; 
+    const dayOfMonth  = this.cronJobForm.value.dayOfMonth;
+    const month = this.cronJobForm.value.month;
+    const dayOfWeek = this.cronJobForm.value.dayOfWeek;
+    this.generatedCron = this.dataservice.buildCronJob(minutes, hours, dayOfMonth, month, dayOfWeek);
+  }
+  genCronJob(){
+    this.modalcron=false;
+    if( this.selectedOption == 'DB to Store'){
+    this.DbtostoreForm.setValue({
+      ...this.DbtostoreForm.value,
+      cron: this.generatedCron
+  });
+  }else if( this.selectedOption == 'Email to Webhook'){
+    this.emailtowebhookForm.setValue({
+      ...this.emailtowebhookForm.value,
+      cron: this.generatedCron
+  })
+  }else if(this.selectedOption == 'SFTP to Store'){
+    this.sftpForm.setValue({
+      ...this.sftpForm.value,
+      cron: this.generatedCron
+    })
+  }else if( this.selectedOption == 'Email to Store'){
+    this.emailtostoreForm.setValue({
+      ...this.emailtostoreForm.value,
+      cron: this.generatedCron
+    })
+  }
+  this.cronJobForm.reset();
+  this.generatedCron = '';
+}
 
 }

@@ -346,6 +346,7 @@ import { ListbuilderaddComponent } from './builder/wireframe/listbuilder/listbui
 import { ListbuildereditComponent } from './builder/wireframe/listbuilder/listbuilderedit/listbuilderedit.component';
 import { ListbuilderLineComponent } from './builder/wireframe/listbuilder/listbuilder-line/listbuilder-line.component';
 import { QueryRunner1Component } from './fnd/query-runner1/query-runner1.component';
+import { ReportBuildComponent } from './builder/report-build/report-build.component';
 @NgModule({
   declarations: [
     MainPageComponent, PageNotFoundComponent,AboutComponent, LayoutComponent, UserComponent,PasswordResetComponent,UniversityComponent,
@@ -369,7 +370,7 @@ Gnyandipta_tComponent,
 
 
 
-    Gaurav_testing_tComponent,Frontendtable1_tComponent, MappertableComponent, CodeExtractionBuilderComponent, CodeExtractionBuilderAllComponent, FileEditorBuilderComponent, FiltertableComponent, HealthCheckupComponent, SFTPLocationComponent,SftpaddComponent,SftpeditComponent,SftpallComponent, DataelementComponent, ListbuilderComponent, ListbuilderallComponent, ListbuilderaddComponent, ListbuildereditComponent, ListbuilderLineComponent, QueryRunner1Component,
+    Gaurav_testing_tComponent,Frontendtable1_tComponent, MappertableComponent, CodeExtractionBuilderComponent, CodeExtractionBuilderAllComponent, FileEditorBuilderComponent, FiltertableComponent, HealthCheckupComponent, SFTPLocationComponent,SftpaddComponent,SftpeditComponent,SftpallComponent, DataelementComponent, ListbuilderComponent, ListbuilderallComponent, ListbuilderaddComponent, ListbuildereditComponent, ListbuilderLineComponent, QueryRunner1Component, ReportBuildComponent,
 
 
 

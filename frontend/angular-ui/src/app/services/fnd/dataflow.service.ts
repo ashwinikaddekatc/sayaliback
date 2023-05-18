@@ -108,4 +108,9 @@ export class DataflowService {
   getColumnListFromStoreTable(id: number, tableName: string): Observable<any> {
     return this.apiRequest.get(`suredata/suredataflow3/columnlistfromStore/${id}/${tableName}`);
   }
+
+  buildCronJob(minutes: string, hours: string, dayOfMonth: string, month: string, dayOfWeek: string): string {
+    const cronJobString = `${minutes} ${hours} ${dayOfMonth} ${month} ${dayOfWeek}`;
+    return cronJobString;
+  }
 }

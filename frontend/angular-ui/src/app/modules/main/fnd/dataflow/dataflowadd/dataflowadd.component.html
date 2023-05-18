@@ -120,7 +120,7 @@ These configurations default to repositories setups.
         </div>
 
       <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
-        <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+        <button  class="btn btn-icon btn-primary" (click)="openmodal1()">
           <clr-icon shape="view-list"></clr-icon>
         </button>
       </div>
@@ -205,7 +205,7 @@ These configurations default to repositories setups.
       </div>
 
     <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
-      <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+      <button  class="btn btn-icon btn-primary" (click)="openmodal2()">
         <clr-icon shape="view-list"></clr-icon>
       </button>
     </div>
@@ -313,7 +313,7 @@ These configurations default to repositories setups.
     </div>
 
   <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
-    <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+    <button  class="btn btn-icon btn-primary" (click)="openmodal3()">
       <clr-icon shape="view-list"></clr-icon>
     </button>
   </div>
@@ -416,7 +416,7 @@ These configurations default to repositories setups.
     </div>
 
   <div class="clr-col-md-1 clr-col-sm-12" style="margin-top: 15px;">
-    <button  class="btn btn-icon btn-primary" (click)="openmodal()">
+    <button  class="btn btn-icon btn-primary" (click)="openmodal4()">
       <clr-icon shape="view-list"></clr-icon>
     </button>
   </div>
@@ -453,7 +453,7 @@ These configurations default to repositories setups.
 
   <div class="modal-body">
     <h4 class="delete">Cron Selection</h4><br>
-    <clr-tabs>
+    <!-- <clr-tabs>
       <clr-tab>
           <button clrTabLink id="link1">Minutes</button>
           <clr-tab-content id="content1" *clrIfActive>
@@ -506,14 +506,56 @@ These configurations default to repositories setups.
         ...
         </clr-tab-content>
       </clr-tab>
-      </clr-tabs>
+      </clr-tabs> -->
+      <form [formGroup]="cronJobForm">
+        <div class="clr-row">
+        <div class="clr-col"> 
+          <label>Minute</label>
+          <select  formControlName="minutes" selected="*" class="clr-dropdown" >
+            <option value="*" >*</option>
+            <option *ngFor="let min of minute" [value]="min">{{min}}</option>
+          </select>
+          </div>
+          <div class="clr-col">
+            <label>Hours</label>
+          <select  formControlName="hours" selected="*" class="clr-dropdown">
+            <option value="*">*</option>
+            <option *ngFor="let hr of hours" [value]="hr">{{hr}}</option>
+          </select>
+          </div>
+          <div class="clr-col">
+            <label>Day Of Month</label>
+          <select  formControlName="dayOfMonth" selected="*" class="clr-dropdown" >
+            <option value="*">*</option>
+            <option *ngFor="let days of daysofmonth" [value]="days">{{days}}</option>
+          </select>
+        </div>
+          <div class="clr-col">
+            <label>Month</label>
+          <select  formControlName="month" selected="*" class="clr-dropdown" >
+            <option value="*">*</option>
+            <option *ngFor="let item of month" [value]="item">{{item}}</option>
+          </select>
+        </div>
+          <div class="clr-col">
+            <label>Day of week</label>
+          <select  formControlName="dayOfWeek" selected="*" class="clr-dropdown" >
+            <option value="*">*</option>
+            <option *ngFor="let item of daysofweek" [value]="item">{{item}}</option>
+          </select>
+        </div>
+          <div class="clr-col" style="margin-top:10px;">
+          <button type="button"  class="btn btn-icon btn-success" (click)="generateCronJob()"><clr-icon shape="cog"></clr-icon></button>
+        </div>
+      </div>
+    </form>
       <hr>
-      <div>Generated Cron Expression: 0 0 0/1 1/1 * ? *</div>
-      <div>Is Valid:True</div> 
+      <div>Generated Cron Expression: <b>{{generatedCron}}</b></div>
+      <!-- <div>Is Valid:True</div>  -->
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline" (click)="modalcron = false">Cancel</button>
-
+      <button type="button" class="btn btn-outline" (click)="modalcron = false">CANCLE</button>
+      <button type="button" class="btn btn-primary" (click)="genCronJob()">SELECT</button>
     </div>
   </div>
 </clr-modal>

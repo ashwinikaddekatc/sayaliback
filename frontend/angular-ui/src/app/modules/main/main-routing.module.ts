@@ -295,6 +295,7 @@ import { ListbuilderallComponent } from './builder/wireframe/listbuilder/listbui
 import { ListbuildereditComponent } from './builder/wireframe/listbuilder/listbuilderedit/listbuilderedit.component';
 import { ListbuilderLineComponent } from './builder/wireframe/listbuilder/listbuilder-line/listbuilder-line.component';
 import { QueryRunner1Component } from './fnd/query-runner1/query-runner1.component';
+import { ReportBuildComponent } from './builder/report-build/report-build.component';
 
 
 const routes: Routes = [
@@ -726,6 +727,7 @@ children: [
     { path:'editdata/:id',component:EditFormComponent}
   ]
 },
+{path: 'reportbuild',component:ReportBuildComponent},
 
 //newdashboard
 {
