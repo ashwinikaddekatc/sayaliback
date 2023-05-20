@@ -1,23 +1,44 @@
 
 <div class="section">
-  <p>Report Name:static</p>
+  <p>Report Name:{{reportname}}</p>
 </div>
 <br>
 <form>
   <label for="description">Date Parameters</label><hr>
+
   <div class="clr-row">
     <div class="clr-col-md-4 clr-col-sm-12">
 
             <!-- <textarea name="" id="" cols="10" rows="2"  name="description" placeholder="Enter Description">
         </textarea> -->
 
-            <label for="tags">Chaged  Date From</label>
-            <input  type="date"  class="clr-input"  name="cnid">
+            <label for="tags">Changed  Date From</label>
+            <input  type="date"  class="clr-input"  name="cnid" (change)="modo2($event.target.value)" [(ngModel)]="myDateValue">
          </div>
           <div class="clr-col-md-4 clr-col-sm-12">
               <label for="tags">changed Date To </label>
-              <input  type="date"  class="clr-input"  name="todate" >
+              <input  type="date"  class="clr-input"  name="todate" (change)="modo3($event.target.value)" [(ngModel)]="toDate">
            </div>
+
+           <div class="clr-col-md-4 clr-col-sm-12">
+            <label></label>
+           <button class="btn btn-primary"  (click)="filterDate()">Choosing date Run</button>
+         </div>
+</div>
+<hr>
+<div class="clr-row">
+  <div class="clr-col-md-4 clr-col-sm-12">
+    <select id="condition"  class="clr-dropdown" (change)="select($event.target.value)">
+            <option>--Select Particular--</option>
+            <option >This Week</option>
+  <option >Last Week</option>
+  <option>Last Month</option>
+  <option >This Year</option>
+  <option>Last Year</option>
+        </select>
+  </div>
+
+
 </div>
 <label for="description">Standard Parameters</label><hr>
 <div class="clr-row">
@@ -51,8 +72,65 @@
 </div>
 </div>
 
+<label for="to_tech_stack">Parameters Pane</label><hr>
+<div class="clr-row">
+  <div class="clr-col-md-4 clr-col-sm-12">
+
+          <textarea id="para_pane"  style="height: 150px;width: 600px;" type="text"
+          >
+          </textarea>
+   </div>
+</div>
+<div style="padding: 2px 2px; font-size: 15px; border-radius: 10px;" type="submit" >
+  <button class="btn btn-primary">Run Report</button>
+</div>
   </form>
 
+  <div class="section">
+    <p> Query Result </p>
+  </div>
 
+  <div class="pad-16">
+
+    <!-- <ngx-datatable
+      style='width:900px;'
+      [rows]="rows"
+      [columns]="columns"
+
+    >
+    </ngx-datatable> -->
+    <!-- <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let co of getHeaders();let i=index">{{co}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of rows">
+          <td *ngFor="let key of getHeaders()">{{item[key]}}</td>
+        </tr>
+      </tbody>
+    </table> -->
+
+
+    <table>
+      <thead>
+        <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>From date</th>
+        <th>To date</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of duplicateArray">
+          <td>{{item.id}}</td>
+         <td>{{item.name}}</td>
+           <td>{{item.fromDate}}</td>
+            <td>{{item.toDate}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
 
 

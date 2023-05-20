@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ReportBuilderService } from 'src/app/services/api/report-builder.service';
 import { TableList } from '../../../../models/fnd/table-setup';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -79,8 +79,7 @@ export class ReportBuildComponent implements OnInit {
       date_param_flag:[null],
       adhoc_param_flag:[null],
       adhoc_param_string:[null],
-      Std_param_json:[null],
-      wqho_columns12345:[null],
+      std_param_json:[null],
 
     });
     // this.listofTables();
@@ -116,10 +115,10 @@ listoddatabase(){
     console.log(this.selectedtable);
     console.log(this.selectedcol);
     console.log(this.selectedcol1);
-    const tableString = JSON.stringify(val);
-    console.log(tableString);
+    // const tableString = JSON.stringify(val);
+    // console.log(tableString);
     // this.reportBuilderService.getcolListn(this.name[1],val).subscribe((data)=>{ 
-    this.reportBuilderService.getcolListn(this.name[1],val).subscribe((data)=>{
+    this.reportBuilderService.getColumnList(this.name[1],val).subscribe((data)=>{
       this.collist=data;
       if(this.selectedtable==null){
         this.msg='Plz First Select Table'
@@ -236,8 +235,21 @@ tablename(value){
   this.selectedtable=value;
   this.table=false;
 }
+selectedtablewithAlias;
 opentcolmod(){
   // this.col=true;
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const objectArray = this.selectedtable.map((value, index) => ({
+      tableName: value,
+      tableAlias: alphabet[index % alphabet.length],
+    }));
+    console.log(objectArray);
+    const data = JSON.stringify(objectArray);
+   try {
+     this.selectedtablewithAlias = JSON.parse(data);
+     console.log('Received data:', this.selectedtablewithAlias );
+   } catch (e) { console.error('Invalid JSON:', data);}
+
   this.listofcol(this.selectedtable)
 
   if (Array.isArray(this.selectedtable) || this.selectedtable === undefined) {
@@ -455,13 +467,35 @@ saveReport(){
 }
 
 rpt_builder(){
-  this.reportModal = false;
 
   this.saveReportForm.value.query = this.selectedquery;
-  this.saveReportForm.value.Std_param_json = this.stdParamters;
+  const stdparam = JSON.stringify(this.stdParamters);
+  this.saveReportForm.value.std_param_json = stdparam;
 
   const paramString:string[][] = [this.selectedtable, this.selectedcol];
-  this.saveReportForm.value.adhoc_param_string = paramString;
+  const paramStringify = JSON.stringify(paramString);
+  this.saveReportForm.value.adhoc_param_string = paramStringify;
+  
+  console.log(this.saveReportForm.value);
+
+this.onSaveBuidler();
+}
+onSaveBuidler(){
+  this.reportModal = false;
+
+  this.reportBuilderService.saveData(this.saveReportForm.value).subscribe((data)=>{
+    console.log(data);
+    if (data) {
+      this.toastr.success('Report save successfully');
+   }
+    },(error:HttpErrorResponse) => {
+    console.log(error);
+    if(error.status==404){
+     this.toastr.error(error.error);
+   }
+   if(error.status==200){  this.toastr.success('Report save successfully'); }
+   if(error.status==400){ this.toastr.error('Report Save Unsuccessful'); }
+  });
 }
 
 }

@@ -550,7 +550,7 @@
     <h3 class="modal-title">ADD REPORT</h3>
     <div class="modal-body">
         <hr>
-      <form [formGroup]="saveReportForm" (ngSubmit)=" rpt_builder()">
+      <form [formGroup]="saveReportForm" ngForm>
         <div class="clr-row">
           <div class="clr-col-md-6 clr-col-sm-12">
             <label>Name</label>
@@ -561,7 +561,7 @@
             <!-- <input type="text" formControlName="username" class="clr-input"> -->
             <select colspan="2" formControlName="folder" class="clr-dropdown">
                 <option Value="null">Select Folder</option>
-                <option>1</option>
+                <option>folder</option>
                 </select>
           </div>
         </div>
@@ -624,7 +624,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" (click)="addmodal = false">CANCLE</button>
-          <button type="submit" class="btn btn-primary">SUBMIT</button>
+          <button type="submit" class="btn btn-primary" (click)="rpt_builder()">SUBMIT</button>
         </div>
       </form>
     </div>

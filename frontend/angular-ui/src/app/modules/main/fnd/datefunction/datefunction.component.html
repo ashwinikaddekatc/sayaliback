@@ -1,0 +1,89 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"> <clr-icon shape="home"></clr-icon></a></li>
+  <li><a href="javascript://"> <clr-icon shape="flag"></clr-icon>  Super Admin</a></li>
+  <li><a href="javascript://"> Report Runner</a></li>
+
+</ol>
+
+
+
+<div class="clr-row" style="margin-top: 30px;">
+<div class="clr-col-md-4 clr-col-sm-12">
+  <label for="description">Date Parameters</label>
+  <select id="condition"  class="clr-dropdown" (change)="select($event.target.value)">
+          <option>--Select Particular--</option>
+          <option>To Specific FromDate To To Date</option>
+          <option >This Week</option>
+          <option >Last Week</option>
+          <option >This Month</option>
+          <option>Last Month</option>
+          <option >This Year</option>
+          <option>Last Year</option>
+      </select>
+</div>
+
+<div class="clr-col-md-8 clr-col-sm-12">
+  <label for="description">Standard Parameters</label>
+   <textarea name="" id="" cols="35" rows="4"  name="description">
+        </textarea>
+</div>
+
+</div>
+<!-- <div class="clr-row">
+  <div class="clr-col-md-6 clr-col-sm-12">
+    <label for="description">Adhoc Parameters</label>
+     <textarea name="" id="" cols="50" rows="4"  name="description">
+          </textarea>
+  </div>
+  <div class="clr-col-md-6 clr-col-sm-12">
+    <label for="description">Parameters</label>
+     <textarea name="" id="" cols="50" rows="4"  name="description">
+          </textarea>
+  </div>
+</div> -->
+<div class="section">
+  <p> Query Result </p>
+</div>
+<div>
+  <table style="width:40%">
+    <thead>
+      <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>From date</th>
+      <!-- <th>To date</th> -->
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of duplicateArray">
+        <td>{{item.id}}</td>
+       <td>{{item.name}}</td>
+         <td>{{item.fromDate}}</td>
+          <!-- <td>{{item.toDate}}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modalselect" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Select From to To</h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+
+       <label for="tags">Changed  Date From</label>
+              <input  type="date"  class="clr-input"  name="cnid" (change)="modo2($event.target.value)" [(ngModel)]="myDateValue">
+           </div>
+            <div class="clr-col-md-4 clr-col-sm-12">
+                <label for="tags">changed Date To </label>
+                <input  type="date"  class="clr-input"  name="todate" (change)="modo3($event.target.value)" [(ngModel)]="toDate">
+             </div>
+    </div>
+    <div class="modal-footer">
+
+      <button  class="btn btn-primary" (click)="filterDate()">Run</button>
+      <button class="btn btn-outline" (click)="modalselect = false">Cancle</button>
+    </div>
+  </div>
+</clr-modal>

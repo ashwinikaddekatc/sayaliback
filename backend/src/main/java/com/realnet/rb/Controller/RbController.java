@@ -1,5 +1,6 @@
 package com.realnet.rb.Controller;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -94,7 +95,26 @@ public class RbController {
 	// get all column list available
 	@GetMapping("/AllTable_list/{table_schema}")
 	@ResponseBody
-	public List<String> getallcolwithalltable(@PathVariable String table_schema, @RequestBody List<String> tables) {
+	public List<String> getallcolwithalltable(@PathVariable String table_schema, @RequestParam String str) {
+		ArrayList<String> tables = new ArrayList<>();
+
+		String liString = "," + str;
+		int i = 0;
+		do {
+
+			int lastIndexOf = liString.lastIndexOf(",");
+
+			String substring = liString.substring(lastIndexOf + 1);
+			tables.add(substring);
+
+			System.out.println(substring);
+
+			liString = liString.substring(0, lastIndexOf);
+
+			System.out.println("step " + i + " = " + liString);
+			i++;
+
+		} while (liString.contains(","));
 
 		ArrayList<String> arrayList = new ArrayList<>();
 		for (String TABLE_NAME : tables) {

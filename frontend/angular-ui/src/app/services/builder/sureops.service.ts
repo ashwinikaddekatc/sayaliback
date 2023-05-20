@@ -71,7 +71,7 @@ public build(Id: any){
   //return this.apiRequest.get(`entityBuilder/BuildByProject/${Id}`);
   return this._http.get(`${this.appurl}/entityBuilder/BuildByProject/${Id}`);
 }
-public deploy(id: any){
-  return this._http.get(`${this.baseurl}/sureops/deployapp/${id}`);
+public deploy(id: any,profileid:any){
+  return this._http.get(`${this.baseurl}/sureops/deployapp/${id}/${profileid}`);
 }
 }

@@ -49,7 +49,7 @@ public copyForm: FormGroup;
       this.projectId = +params['pid'];
       console.log("Project ID ",this.projectId);
     });
-   
+
       this.getall();
 this.getdeploymentprofileAll();
 this.copyForm =this._fb.group({
@@ -65,7 +65,7 @@ this.getallworkflow();
     clearInterval(this.dataRefreshInterval);
   }
 
-  
+
 getall() {
   this.dataRefreshInterval = setInterval(() => {
     this.suropsService.getallfile(this.selectedprofileid, this.projectId).subscribe(
@@ -276,7 +276,7 @@ if(error.status==200){
   //   this.router.navigate(['/cns-portal/builddetails']);
   // }
   deploy(){
-    this.suropsService.deploy(this.projectId).subscribe((data)=>{
+    this.suropsService.deploy(this.projectId,this.selectedprofileid).subscribe((data)=>{
       console.log(data);
       if (data) {
         this.toastr.success('Deploy successfully');
@@ -350,11 +350,11 @@ checkData;
        get passCount() {
         return this.runningServices.length;
       }
-    
+
       get failCount() {
         return this.notRunningServices.length;
       }
-    
+
       get totalCount() {
         return this.runningServices.length + this.notRunningServices.length
       }

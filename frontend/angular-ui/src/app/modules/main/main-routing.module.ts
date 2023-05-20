@@ -296,6 +296,7 @@ import { ListbuildereditComponent } from './builder/wireframe/listbuilder/listbu
 import { ListbuilderLineComponent } from './builder/wireframe/listbuilder/listbuilder-line/listbuilder-line.component';
 import { QueryRunner1Component } from './fnd/query-runner1/query-runner1.component';
 import { ReportBuildComponent } from './builder/report-build/report-build.component';
+import { DatefunctionComponent } from './fnd/datefunction/datefunction.component';
 
 
 const routes: Routes = [
@@ -408,7 +409,7 @@ const routes: Routes = [
       {path: 'auditreport',component:AuditreportComponent},
       {path: 'audithistory/:id',component:AudithistoryComponent},
       {path: 'CloudNsureServices', component:HealthCheckupComponent},
-
+     {path:'rerunner',component:DatefunctionComponent},
 
 
 

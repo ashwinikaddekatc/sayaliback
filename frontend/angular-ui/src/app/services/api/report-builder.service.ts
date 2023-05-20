@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { ReportBuilder } from '../../models/builder/ReportBuilder';
 import { ReportBuilderQuery } from '../../models/builder/ReportBuilderQuery';
 import { TableList } from '../../models/fnd/TableList';
+import { RptBuilder } from 'src/app/models/builder/rptBuilder';
+import baseUrl from '../api/helper';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -148,7 +151,9 @@ getcolListn(val:any,val1:any): Observable<TableList[]> {
 
 //column list for multiple tables
 getColumnList(tableSchema: any, tables: any): Observable<any> {
-  return this._http.get( `http://localhost:9191/AllTable_list/${tableSchema}`,tables);
+  // return this._http.get( `http://localhost:9191/AllTable_list/${tableSchema}`,tables);
+  const params = new HttpParams().set('str', tables.join(','));
+  return this._http.get(`${baseUrl}/AllTable_list/${tableSchema}`,  { params: params });
 }
 getcollist(table:any){
   const _http = this.colurl+ "/" + table;
@@ -160,5 +165,28 @@ createdb(data:any){
 }
 getallentity(){
   return this.apiRequest.get(this.reportBaseURLSubmit);
+}
+
+
+////////// rpt builders //////////////
+
+saveData(data: RptBuilder): Observable<RptBuilder> {
+  return this.apiRequest.post(`Rpt_builder/Rpt_builder`, data);
+}
+
+getDetails(): Observable<any[]> {
+  return this.apiRequest.get(`Rpt_builder/Rpt_builder`);
+}
+
+getDetailsById(id: number): Observable<any> {
+  return this.apiRequest.get(`Rpt_builder/Rpt_builder/${id}`);
+}
+
+deleteById(id: number): Observable<any> {
+  return this.apiRequest.delete(`Rpt_builder/Rpt_builder/${id}`);
+}
+
+updateData(data: any, id: number): Observable<any> {
+  return this.apiRequest.put(`Rpt_builder/Rpt_builder/${id}`, data);
 }
 }
