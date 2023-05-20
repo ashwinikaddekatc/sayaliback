@@ -404,7 +404,7 @@ public class Rn_ProjectSetup_ServiceImpl implements Rn_ProjectSetup_Service {
 //		Board newboard = boardRepository.save(board);
 		boardService.createBoardClmnsPrj(board);
 
-		int count = 3;
+		int count = 4;
 
 		// data inserted in workflow
 
@@ -447,15 +447,6 @@ public class Rn_ProjectSetup_ServiceImpl implements Rn_ProjectSetup_Service {
 		try {
 
 			RestTemplate restTemplate = new RestTemplate();
-//			List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
-//			// Add the Jackson Message converter
-//			MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-//
-//			// Note: here we are making this converter to process any kind of response,
-//			// not only application/*json, which is the default behaviour
-//			converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-//			messageConverters.add(converter);
-//			restTemplate.setMessageConverters(messageConverters);
 
 			String resourceUrl = job_url;
 			String token1 = "Bearer " + token;
