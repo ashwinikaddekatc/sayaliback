@@ -12,6 +12,9 @@ input[type=text],[type=date],[type=password],[type=datetime-local] {
 font-size: 18px;
 
 }
+.error_mess{
+  color: red;
+}
 .green{
   background-color: rgb(156, 231, 156);
   color: black;

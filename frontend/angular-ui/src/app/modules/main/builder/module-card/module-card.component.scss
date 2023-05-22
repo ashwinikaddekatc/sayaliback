@@ -48,7 +48,7 @@
 }
 .me:hover{
   text-decoration: none;
- background-color: #e8e8e8;
+ background-color: #2d2d2d;
  //background-color: var(--clr-datagrid-action-popover-hover-color, #e8e8e8);
 
 }
@@ -157,27 +157,27 @@ input:focus {
 .dropdown-content2 {
   display: none;
   position: absolute;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(29, 28, 28, 0.2);
   z-index: 1;
   line-height: inherit;
     padding: 0.6rem 0;
     font-size: .7rem;
-    border: .05rem solid #ccc;
-    border-color: var(--clr-dropdown-border-color,#ccc);
+    border: .05rem solid #000000;
+    border-color: var(--clr-dropdown-border-color,#000000);
     border-width: var(--clr-global-borderwidth,.05rem);
 }
 
 .dropdown-content2 a {
-  color: black;
+  color: rgb(255, 255, 255);
  // padding: 0.30rem 1.2rem;
   text-decoration: none;
   display: block;
   padding: .15rem 1.2rem;
 }
 
-.dropdown-content2 a:hover {background-color: #e8e8e8}
+.dropdown-content2 a:hover {background-color: #282828}
 
 .dropdown2:hover .dropdown-content2 {
   display: block;

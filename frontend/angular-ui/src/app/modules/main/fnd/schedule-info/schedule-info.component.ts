@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SchedulerService } from '../../../../services/fnd/scheduler.service';
@@ -11,6 +11,7 @@ import { SchedulerService } from '../../../../services/fnd/scheduler.service';
   styleUrls: ['./schedule-info.component.scss']
 })
 export class ScheduleInfoComponent implements OnInit {
+  submitted = false;
   modalAdd= false;
   modalAdd1=false;
   public entryForm: FormGroup;
@@ -48,10 +49,10 @@ export class ScheduleInfoComponent implements OnInit {
     this.getall();
     this.entryForm = this._fb.group({
    // counter: [null],
-    gapDuration: [null],
-    startTime: [null],
-    jobName:[null],
-    jobGroup: [null],
+    gapDuration: [null,[Validators.required]],
+    startTime: [null,[Validators.required]],
+    jobName:[null,[Validators.required]],
+    jobGroup: [null,[Validators.required]],
     cronExpression:[null]
       });
       this.entryForm1 = this._fb.group({
@@ -93,7 +94,13 @@ if(this.allfiledata.operationMessage =='Your Access is Denied Plz contact Admin'
     this.modalAdd=true;
     }
     onSubmit(){
-      this.modalAdd=false;
+       
+      if (this.entryForm.invalid) {
+        this.submitted = true;
+        return;
+      }else{
+        this.modalAdd = false;
+      }
       console.log(this.entryForm.value);
       this.mainservice.createsceduler(this.entryForm.value).subscribe(data => {
         console.log(data)

@@ -20,7 +20,7 @@
   </div>
 
 
-  <clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
     <h3 class="modal-title">Registering A  Job Form</h3>
     <div class="modal-body">
           <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
@@ -29,17 +29,26 @@
             <label for="name">Counter<span class="required-field">*</span></label>
            <input type="text" class="clr-input" formControlName="counter">
           </div> -->
-          <div class="clr-col-md-4 clr-col-sm-12">
+          <div class="clr-col-md-4 clr-col-sm-12" style="margin-bottom: 20px;">
             <label for="name">Gap Duration<span class="required-field">*</span></label>
            <input type="text" class="clr-input" formControlName="gapDuration">
+           <div *ngIf="submitted && entryForm.controls.gapDuration.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.gapDuration.errors.required" class="error_mess">*This field is Required</div>
+          </div>
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name">StartTime<span class="required-field">*</span></label>
            <input type="datetime-local" class="clr-input" formControlName="startTime" placeholder="dd-mm-yy hh-mm-ss" >
+           <div *ngIf="submitted && entryForm.controls.startTime.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.startTime.errors.required" class="error_mess">*This field is Required</div>
+          </div>
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name">Job Name<span class="required-field">*</span></label>
            <input type="text" class="clr-input" formControlName="jobName">
+           <div *ngIf="submitted && entryForm.controls.jobName.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.jobName.errors.required" class="error_mess">*This field is Required</div>
+          </div>
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name">Job Group<span class="required-field">*</span></label>
@@ -50,10 +59,12 @@
               <option >Registration</option>
               <option >communication</option>
           </select>
-
+          <div *ngIf="submitted && entryForm.controls.jobGroup.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.jobGroup.errors.required" class="error_mess">*This field is Required</div>
+          </div>
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
-            <label for="name">cronExpression</label>
+            <label for="name">Cron Expression</label>
             <input type="text" class="clr-input" formControlName="cronExpression"/>
           </div>
         </div>
@@ -86,7 +97,7 @@
     StartTime
   </ng-container></clr-dg-column>
   <clr-dg-column> <ng-container *clrDgHideableColumn="{hidden: false}">
-    CronExpression
+    Cron Expression
   </ng-container></clr-dg-column>
   <clr-dg-column> <ng-container *clrDgHideableColumn="{hidden: false}">
     <clr-icon shape="bars"></clr-icon> Action
@@ -127,7 +138,7 @@
     </clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid><hr>
-<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
   <h3 class="modal-title">Job Management Edit</h3>
   <div class="modal-body" *ngIf="rowSelected.jobid">
     <h2 class="heading">{{rowSelected.jobid}}</h2>
@@ -159,7 +170,7 @@
         </select>
         </div>
         <div class="clr-col-md-4 clr-col-sm-12">
-          <label for="name">cronExpression</label>
+          <label for="name">Cron Expression</label>
           <input type="text" class="clr-input" name="cronExpression" [(ngModel)]="rowSelected.cronExpression"/>
         </div>
 

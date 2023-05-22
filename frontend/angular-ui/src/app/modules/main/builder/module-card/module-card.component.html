@@ -1,6 +1,6 @@
 <ol class="breadcrumb breadcrumb-arrow font-trirong">
   <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
-  <li><a href="javascript://"  [routerLink]="['../project/all']"> <clr-icon shape="flag"></clr-icon> {{projectname}}</a></li>
+  <li><a href="javascript://"  [routerLink]="['../projectcard']"> <clr-icon shape="flag"></clr-icon> {{projectname}}</a></li>
   <li><a href="javascript://"> <clr-icon  shape="objects"></clr-icon> Repositories</a></li>
 </ol>
 
@@ -158,9 +158,9 @@
                           <span ><clr-icon shape="application" (click)="goToAction(app.id)"></clr-icon></span>
                           <span class="tooltip-content">Components</span>
                           </a>
-                          <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;" aria-haspopup="true" class="tooltip tooltip-sm">
+                          <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
                             <span ><clr-icon shape="chat-bubble"></clr-icon></span>
-                            <!-- <span class="tooltip-content"> Chat.</span> -->
+                            <span class="tooltip-content"> Chat</span>
                           </a>
                           <a href="javascript:void(0)" role="tooltip" style="margin-left: 30px;" aria-haspopup="true" class="tooltip tooltip-sm tooltip-bottom-right">
                             <span  ><clr-icon shape="view-columns" (click)="gotosureboard(app.id)"></clr-icon></span>
