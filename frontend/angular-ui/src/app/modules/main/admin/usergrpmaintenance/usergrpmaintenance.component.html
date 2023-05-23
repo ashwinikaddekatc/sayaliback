@@ -1,7 +1,7 @@
 
 <ol class="breadcrumb breadcrumb-arrow font-trirong">
   <li><a href="javascript://" [routerLink]="['/cns-portal/dashboard/order']"><clr-icon shape="home"></clr-icon></a></li>
-  <li><a href="javascript://"><clr-icon shape="lock"></clr-icon>Security</a></li>
+  <li><a href="javascript://"><clr-icon shape="assign-user"></clr-icon>Security</a></li>
   <li><a href="javascript://">User Group Maintenance</a></li>
 
 </ol>
@@ -51,7 +51,7 @@
       User Group
     </ng-container></clr-dg-column> -->
     <clr-dg-column [clrDgField]="'updateDateFormated'"> <ng-container *clrDgHideableColumn="{hidden: false}">
-    Updated Date
+      Updated Date or time
     </ng-container></clr-dg-column>
 
 
@@ -114,8 +114,8 @@
         <div class="clr-col-md-4 clr-col-sm-12">
           <label for="tags">Status<span class="required-field">*</span></label>
           <select  id="" formControlName="status">
-            <option value="E">Enable</option>
-              <option  value="D">Disable</option></select>
+            <option value="Enable">Enable</option>
+              <option  value="Disable">Disable</option></select>
               <div *ngIf="submitted && entryForm.controls.status.errors" class="error_mess">
                 <div *ngIf="submitted && entryForm.controls.status.errors.required" class="error_mess">*This field is Required</div>
             </div>
@@ -163,8 +163,8 @@
         <div class="clr-col-md-4 clr-col-sm-12">
           <label for="tags">Status<span class="required-field">*</span></label>
           <select  id="" [(ngModel)]="rowSelected.status" name="status">
-            <option value="E">Enable</option>
-              <option  value="D">Disable</option></select>
+            <option value="Enable">Enable</option>
+              <option  value="Disable">Disable</option></select>
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="tags">Group Level<span class="required-field">*</span></label>

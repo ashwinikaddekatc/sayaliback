@@ -86,13 +86,14 @@ this.menuservice.create1(this.entryForm.value).subscribe((data)=>{
   if (data) {
     this.toastr.success('Added successfully');
         }
+  this.ngOnInit();
 },
 (error) => {
 console.log('Error in adding data...',+error);
 if(error){
   this.toastr.error('Not added Data Getting Some Error');
 }
-
+this.getdata();
 });
 this.modalAdd=false;
   }
@@ -133,6 +134,7 @@ this.menuservice.sink(id,this.rowSelected).subscribe((data)=>{
         if (data) {
           this.toastr.success('Deleted successfully');
               }
+          this.ngOnInit();
       },
       (error) => {
         console.log('Error in adding data...',+error);

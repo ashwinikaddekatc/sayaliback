@@ -109,7 +109,7 @@
               <div class="clr-col-md-4 clr-col-sm-12">
                 <label for="tags">Access Type</label>
                 <select  name="usrGrpId" formControlName="accesstype">
-                  <option *ngFor="let sub of accessdata" [value]="sub.name" [selected]="true">{{sub.name}}</option>
+                  <option *ngFor="let sub of accessdata" [value]="sub.name" >{{sub.name}}</option>
                  </select>
                  <div *ngIf="submitted && entryForm.controls.accesstype.errors" class="error_mess">
                   <div *ngIf="submitted && entryForm.controls.accesstype.errors.required" class="error_mess">*This field is Required</div>

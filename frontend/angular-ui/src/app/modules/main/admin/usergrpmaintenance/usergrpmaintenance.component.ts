@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { UsergrpmaintainceService } from '../../../../services/admin/usergrpmaintaince.service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuGroupService } from 'src/app/services/admin/menu-group.service';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-usergrpmaintenance',
   templateUrl: './usergrpmaintenance.component.html',
@@ -146,10 +147,18 @@ export class UsergrpmaintenanceComponent implements OnInit {
                 }
         },
         (error) => {
-          console.log('Error in adding data...',+error);
-          if(error){
-            this.toastr.error('Not Deleted Data Getting Some Error');
+          if((isNaN(error)) ){
+            this.toastr.success('Deleted successfully');
+            this.ngOnInit();
           }
+          console.log('Error in adding data...',+error);
+          if(error.status == 202){
+            this.toastr.success('Deleted successfully');
+            this.ngOnInit();
+          }
+          // if(error){
+          //   this.toastr.error('Not Deleted Data Getting Some Error');
+          // }
         }
       );
 
