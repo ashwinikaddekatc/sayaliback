@@ -75,9 +75,6 @@ public class MasterCodeBuild_gk {
 	@Autowired
 	private BuildControllerrepo buildControllerrepo;
 
-	@Autowired
-	private AngularService angularService;
-
 	private static final Logger logger = LoggerFactory.getLogger(MasterCodeBuild_gk.class);
 
 	@GetMapping("/build_master_builder")
@@ -95,7 +92,6 @@ public class MasterCodeBuild_gk {
 
 		StringBuilder variablesDynamicCode = new StringBuilder();
 		StringBuilder stringBuilderDynamicCode = new StringBuilder();
-		ArrayList<Object> project_path_list = new ArrayList<>();
 
 		// RN_BCF_CODE_EXTRACTOR_T ID
 		// int eid = Integer.parseInt(id);
@@ -105,7 +101,7 @@ public class MasterCodeBuild_gk {
 		String object_type = extractor.getObject_type();
 		String sub_object_type = extractor.getSub_object_type();
 		String extractor_service = extractor.getService().toLowerCase();
-		String package_name = extractor.getSample_file_name().replace(".zip", "");
+		extractor.getSample_file_name().replace(".zip", "");
 		String Service = "";
 
 		Rn_Bcf_Technology_Stack stack = technologyStack_Repository.findByTech_stack(technology_stack);
@@ -118,7 +114,6 @@ public class MasterCodeBuild_gk {
 
 				String ele_model = technology_element.getModel();
 
-				ObjectMapper mapper = new ObjectMapper();
 				JsonParser parser = new JsonParser();
 				System.out.println(ele_model);
 				String model = ele_model.toString();
@@ -136,7 +131,6 @@ public class MasterCodeBuild_gk {
 
 				}
 
-				String file_name = "";
 				String extension = "";
 				// RN_BCF_CODE_EXTRACTOR_PARAMS_T VALUES
 				List<Rn_Bcf_Extractor_Params> params = extractor.getRn_bcf_extractor_Params();
@@ -144,7 +138,7 @@ public class MasterCodeBuild_gk {
 				int j = 0;
 				for (Rn_Bcf_Extractor_Params param : params) {
 					boolean is_creation_enabled = param.isIs_creation_enabled();
-					file_name = param.getName_string().toLowerCase();
+					param.getName_string().toLowerCase();
 					String project_path = param.getTotal_project_path_dynamic_string();
 
 //			                param.isIs_extraction_enabled();
@@ -340,7 +334,7 @@ public class MasterCodeBuild_gk {
 
 						+ // =========== VARIABLE CODE WILL BE APPEND HERE ===============//
 						"\n" + stringBuilderDynamicCode.toString() + "\r\n"
-						+ "\n	return new ResponseEntity<>(new EntityResponse(\"Spring boot file created\") , HttpStatus.CREATED);\r\n"
+						+ "\n	return new ResponseEntity<>(new EntityResponse(\"File created\") , HttpStatus.CREATED);\r\n"
 						+ "}\r\n }");
 
 //		
@@ -383,6 +377,9 @@ public class MasterCodeBuild_gk {
 					build_controller.setApi_endpoint(childMasterBuilderName);
 					build_controller.setRn_bcf_extractor(extractor);
 					build_controller.setService(Service);
+					build_controller.setObject_type(object_type);
+					build_controller.setSub_object_type(sub_object_type);
+					build_controller.setTech_stack(technology_stack);
 					build_controller.setFilepath(projectPath + builderpath);
 
 					buildControllerrepo.save(build_controller);
@@ -412,33 +409,6 @@ public class MasterCodeBuild_gk {
 			return new ResponseEntity<>("service is empty", HttpStatus.CREATED);
 
 		}
-	}
-
-	public String entity(String path, String classname) throws IOException {
-
-		return UpdateEntity(path, classname);
-
-	}
-
-	public String repo(String path, String classname) throws IOException {
-		return UpdateRepo(path, classname);
-
-	}
-
-	public String service(String path, String classname) throws IOException {
-		return UpdateService(path, classname);
-
-	}
-
-	public String controller(String path, String classname) throws IOException {
-		return UpdateController(path, classname);
-
-	}
-
-	public String other(String path, String classname) throws IOException {
-
-		return UpdateRepo(path, classname);
-
 	}
 
 	public String UpdateEntity(String path, String classname) throws IOException {
@@ -500,8 +470,8 @@ public class MasterCodeBuild_gk {
 		String line = "";
 		StringBuilder intialize = new StringBuilder();
 		StringBuilder class_name = new StringBuilder();
-		StringBuilder middle = new StringBuilder();
-		StringBuilder end = new StringBuilder();
+		new StringBuilder();
+		new StringBuilder();
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		intialize.append("\"");
 
@@ -534,13 +504,12 @@ public class MasterCodeBuild_gk {
 
 	public String UpdateService(String path, String classname) throws IOException {
 
-		String line = "";
 		String apiName = "Api";
 
 		StringBuilder intialize = new StringBuilder();
 		StringBuilder class_name = new StringBuilder();
 		StringBuilder middle = new StringBuilder();
-		StringBuilder end = new StringBuilder();
+		new StringBuilder();
 		BufferedReader br = new BufferedReader(new FileReader(path));
 
 		intialize.append("\"import java.util.List;\"+\r\n" + "\r\n"
@@ -603,13 +572,12 @@ public class MasterCodeBuild_gk {
 
 	public String UpdateController(String path, String classname) throws IOException {
 
-		String line = "";
 		String apiName = "Api";
 
 		StringBuilder intialize = new StringBuilder();
 		StringBuilder class_name = new StringBuilder();
 		StringBuilder middle = new StringBuilder();
-		StringBuilder end = new StringBuilder();
+		new StringBuilder();
 		BufferedReader br = new BufferedReader(new FileReader(path));
 
 		intialize.append("import org.springframework.beans.factory.annotation.Autowired;\"+\r\n"

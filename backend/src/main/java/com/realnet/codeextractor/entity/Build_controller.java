@@ -14,14 +14,18 @@ import lombok.Data;
 @Entity
 public class Build_controller {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String api_endpoint;
-	private String service;
 	private String filepath;
+	private String tech_stack;
 
+	private String service;
+
+	private String object_type;
+
+	private String sub_object_type;
 
 	@ManyToOne
 	@JsonBackReference

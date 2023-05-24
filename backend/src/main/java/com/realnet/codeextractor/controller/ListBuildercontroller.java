@@ -34,8 +34,8 @@ public class ListBuildercontroller {
 	@Autowired
 	private Rn_wf_lines_3Repository wfline_repo;
 
-	// BUILD ALL BY PROJECT ID
-	@GetMapping(value = "/listbuilder/{proj_id}/{tablename}")
+	// COLUMN LIST OF WIREFRAME
+	@GetMapping(value = "/columnlistofwireframe/{proj_id}/{tablename}")
 	public ResponseEntity<?> buildfile_byTechstack(@PathVariable Integer proj_id, @PathVariable String tablename)
 			throws IOException {
 

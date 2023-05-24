@@ -16,6 +16,8 @@ import com.realnet.flf.service.Rn_Bcf_TechnologyStack_Service;
 import com.realnet.fnd.entity.DropDownDTO;
 import com.realnet.fnd.entity.Rn_Module_Setup;
 import com.realnet.fnd.service.Rn_ModuleSetup_Service;
+import com.realnet.formdrag.entity.Rn_wf_lines_3;
+import com.realnet.formdrag.repository.Rn_wf_lines_3Repository;
 import com.realnet.users.entity1.AppUser;
 import com.realnet.users.service1.AppUserServiceImpl;
 import com.realnet.utils.Constant;
@@ -42,6 +44,9 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 
 	@Autowired
 	private ModelMapper modelMapper;
+
+	@Autowired
+	private Rn_wf_lines_3Repository repo;
 
 	@Autowired
 	private Rn_Fb_Header_Repository fbHeaderRepository;
@@ -85,11 +90,11 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 	public Rn_Fb_Header updateById(int id, Rn_Fb_Header headerRequest) {
 		Rn_Fb_Header oldHeader = fbHeaderRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(Constant.NOT_FOUND_EXCEPTION + " :" + id));
-		
+
 		AppUser loggedInUser = userService.getLoggedInUser();
 		long userId = loggedInUser.getUserId();
 //		long accId = loggedInUser.getSys_account().getId();
-		
+
 		oldHeader.setUiName(headerRequest.getUiName());
 		oldHeader.setTechStack(headerRequest.getTechStack());
 		oldHeader.setObjectType(headerRequest.getObjectType());
@@ -217,8 +222,11 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		Rn_Fb_Header fb_header = fbHeaderRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(Constant.NOT_FOUND_EXCEPTION + " :" + id));
 		fbHeaderRepository.delete(fb_header);
+		Rn_wf_lines_3 wf_lines_3 = repo.findheader(id).orElseThrow(null);
+		repo.delete(wf_lines_3);
 		return true;
 	}
+
 	// default value
 	@Override
 	public boolean saveWireframe(Rn_WireFrameDTO wireframeDTO, String formType, int moduleId) {
@@ -255,8 +263,8 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		String techStack = module.getTechnologyStack();
 		String objectType = wireframeDTO.getObjectType();
 		String subObjectType = wireframeDTO.getSubObjectType();
-		boolean testing =wireframeDTO.isTesting(); 
-		
+		boolean testing = wireframeDTO.isTesting();
+
 		Rn_Fb_Header rn_fb_header = new Rn_Fb_Header();
 		// rn_fb_header.setModule_id(module_id);
 		rn_fb_header.setUiName(uiName);
@@ -270,23 +278,25 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		rn_fb_header.setUpdated(false);
 		rn_fb_header.setModule(module);
 		/* ALL JAVA Files Name */
-		rn_fb_header.setControllerName(uiName+"Controller");
+		rn_fb_header.setControllerName(uiName + "Controller");
 		rn_fb_header.setTesting(testing);
-		
+
 		/* table name depend on form type */
-		if (WireFrameConstant.MULTILINE.equalsIgnoreCase(formType) ||
-			WireFrameConstant.HEADER_LINE.equalsIgnoreCase(formType)) {
+		if (WireFrameConstant.MULTILINE.equalsIgnoreCase(formType)
+				|| WireFrameConstant.HEADER_LINE.equalsIgnoreCase(formType)) {
 			rn_fb_header.setTableName(data.concat("_header"));
 			rn_fb_header.setConvertedTableName(data.concat("_t_header"));
-		} else if(WireFrameConstant.HEADER_ONLY.equalsIgnoreCase(formType)) {
+		} else if (WireFrameConstant.HEADER_ONLY.equalsIgnoreCase(formType)) {
 			rn_fb_header.setTableName(data);
 			rn_fb_header.setConvertedTableName(data.concat("_t"));
 		} else if (WireFrameConstant.LINE_ONLY.equalsIgnoreCase(formType)) {
 			rn_fb_header.setTableName(data.concat("_line"));
 		}
 		// objects name
-		//rn_fb_header.setServiceName(serviceName);
-		if (WireFrameConstant.MULTILINE.equalsIgnoreCase(formType) || WireFrameConstant.LINE_ONLY.equalsIgnoreCase(formType) || WireFrameConstant.HEADER_LINE.equalsIgnoreCase(formType)) {
+		// rn_fb_header.setServiceName(serviceName);
+		if (WireFrameConstant.MULTILINE.equalsIgnoreCase(formType)
+				|| WireFrameConstant.LINE_ONLY.equalsIgnoreCase(formType)
+				|| WireFrameConstant.HEADER_LINE.equalsIgnoreCase(formType)) {
 			rn_fb_header.setLineTableName(data.concat("_t"));
 			rn_fb_header.setMultilineTableName(data.concat("_t"));
 		}
@@ -298,7 +308,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 //			rn_fb_header.setLineTableName("");
 //			rn_fb_header.setMultilineTableName("");
 //		}
-		
+
 		rn_fb_header.setCreatedBy(userId);
 		rn_fb_header.setUpdatedBy(userId);
 //		rn_fb_header.setAccountId(accountId);
@@ -330,7 +340,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 //				rn_fb_line_section.setDependent_on("");
 //				rn_fb_line_section.setDependent_sp("");
 //				rn_fb_line_section.setDependent_sp_param("");
-			//rn_fb_line_section.setValidation_1("N");
+			// rn_fb_line_section.setValidation_1("N");
 			rn_fb_line_section.setValidation_1(false);
 //				rn_fb_line_section.setVal_type("");
 //				rn_fb_line_section.setVal_sp("");
@@ -1917,15 +1927,12 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		rn_fb_line_textfield.setCreatedBy(userId);
 		rn_fb_line_textfield.setUpdatedBy(userId);
 		rn_fb_line_textfield.setRn_fb_header(rn_fb_header);
-		
-		
+
 		this.saveLine(rn_fb_line_textfield);
-		
-		
+
 		return true;
 	}
-	
-	
+
 	// used in HL & LO form (FOR ADDING LINE FIELDS)
 	@Override
 	public boolean addNewFieldInOnlyLineSection(int id, int sectionNumber) {
@@ -1941,8 +1948,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		String type1 = rn_fb_lines.get(0).getType1();
 		String type2 = rn_fb_lines.get(0).getType2();
 
-		
-		// alternative use : findMaxSeqOfFields() 
+		// alternative use : findMaxSeqOfFields()
 		// pass fb header id and section number and form type
 		int maxSeq = fbLineRepository.findMaxSeqWithFormTypeAndSectionNumber(id, sectionNumber, formType);
 		log.debug("Max SEQ number : {}", maxSeq);
@@ -1976,11 +1982,11 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		rn_fb_line_textfield.setCreatedBy(userId);
 		rn_fb_line_textfield.setUpdatedBy(userId);
 		rn_fb_line_textfield.setRn_fb_header(rn_fb_header);
-		
+
 		// save object
 		Rn_Fb_Line savedLine = this.saveLine(rn_fb_line_textfield);
-		
-		if(savedLine == null) {
+
+		if (savedLine == null) {
 			return false;
 		} else {
 			return true;
@@ -2041,7 +2047,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		oldLine.setAction(line.getAction());
 		oldLine.setAction_uiname(line.getAction_uiname());
 		oldLine.setRequest_param(line.getRequest_param());
-		
+
 		// oldLine.setTable_name
 		final Rn_Fb_Line updatedLine = this.saveLine(oldLine);
 		if (updatedLine == null) {
@@ -2050,7 +2056,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getButtonList(int header_id) {
 		return fbLineRepository.findButtonList(header_id);
@@ -2063,7 +2069,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 
 	@Override
 	public List<DropDownDTO> getFbHeadersForDropDown() {
-		//List<Rn_Fb_Header> fbHeader = fbHeaderRepository.findFbHeadersForDropDown();
+		// List<Rn_Fb_Header> fbHeader = fbHeaderRepository.findFbHeadersForDropDown();
 		List<Rn_Fb_Header> fbHeader = this.getAll();
 		List<DropDownDTO> dto = new ArrayList<DropDownDTO>();
 		for (Rn_Fb_Header header : fbHeader) {
@@ -2081,7 +2087,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 //		return dtos;
 		return dto;
 	}
-	
+
 	// ----------------- data type fields -------------- //
 
 	@Override
@@ -2097,33 +2103,32 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 
 		return dto;
 	}
-	
-	
+
 	@Override
 	public List<Rn_Fb_Line> getSection(int id) {
 		return fbLineRepository.findSection(id);
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getSectionFields(int section_number, int id) {
 		return fbLineRepository.findSectionFields(section_number, id);
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getSectionFieldsForFrontEnd(int section_number, int header_id) {
 		return fbLineRepository.findSectionFieldsForFrontEnd(section_number, header_id);
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getPrimaryKeyField(int id) {
 		return fbLineRepository.findPrimaryKeyField(id);
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getIntegerFields(int id) {
 		return fbLineRepository.findIntegerFields(id);
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getVarcharFields(int id) {
 		return fbLineRepository.findVarcharFields(id);
@@ -2144,7 +2149,7 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 		return fbLineRepository.findDoubleFields(id);
 	}
 
-	//======== H-L ========//
+	// ======== H-L ========//
 	@Override
 	public List<Rn_Fb_Line> getLinePrimarkKeyField(int id) {
 		return fbLineRepository.findLinePrimarkKeyField(id);
@@ -2154,89 +2159,80 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 	public List<Rn_Fb_Line> getLineSection(int id) {
 		return fbLineRepository.findLineSection(id); // used in HL form
 	}
-	
+
 	@Override
 	public List<Rn_Fb_Line> getLineSectionFieldsForFrontEnd(int header_id) {
 		return fbLineRepository.findLineSectionFieldsForFrontEnd(header_id);
 	}
-	
-	
 
 	@Override
 	public List<Rn_Fb_Line> getLineVarcharFields(int id) {
 		return fbLineRepository.findLineVarcharFields(id);
 	}
+
 	@Override
 	public List<Rn_Fb_Line> getLineIntegerFields(int id) {
 		return fbLineRepository.findLineIntegerFields(id);
 	}
-	
+
 	// ============ O-L ============= /
 	@Override
-	public List<Rn_Fb_Line> getOnlyLineSectionFields(int id, int sectionNumber){
+	public List<Rn_Fb_Line> getOnlyLineSectionFields(int id, int sectionNumber) {
 		return fbLineRepository.findOnlyLineSectionFields(sectionNumber, id);
-		
+
 	}
 	// ============ H-L ============/
-	
+
 	@Override
 	public List<Rn_Fb_Line> getHeaderFields(int id) {
 		return fbLineRepository.findHeaderFields(id);
 	}
+
 	@Override
 	public List<Rn_Fb_Line> getLineFields(int id) {
 		return fbLineRepository.findLineFields(id);
 	}
-	
+
 	// MULTI-LINE
 	@Override
 	public List<Rn_Fb_Line> getHidIntegerFields(int id) {
 		return fbLineRepository.findHidIntegerFields(id);
 	}
-	
+
 	// delete section
 	@Override
 	public boolean deleteSection(int headerId, int sectionNumber) {
 		List<Rn_Fb_Line> fb_lines = fbLineRepository.deleteSection(headerId, sectionNumber);
-		if(fb_lines.isEmpty()) {
+		if (fb_lines.isEmpty()) {
 			throw new ResourceNotFoundException(Constant.NOT_FOUND_EXCEPTION);
 		}
-		for(Rn_Fb_Line line : fb_lines) {
+		for (Rn_Fb_Line line : fb_lines) {
 			fbLineRepository.delete(line);
 		}
 		return true;
 	}
 
 	@Override
-	public Rn_Fb_Header uinamechange(int id,Rn_Fb_HeaderDTO uiname) {
+	public Rn_Fb_Header uinamechange(int id, Rn_Fb_HeaderDTO uiname) {
 		Rn_Fb_Header oldLine = fbHeaderRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(Constant.NOT_FOUND_EXCEPTION + " :" + id));
 		oldLine.setUiName(uiname.getUiName());
-		
+
 		final Rn_Fb_Header updatedLine = this.save(oldLine);
 		return updatedLine;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-    public Rn_Fb_Header updateHeader(Integer headerId, Rn_Fb_Header headerDetails) {
-        Rn_Fb_Header header = fbHeaderRepository.findById(headerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Header"));
 
-        // Update header fields
+	@Override
+	public Rn_Fb_Header updateHeader(Integer headerId, Rn_Fb_Header headerDetails) {
+		Rn_Fb_Header header = fbHeaderRepository.findById(headerId)
+				.orElseThrow(() -> new ResourceNotFoundException("Header"));
+
+		// Update header fields
 //        header.setTechStack(headerDetails.getTechStack());
 //        header.setObjectType(headerDetails.getObjectType());
 //        header.setSubObjectType(headerDetails.getSubObjectType());
-        header.setUiName(headerDetails.getUiName());
-        header.setFormType(headerDetails.getFormType());
+		header.setUiName(headerDetails.getUiName());
+		header.setFormType(headerDetails.getFormType());
 //        header.setTableName(headerDetails.getTableName());
 //        header.setLineTableName(headerDetails.getLineTableName());
 //        header.setMultilineTableName(headerDetails.getMultilineTableName());
@@ -2252,15 +2248,15 @@ public class Rn_WireFrame_ServiceImpl implements Rn_WireFrame_Service {
 //        header.setMenuName(headerDetails.getMenuName());
 //        header.setHeaderName(headerDetails.getHeaderName());
 //        header.setConvertedTableName(headerDetails.getConvertedTableName());
-        header.setTesting(headerDetails.isTesting());
+		header.setTesting(headerDetails.isTesting());
 
-        // Update relationships
+		// Update relationships
 //        header.setRn_fb_lines(headerDetails.getRn_fb_lines());
 //        header.setModule(headerDetails.getModule());
 //        header.setRn_cff_actionBuilder(headerDetails.getRn_cff_actionBuilder());
 
-        Rn_Fb_Header updatedHeader = fbHeaderRepository.save(header);
-        return updatedHeader;
-    }
-	
+		Rn_Fb_Header updatedHeader = fbHeaderRepository.save(header);
+		return updatedHeader;
+	}
+
 }

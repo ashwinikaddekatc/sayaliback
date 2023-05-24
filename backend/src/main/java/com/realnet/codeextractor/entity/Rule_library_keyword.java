@@ -11,33 +11,21 @@ import lombok.Data;
 @Data
 @Entity
 public class Rule_library_keyword {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String tech_stack;
-	
 	private String service;
-
-
 	private String object_type;
-
 	private String sub_object_type;
-    private String keyword;
+	private String keyword;
 	private String version;
-	
 	private int priority;
-
 
 	@Lob
 	private String replacement_string;
-	
 	private boolean isactive;
-
-	
-	
-	
 
 }

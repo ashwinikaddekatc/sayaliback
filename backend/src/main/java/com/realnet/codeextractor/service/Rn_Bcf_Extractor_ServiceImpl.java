@@ -29,9 +29,6 @@ public class Rn_Bcf_Extractor_ServiceImpl implements Rn_Bcf_Extractor_Service {
 	private AppUserServiceImpl userService;
 
 	@Autowired
-	private FileStorageService fileStorageService;
-
-	@Autowired
 	private Rn_Bcf_Extractor_Repository rn_bcf_extractor_repository;
 
 	@Autowired
