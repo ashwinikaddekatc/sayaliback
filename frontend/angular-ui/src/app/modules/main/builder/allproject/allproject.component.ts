@@ -12,7 +12,7 @@ tabname;
 
 tools=[
   {
-    tabname:"myproject"
+    tabname:"mypro"
   },
   {
     tabname:"shareme"

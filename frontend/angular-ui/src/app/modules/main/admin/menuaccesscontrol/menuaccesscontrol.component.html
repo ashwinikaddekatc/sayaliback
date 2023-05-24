@@ -65,29 +65,29 @@
             <ng-template #loadingSpinner><clr-spinner>Loading ... </clr-spinner></ng-template>
             <div *ngIf="alldata?.length === 0;else loadingSpinner">No data available</div></clr-dg-placeholder>
 
-          <clr-dg-column [clrDgField]="'no'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'no'" > <ng-container *clrDgHideableColumn="{hidden: false}">
           NO
           </ng-container></clr-dg-column>
-          <clr-dg-column [clrDgField]="'menuname'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'menuname'" style="width:200px"> <ng-container *clrDgHideableColumn="{hidden: false}">
             Menu Item Name
           </ng-container></clr-dg-column>
-          <clr-dg-column [clrDgField]="'mvisible'"><ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'mvisible'" ><ng-container *clrDgHideableColumn="{hidden: false}">
             View
             </ng-container></clr-dg-column >
-          <clr-dg-column [clrDgField]="'mcreate'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'mcreate'" > <ng-container *clrDgHideableColumn="{hidden: false}">
             Create
           </ng-container></clr-dg-column>
-          <clr-dg-column [clrDgField]="'medit'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'medit'" > <ng-container *clrDgHideableColumn="{hidden: false}">
             Edit
           </ng-container></clr-dg-column>
-           <clr-dg-column [clrDgField]="'mdelete'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+           <clr-dg-column [clrDgField]="'mdelete'" > <ng-container *clrDgHideableColumn="{hidden: false}">
             Delete
             <!-- <input type="checkbox" clrCheckbox name="mdelete" [checked]="colvalue" (change)="changedelete($event.target.checked)"> -->
           </ng-container></clr-dg-column>
-          <clr-dg-column [clrDgField]="'mquery'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'mquery'" > <ng-container *clrDgHideableColumn="{hidden: false}">
             Query
           </ng-container></clr-dg-column>
-          <clr-dg-column [clrDgField]="'mexport'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+          <clr-dg-column [clrDgField]="'mexport'" > <ng-container *clrDgHideableColumn="{hidden: false}">
             Export
           </ng-container></clr-dg-column>
 

@@ -89,6 +89,7 @@ export class AccesstypeComponent implements OnInit {
       if (data) {
         this.toastr.success('Added successfully');
             }
+      this.ngOnInit();
     },
     (error) => {
     console.log('Error in adding data...',+error);
@@ -119,12 +120,17 @@ export class AccesstypeComponent implements OnInit {
       if (data) {
         this.toastr.success('Deleted successfully');
             }
+            this.getdata();
     },
     (error) => {
       console.log('Error in adding data...',+error);
-      if(error){
-        this.toastr.error('Not Deleted Data Getting Some Error');
+      if((isNaN(error))){
+        this.toastr.success('Deleted successfully');
+        this.ngOnInit();
       }
+      // if(error){
+      //   this.toastr.error('Not Deleted Data Getting Some Error');
+      // }
     });
 
   }
@@ -135,6 +141,7 @@ console.log(data);
 if (data) {
   this.toastr.success('Updated successfully');
       }
+      this.ngOnInit();
 },
 (error) => {
 console.log('Error in adding data...',+error);
