@@ -26,6 +26,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.realnet.Dashboard1.Entity.dashbord_Who_collumn;
 import com.realnet.users.entity.PasswordResetToken;
@@ -72,12 +73,14 @@ public class AppUser  implements Serializable {
 	private String createby;
 
 //	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "createdate", nullable = false, updatable = false)
 	@CreatedDate
 	private LocalDateTime createdate;
 
 	private String updateby;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	private Date updatedate;

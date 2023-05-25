@@ -187,17 +187,19 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
 		appUser.setUsername(ppUser.getUsername());
 		appUser.setFullName(ppUser.getFullName());
 		appUser.setEmail(ppUser.getEmail());
-		appUser.setUserPassw(ppUser.getPassword());
+		appUser.setUserPassw(bcryptEncoder.encode(ppUser.getPassword()));
+		appUser.setChangePassw(ppUser.getPassword());
 		appUser.setShortName(ppUser.getFirstName());
 		appUser.setUsrGrpName(ppUser.getRole());
 		appUser.setAbout(ppUser.getAbout());
-//		appUser.setProvider(ppUser.getProvider().name());
+//		appUser.setProvider( ppUser.getProvider().name());
 		appUser.setCountry(ppUser.getCountry());
 		appUser.setBlocked(false);
 		appUser.setIsComplete(true);
 		appUser.setActive(true);
 
 		appUser.setChecknumber(ppUser.getChecknumber());
+		appUser.setUsrGrp(appUserRoleRepository.findById(41l).get());
 		Sys_Accounts account = sysAccountRepo.findByEmail(ppUser.getEmail());
 		if(account != null) {
 			appUser.setAccount(account);
