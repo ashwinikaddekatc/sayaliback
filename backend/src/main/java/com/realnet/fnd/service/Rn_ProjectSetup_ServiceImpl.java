@@ -149,7 +149,7 @@ public class Rn_ProjectSetup_ServiceImpl implements Rn_ProjectSetup_Service {
 //		Board newboard = boardRepository.save(board);
 		boardService.createBoardClmnsPrj(board);
 
-		// ADD DATA IN GITEA
+		// MAKE REPOSITORY IN GITEA
 
 		String job_url = "https://" + Port_Constant.GITEA_IP_ADDRESS + "." + Port_Constant.GITEA_PORT
 				+ "/api/v1/user/repos";
