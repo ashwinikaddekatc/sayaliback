@@ -199,7 +199,7 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
 		appUser.setActive(true);
 
 		appUser.setChecknumber(ppUser.getChecknumber());
-		appUser.setUsrGrp(appUserRoleRepository.findById(41l).get());
+		appUser.setUsrGrp(appUserRoleRepository.findById(42l).get());
 		Sys_Accounts account = sysAccountRepo.findByEmail(ppUser.getEmail());
 		if(account != null) {
 			appUser.setAccount(account);
