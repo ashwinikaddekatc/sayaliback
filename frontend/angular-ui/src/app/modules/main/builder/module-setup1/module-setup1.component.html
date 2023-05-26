@@ -9,7 +9,7 @@
 <clr-tabs>
   <clr-tab>
     <button clrTabLink>SureBuilder</button>
-    <clr-tab-content *clrIfActive>
+    <clr-tab-content *clrIfActive ="tabname === 'sureOps'">
       <br>
       <app-surebuilder></app-surebuilder>
       <!-- <div class="btn-group btn-link" >
@@ -30,13 +30,13 @@
   </clr-tab>
   <clr-tab>
     <button  clrTabLink>SureGit</button>
-    <clr-tab-content *clrIfActive>
+    <clr-tab-content *clrIfActive ="tabname === 'sureGit'">
       <app-suregit></app-suregit>
     </clr-tab-content>
   </clr-tab>
   <clr-tab>
     <button clrTabLink>SureDokR</button>
-    <clr-tab-content *clrIfActive>
+    <clr-tab-content *clrIfActive ="tabname === 'sureDokr'">
       <app-suredocr></app-suredocr>
     </clr-tab-content>
   </clr-tab>

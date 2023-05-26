@@ -12,13 +12,13 @@ tabname;
 
 tools=[
   {
-    tabname:"mypro"
+    tabname:"My Projects"
   },
   {
     tabname:"shareme"
   },
   {
-    tabname:"temp"
+    tabname:"Template"
   },
   {
     tabname:"myfev"

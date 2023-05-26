@@ -20,6 +20,7 @@ export class ModuleSetup1Component implements OnInit {
   modules: ModuleSetup[];
   project;
   projectname;
+  tabname;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private notificationService: NotificationService,
@@ -28,6 +29,13 @@ export class ModuleSetup1Component implements OnInit {
     private toastr: ToastrService,) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.tabname = params['tab'];
+      console.log(params);
+      console.log(this.tabname);
+
+    });
+    
     this.wireframeService.removeModuleId();
     this.route.queryParams.subscribe(params => {
       this.projectId = +params['pid'];

@@ -32,7 +32,7 @@
       version
     </ng-container></clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let user of  bcf_technologyStack" [clrDgItem]="user">
+    <clr-dg-row *clrDgItems="let user of  bcf_technologyStack.slice().reverse()" [clrDgItem]="user">
       <clr-dg-cell id="word">{{user.tech_stack}}</clr-dg-cell>
       <clr-dg-cell>{{user.tags}}</clr-dg-cell>
       <clr-dg-cell id="word">{{user.version}}</clr-dg-cell>

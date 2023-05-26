@@ -172,9 +172,9 @@
                           <div class="dropdown2" >
                             <span style="margin-left: 30px;"> <clr-icon shape="ci-cd"></clr-icon></span>
                             <div class="dropdown-content2">
-                              <a href="javascript://"  ><div class="me" [routerLink]="['../module1']">sureOps</div></a>
-                              <a href="javascript://" ><div class="me" [routerLink]="['../module1']">sureGit</div></a>
-                              <a href="javascript://"><div class="me">sureDokr</div></a>
+                              <a  [routerLink]="['../module1']" [queryParams]="{ tab: 'sureOps' }" ><div class="me" >sureOps</div></a>
+                              <a  [routerLink]="['../module1']" [queryParams]="{ tab: 'sureGit' }"><div class="me"  >sureGit</div></a>
+                              <a  [routerLink]="['../module1']" [queryParams]="{ tab: 'sureDokr' }"><div class="me" >sureDokr</div></a>
                             </div>
                           </div>
                           <div class="dropdown2" >

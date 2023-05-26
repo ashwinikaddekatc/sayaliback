@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TechnologyStackService } from 'src/app/services/builder/technology-stack.service';
@@ -25,20 +25,20 @@ export class RuleLibraryExceptionaddComponent implements OnInit {
 
   ngOnInit(): void {
     this.entryForm = this._fb.group({
-      tech_stack: [null],
-      object_type: [null],
-      sub_object_type: [null],
-      object_name_variable: [null],
-      object_name_dynamic_string: [null],
-      type: [null],
-      service:[null],
-      path:[null],
-      file_name:[null],
-	    startstring:[null],
-      endstring:[null],
-	    replaceWith:[null],
-	    linestring:[null],
-	    keyword:[null],
+      tech_stack: ['',[Validators.required]],
+      object_type: [null,[Validators.required]],
+      sub_object_type: [null,[Validators.required]],
+      object_name_variable: [null,[Validators.required]],
+      object_name_dynamic_string: [null,[Validators.required]],
+      type: [null,[Validators.required]],
+      service: [null,[Validators.required]],
+      path: [null,[Validators.required]],
+      file_name: [null,[Validators.required]],
+	    startstring: [null,[Validators.required]],
+      endstring: [null,[Validators.required]],
+	    replaceWith: [null,[Validators.required]],
+	    linestring: [null,[Validators.required]],
+	    keyword: [null,[Validators.required]],
     });
 
       //for dynamic tech stack

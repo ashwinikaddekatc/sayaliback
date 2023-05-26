@@ -14,7 +14,10 @@
           <option *ngFor="let ts of tech_stacks" [value]="ts.tech_stack">{{ ts.tech_stack }}
           </option>
         </select>
-
+        <div *ngIf="submitted && entryForm.controls.tech_stack.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.tech_stack.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
 
       <div class="clr-col-md-4 clr-col-sm-12">
@@ -24,6 +27,10 @@
           <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
           </option>
         </select>
+        <div *ngIf="submitted && entryForm.controls.object_type.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.object_type.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
 
       </div>
 
@@ -34,6 +41,10 @@
           <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
           </option>
         </select>
+        <div *ngIf="submitted && entryForm.controls.sub_object_type.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.sub_object_type.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
 
       </div>
 
@@ -41,65 +52,105 @@
         <label for="object_name_variable">Object Name Variable</label>
         <input id="object_name_variable" type="text" formControlName="object_name_variable"
           placeholder="Enter Object Name Variable" class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.object_name_variable.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.object_name_variable.errors.required" class="error_mess"><span style="color:red">*This field is
+              Required</span></div>
+          </div>
+
       </div>
 
       <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 5px;">
         <label for="object_name_dynamic_string">Object Name Dynamic String</label>
         <input id="object_name_dynamic_string" type="text" formControlName="object_name_dynamic_string"
           placeholder="Enter Object Name Dynamic String" class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.object_name_dynamic_string.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.object_name_dynamic_string.errors.required" class="error_mess"><span style="color:red">*This field is
+              Required</span></div>
+          </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12" style="margin-top: 5px;">
         <label for="service">Service Name</label>
-        <select id="service" formControlName="service" selected="null"   class="clr-dropdown">
+        <select id="service" formControlName="service" selected="null" class="clr-dropdown">
           <option value="null">Choose Service</option>
           <option>Angular</option>
           <option>Spring boot</option>
-      </select>
+        </select>
+        <div *ngIf="submitted && entryForm.controls.service.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.service.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="path">path</label>
-        <input id="path" type="text" formControlName="path"
-          placeholder="Enter Path" class="clr-input">
+        <input id="path" type="text" formControlName="path" placeholder="Enter Path" class="clr-input">
+        <div *ngIf="submitted && entryForm.controls.path.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.path.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="type">Type</label>
-        <input id="type" type="text" formControlName="type"
-          placeholder="Enter Type" class="clr-input">
+        <input id="type" type="text" formControlName="type" placeholder="Enter Type" class="clr-input">
+        <div *ngIf="submitted && entryForm.controls.type.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.type.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="file_name">File Name</label>
-        <input id="file_name" type="text" formControlName="file_name"
-          placeholder="Enter File Name" class="clr-input">
+        <input id="file_name" type="text" formControlName="file_name" placeholder="Enter File Name" class="clr-input">
+        <div *ngIf="submitted && entryForm.controls.file_name.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.file_name.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="startstring">Start String</label>
-        <input id="startstring" type="text" formControlName="startstring"
-          placeholder="Enter Start String" class="clr-input">
+        <input id="startstring" type="text" formControlName="startstring" placeholder="Enter Start String"
+          class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.startstring.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.startstring.errors.required" class="error_mess"><span style="color:red">*This field is
+              Required</span></div>
+          </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="endstring">End String</label>
-        <input id="endstring" type="text" formControlName="endstring"
-          placeholder="Enter End String" class="clr-input">
+        <input id="endstring" type="text" formControlName="endstring" placeholder="Enter End String" class="clr-input">
+        <div *ngIf="submitted && entryForm.controls.endstring.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.endstring.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="linestring">Line String</label>
-        <input id="linestring" type="text" formControlName="linestring"
-          placeholder="Enter Line String" class="clr-input">
+        <input id="linestring" type="text" formControlName="linestring" placeholder="Enter Line String"
+          class="clr-input">
+          <div *ngIf="submitted && entryForm.controls.linestring.errors" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.linestring.errors.required" class="error_mess"><span style="color:red">*This field is
+              Required</span></div>
+          </div>
       </div>
       <div class="clr-col-md-4 clr-col-sm-12">
         <label for="keyword">keyword</label>
-        <input id="keyword" type="text" formControlName="keyword"
-          placeholder="Enter Keyword" class="clr-input">
+        <input id="keyword" type="text" formControlName="keyword" placeholder="Enter Keyword" class="clr-input">
+        <div *ngIf="submitted && entryForm.controls.keyword.errors" class="error_mess">
+          <div *ngIf="submitted && entryForm.controls.keyword.errors.required" class="error_mess"><span style="color:red">*This field is
+            Required</span></div>
+        </div>
       </div>
       <div class="clr-col-sm-12">
         <label for="replaceWith">Replacement String</label>
-        <textarea id="replaceWith" type="text" formControlName="replaceWith"
-          placeholder="Enter replacement String" rows="10" cols="200" class="clr-textarea" ></textarea>
+        <textarea id="replaceWith" type="text" formControlName="replaceWith" placeholder="Enter replacement String"
+          rows="10" cols="200" class="clr-textarea"></textarea>
+          <div *ngIf="submitted && entryForm.controls.replaceWith" class="error_mess">
+            <div *ngIf="submitted && entryForm.controls.replaceWith.errors.required" class="error_mess"><span style="color:red">*This field is
+              Required</span></div>
+          </div>
       </div>
     </div>
     <br>
     <div class="center">
-      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+      <button type="submit" class="btn btn-primary">SUBMIT</button>
     </div>
   </form>
 </div>
