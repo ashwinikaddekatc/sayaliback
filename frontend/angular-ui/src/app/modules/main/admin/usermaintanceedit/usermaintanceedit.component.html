@@ -42,11 +42,11 @@
         <div class="clr-row">
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name"> First Name</label>
-           <input type="text" class="clr-input" name="first_name" [(ngModel)]="data1.fullName" >
+           <input type="text" class="clr-input" name="first_name" [(ngModel)]="firstname" >
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name">Last Name</label>
-           <input type="text" class="clr-input" name="last_name" [(ngModel)]="data1.last_name">
+           <input type="text" class="clr-input" name="last_name" [(ngModel)]="lastname">
           </div>
            <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name">Mobile Number</label>
@@ -54,7 +54,7 @@
           </div>
           <div class="clr-col-md-4 clr-col-sm-12">
             <label for="name">New Password<span class="required-field">*</span></label>
-           <input type="password" class="clr-input" name="new_password" [(ngModel)]="data1.userPassw">
+           <input type="password" class="clr-input" name="new_password" [(ngModel)]="data1.changePassw">
           </div>
 
           <!-- <div class="clr-col-md-4 clr-col-sm-12">
@@ -91,8 +91,8 @@
             </div> -->
             <div class="clr-col-md-4 clr-col-sm-12">
               <label for="tags">User Group</label>
-              <select [(ngModel)]="data1.usrGrpId" name="usrGrpId">
-                <option *ngFor="let sub of usergrpdata" [value]="sub.usrGrp">{{sub.groupName}}</option>
+              <select [(ngModel)]="data1.usrGrpName" name="usrGrpName">
+                <option *ngFor="let sub of usergrpdata" [value]="sub.groupName">{{sub.groupName}}</option>
                </select>
               </div>
               <!-- <div class="clr-col-md-4 clr-col-sm-12">

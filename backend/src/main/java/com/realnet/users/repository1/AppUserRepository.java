@@ -61,7 +61,7 @@ public interface AppUserRepository extends JpaRepository<AppUser,Long>{
 	@Query(value = "SELECT * FROM sec_users  where user_name LIKE %:keyword% ", nativeQuery = true)
     List<AppUser> SearchByKeyword(@Param("keyword") String keyword);
 	
-	@Query(value = "SELECT * FROM sec_users a where a.active =true", nativeQuery = true)
+	@Query(value = "SELECT * FROM sec_users a where a.active =true order by user_id  desc", nativeQuery = true)
 	Page<AppUser> getallusers(Pageable page);
 	
 //	@Query(value = "SELECT * FROM realnet_CNSBE.secuser_roles  a.secuser_id =?1", nativeQuery = true)

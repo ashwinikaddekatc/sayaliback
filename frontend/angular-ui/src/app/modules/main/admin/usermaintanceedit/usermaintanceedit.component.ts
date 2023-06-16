@@ -38,6 +38,8 @@ export class UsermaintanceeditComponent implements OnInit {
   info: boolean = false;
   usergrpdata;
   error;
+  firstname;
+  lastname;
   constructor(private route:ActivatedRoute,
     private mainservice:UsermaintanceService,
     private router: Router,private accesstype:AccesstypeService,
@@ -82,6 +84,10 @@ this.mainservice.getbyid(id).subscribe((data)=>{
   this.data1=data;
  // this.data1=this.data3;
   console.log(this.data1);
+  let firstname=this.data1.fullName.split(" ");
+  console.log(firstname);
+  this.firstname=firstname[0];
+  this.lastname=firstname[1];
 });
 }
 update(){

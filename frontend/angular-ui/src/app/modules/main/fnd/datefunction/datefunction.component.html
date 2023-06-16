@@ -21,26 +21,43 @@
           <option>Last Year</option>
       </select>
 </div>
-
-<div class="clr-col-md-8 clr-col-sm-12">
-  <label for="description">Standard Parameters</label>
-   <textarea name="" id="" cols="35" rows="4"  name="description">
-        </textarea>
+<div class="clr-col-md-4 clr-col-sm-12">
+  <label for="description">Select Condition</label>
+  <select  class="clr-dropdown" (change)="addCondition($event.target.value)">
+          <option value="null">--Select Condition--</option>
+          <option value="EQUALS" >EQUALS</option>
+<option value="GREATER" >GREATER</option>
+<option value="LESS">LESS</option>
+<option value="BETWEEN">BETWEEN</option>
+      </select>
 </div>
 
+
 </div>
-<!-- <div class="clr-row">
+<div class="clr-row">
+
+  <div class="clr-col-md-6 clr-col-sm-12">
+    <label for="description">Standard Parameters</label>
+     <textarea name="" id="" cols="50" rows="4"  name="description" (change)="addStd1($event.target.value)">
+          </textarea>
+  </div>
   <div class="clr-col-md-6 clr-col-sm-12">
     <label for="description">Adhoc Parameters</label>
-     <textarea name="" id="" cols="50" rows="4"  name="description">
+     <textarea name="" id="" cols="55" rows="4"  name="description">
           </textarea>
   </div>
+</div>
+<div class="clr-row">
+
   <div class="clr-col-md-6 clr-col-sm-12">
     <label for="description">Parameters</label>
-     <textarea name="" id="" cols="50" rows="4"  name="description">
+     <textarea name="" id="" cols="55" rows="4"  name="description">
           </textarea>
   </div>
-</div> -->
+  <div style="margin-top: 20px;">
+    <button class="btn btn-primary">Run Report</button>
+</div>
+</div>
 <div class="section">
   <p> Query Result </p>
 </div>
@@ -48,8 +65,8 @@
   <table style="width:40%">
     <thead>
       <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
+      <th>id</th>
+      <th>name</th>
       <th>From date</th>
       <!-- <th>To date</th> -->
     </tr>
@@ -87,3 +104,4 @@
     </div>
   </div>
 </clr-modal>
+

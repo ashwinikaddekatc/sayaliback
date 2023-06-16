@@ -57,7 +57,7 @@ export class DatefunctionComponent implements OnInit {
       "fromDate": "04-04-2022",
       "toDate": "15-05-2022"
     }
-  ]
+  ];
   selectedfrom;
   selectedto;
   constructor() { }
@@ -245,5 +245,15 @@ this.duplicateArray=this.array
     this.modalselect=true;
             }
 
-
+    condition;
+    addCondition(name:any){
+    // if(name=="EQUAL")
+     console.log(name);
+    this.condition=name;
+     }
+     std1:string;
+     addStd1(name:string){
+     this.std1=" and products.name="+name;
+     console.log(this.std1);
+     }
 }

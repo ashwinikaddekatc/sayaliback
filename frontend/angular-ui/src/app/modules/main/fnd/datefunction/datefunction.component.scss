@@ -1,4 +1,4 @@
-input[type=text],[type=date],[type=password] {
+input[type=text],[type=date],[type=password],textarea {
   width: 100%;
   padding: 15px 20px;
  // margin: 3px 0;
@@ -8,6 +8,7 @@ input[type=text],[type=date],[type=password] {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 .section {
   background-color:#dddddd;
   height: 40px;
@@ -23,3 +24,4 @@ select{
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
